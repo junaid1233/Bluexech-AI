@@ -1,0 +1,43 @@
+.process-list {
+  display: grid;
+  gap: 1.15rem;
+  counter-reset: none;
+}
+
+.process-list li {
+  position: relative;
+  padding: 1.5rem 1.35rem 1.5rem 1.35rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--blue-mist);
+}
+
+.process-index {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--blue);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin-bottom: 0.85rem;
+}
+
+.process-list h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  margin-bottom: 0.4rem;
+}
+
+.process-list p {
+  color: var(--navy-muted);
+}
+
+@media (min-width: 800px) {
+  .process-list {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+}

@@ -1,0 +1,52 @@
+/* App-level section backgrounds */
+#about {
+  background:
+    radial-gradient(ellipse 80% 60% at 100% 0%, rgba(10, 102, 255, 0.08), transparent 55%),
+    linear-gradient(180deg, var(--blue-mist), var(--white));
+}
+
+#services {
+  background: var(--white);
+}
+
+#features {
+  background:
+    linear-gradient(135deg, #071a33 0%, #0b2a5c 45%, #0a4fd6 100%);
+  color: var(--white);
+}
+
+#features .eyebrow {
+  color: #9ec0ff;
+}
+
+#features .section-head p {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+#portfolio {
+  background: var(--blue-mist);
+}
+
+#process {
+  background: var(--white);
+}
+
+#testimonials {
+  background:
+    radial-gradient(circle at 0% 50%, rgba(10, 102, 255, 0.1), transparent 45%),
+    var(--blue-mist);
+}
+
+#pricing {
+  background: var(--white);
+}
+
+#faq {
+  background: linear-gradient(180deg, var(--blue-mist), var(--white));
+}
+
+#contact {
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(10, 102, 255, 0.12), transparent 50%),
+    var(--blue-mist);
+}

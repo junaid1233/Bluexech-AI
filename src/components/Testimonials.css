@@ -1,0 +1,40 @@
+.testimonials-grid {
+  display: grid;
+  gap: 1.15rem;
+}
+
+.quote {
+  padding: 1.6rem 1.4rem;
+  border-radius: var(--radius);
+  background: var(--white);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.quote p {
+  font-size: 1.02rem;
+  color: var(--navy);
+  margin-bottom: 1.25rem;
+}
+
+.quote footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.quote strong {
+  font-family: var(--font-display);
+  color: var(--blue);
+}
+
+.quote span {
+  color: var(--navy-muted);
+  font-size: 0.9rem;
+}
+
+@media (min-width: 800px) {
+  .testimonials-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

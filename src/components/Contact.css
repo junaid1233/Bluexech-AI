@@ -1,0 +1,136 @@
+.contact-layout {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+}
+
+.contact-info h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 3.5vw, 2.5rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 0.85rem;
+}
+
+.contact-info > p {
+  color: var(--navy-muted);
+  margin-bottom: 1.75rem;
+  max-width: 34rem;
+}
+
+.contact-details {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.contact-details strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 0.25rem;
+}
+
+.contact-details a,
+.contact-details span {
+  color: var(--navy);
+  font-size: 1.02rem;
+}
+
+.contact-details a:hover {
+  color: var(--blue);
+}
+
+.contact-box {
+  background: linear-gradient(155deg, var(--blue) 0%, var(--blue-deep) 100%);
+  color: var(--white);
+  border-radius: calc(var(--radius) + 6px);
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+  box-shadow: 0 24px 60px rgba(8, 60, 180, 0.28);
+}
+
+.contact-box h3 {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  margin-bottom: 1.25rem;
+}
+
+.contact-success {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.field-row {
+  display: grid;
+  gap: 0;
+}
+
+.field label {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--white);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.field select {
+  cursor: pointer;
+}
+
+.field select option {
+  color: var(--navy);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.contact-submit {
+  width: 100%;
+  margin-top: 0.35rem;
+}
+
+@media (min-width: 640px) {
+  .field-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .contact-layout {
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 3rem;
+  }
+}
