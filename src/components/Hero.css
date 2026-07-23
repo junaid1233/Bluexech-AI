@@ -11,24 +11,17 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background:
-    linear-gradient(160deg, #f7faff 0%, #eaf2ff 42%, #d9e8ff 100%);
+  background: transparent;
 }
 
 .hero-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(10, 102, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(10, 102, 255, 0.06) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse 70% 60% at 70% 40%, #000 20%, transparent 75%);
+  display: none;
 }
 
 .hero-glow {
   position: absolute;
   border-radius: 50%;
-  filter: blur(60px);
+  filter: blur(70px);
 }
 
 .hero-glow-1 {
@@ -42,7 +35,7 @@
 .hero-glow-2 {
   width: 320px;
   height: 320px;
-  background: rgba(8, 78, 204, 0.18);
+  background: rgba(34, 211, 238, 0.14);
   bottom: 0;
   left: 5%;
 }
@@ -65,8 +58,13 @@
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1;
-  color: var(--blue);
+  background: var(--grad);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 0.85rem;
+  animation: shimmer 7s linear infinite;
 }
 
 .hero-copy h1 {
@@ -75,12 +73,12 @@
   font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.25;
-  color: var(--navy);
+  color: var(--ink);
   margin-bottom: 1rem;
 }
 
 .hero-lead {
-  color: var(--navy-muted);
+  color: var(--dim);
   font-size: 1.08rem;
   max-width: 34rem;
   margin-bottom: 1.75rem;
@@ -101,7 +99,7 @@
 .hero-art {
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 30px 50px rgba(8, 60, 160, 0.2));
+  filter: drop-shadow(0 30px 50px rgba(8, 60, 160, 0.35));
 }
 
 .orbit {
@@ -119,6 +117,12 @@
 
 .node-c {
   animation: pulse 2.8s ease-in-out 1.2s infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
 }
 
 @keyframes heroIn {

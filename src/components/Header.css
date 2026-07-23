@@ -5,17 +5,17 @@
   height: var(--header-h);
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: rgba(5, 6, 15, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid transparent;
   transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .site-header.is-scrolled {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(5, 6, 15, 0.88);
   border-bottom-color: var(--line);
-  box-shadow: 0 8px 30px rgba(8, 40, 120, 0.06);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
 }
 
 .header-inner {
@@ -44,7 +44,7 @@
   font-size: 1.15rem;
   display: grid;
   place-items: center;
-  box-shadow: 0 8px 20px rgba(10, 102, 255, 0.3);
+  box-shadow: 0 8px 20px rgba(10, 102, 255, 0.35);
 }
 
 .logo-text {
@@ -52,12 +52,12 @@
   font-weight: 700;
   font-size: 1.15rem;
   letter-spacing: -0.02em;
-  color: var(--navy);
+  color: var(--ink);
 }
 
 .logo-text em {
   font-style: normal;
-  color: var(--blue);
+  color: var(--cyan);
 }
 
 .nav-desktop {
@@ -71,15 +71,15 @@
   font-family: var(--font-display);
   font-size: 0.92rem;
   font-weight: 500;
-  color: var(--navy-muted);
+  color: var(--dim);
   padding: 0.45rem 0.7rem;
   border-radius: 8px;
   transition: color 0.2s ease, background 0.2s ease;
 }
 
 .nav-desktop a:hover {
-  color: var(--blue);
-  background: var(--blue-soft);
+  color: var(--cyan);
+  background: rgba(34, 211, 238, 0.08);
 }
 
 .header-actions {
@@ -110,7 +110,7 @@
 
 .menu-line {
   display: block;
-  background: var(--navy);
+  background: var(--ink);
   border-radius: 99px;
   transition: transform 0.3s ease, width 0.3s ease, opacity 0.3s ease;
 }
@@ -141,10 +141,10 @@
   top: var(--header-h);
   left: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.98);
+  background: rgba(8, 11, 28, 0.98);
   border-bottom: 1px solid var(--line);
   padding: 1rem 1.25rem 1.5rem;
-  box-shadow: 0 16px 40px rgba(8, 40, 120, 0.1);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
 }
 
 .mobile-nav[hidden] {
@@ -168,7 +168,7 @@
   font-size: 1.1rem;
   padding: 0.85rem 0.5rem;
   border-bottom: 1px solid var(--line);
-  color: var(--navy);
+  color: var(--ink);
 }
 
 .mobile-nav a:last-child {

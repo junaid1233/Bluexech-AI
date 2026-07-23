@@ -13,8 +13,13 @@ export default function Footer() {
             <a href="https://linkedin.com" target="_blank" rel="noreferrer">
               LinkedIn
             </a>
-            <a href="https://x.com" target="_blank" rel="noreferrer">
-              X
+            <a
+              href="https://wa.me/15550188200"
+              target="_blank"
+              rel="noreferrer"
+              className="social-wa"
+            >
+              WhatsApp
             </a>
             <a href="https://github.com" target="_blank" rel="noreferrer">
               GitHub
@@ -91,7 +96,7 @@ export default function Footer() {
       </div>
 
       <div className="container footer-bottom">
-        <p>© 2026 Bluexche AI. All rights reserved.</p>
+        <p>Bluexche AI</p>
       </div>
     </footer>
   )

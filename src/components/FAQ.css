@@ -11,7 +11,7 @@
 .faq-item {
   border-radius: 14px;
   border: 1px solid var(--line);
-  background: var(--white);
+  background: linear-gradient(180deg, rgba(18, 26, 61, 0.8), rgba(10, 14, 36, 0.8));
   overflow: hidden;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .faq-item.is-open .faq-trigger {
-  color: var(--blue);
+  color: var(--cyan);
 }
 
 .faq-panel {

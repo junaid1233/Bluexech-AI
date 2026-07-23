@@ -29,7 +29,7 @@
   font-size: 0.8rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--blue);
+  color: var(--cyan);
   margin-bottom: 0.25rem;
 }
 
@@ -40,7 +40,63 @@
 }
 
 .contact-details a:hover {
-  color: var(--blue);
+  color: var(--cyan);
+}
+
+.wa-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1.5rem;
+  padding: 9px 13px;
+  border-radius: 11px;
+  border: 1px solid var(--line2);
+  background: rgba(8, 11, 24, 0.55);
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.wa-link:hover {
+  border-color: var(--cyan);
+  background: rgba(34, 211, 238, 0.06);
+  transform: translateX(3px);
+}
+
+.wa-ic {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: rgba(37, 211, 102, 0.14);
+  color: #25d366;
+  flex-shrink: 0;
+}
+
+.wa-ic svg {
+  width: 16px;
+  height: 16px;
+}
+
+.wa-tx {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.wa-tx small {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--faint);
+  letter-spacing: 0.3px;
+}
+
+.wa-tx b {
+  font-weight: 600;
+  color: #fff;
+}
+
+.wa-link:hover .wa-tx b {
+  color: var(--cyan);
 }
 
 .contact-box {

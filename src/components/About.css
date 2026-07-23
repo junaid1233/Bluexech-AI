@@ -12,7 +12,7 @@
 .about-stats > div {
   padding: 1.35rem 1.25rem;
   border-radius: var(--radius);
-  background: var(--white);
+  background: linear-gradient(180deg, rgba(18, 26, 61, 0.75), rgba(10, 14, 36, 0.75));
   border: 1px solid var(--line);
   box-shadow: var(--shadow);
 }
@@ -22,7 +22,7 @@
   font-family: var(--font-display);
   font-size: clamp(1.8rem, 3vw, 2.3rem);
   font-weight: 800;
-  color: var(--blue);
+  color: var(--cyan);
   letter-spacing: -0.03em;
   line-height: 1.1;
   margin-bottom: 0.35rem;

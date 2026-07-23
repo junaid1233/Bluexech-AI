@@ -9,7 +9,7 @@
   padding: 1.5rem 1.35rem 1.5rem 1.35rem;
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  background: var(--blue-mist);
+  background: linear-gradient(180deg, rgba(18, 26, 61, 0.7), rgba(10, 14, 36, 0.7));
 }
 
 .process-index {

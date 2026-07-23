@@ -1,0 +1,57 @@
+.wa-float {
+  position: fixed;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(22px, env(safe-area-inset-bottom));
+  z-index: 4000;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #25d366;
+  color: #fff;
+  box-shadow:
+    0 10px 28px rgba(37, 211, 102, 0.45),
+    0 0 0 0 rgba(37, 211, 102, 0.4);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  animation: waPulse 2.4s ease-out infinite;
+}
+
+.wa-float svg {
+  width: 30px;
+  height: 30px;
+}
+
+.wa-float:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 14px 34px rgba(37, 211, 102, 0.55);
+}
+
+.wa-float:focus-visible {
+  outline: 3px solid rgba(34, 211, 238, 0.55);
+  outline-offset: 3px;
+}
+
+@keyframes waPulse {
+  0% {
+    box-shadow:
+      0 10px 28px rgba(37, 211, 102, 0.45),
+      0 0 0 0 rgba(37, 211, 102, 0.45);
+  }
+  70% {
+    box-shadow:
+      0 10px 28px rgba(37, 211, 102, 0.45),
+      0 0 0 16px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow:
+      0 10px 28px rgba(37, 211, 102, 0.45),
+      0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wa-float {
+    animation: none;
+  }
+}

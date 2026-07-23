@@ -1,5 +1,6 @@
 .site-footer {
-  background: var(--blue);
+  background: linear-gradient(180deg, rgba(10, 14, 36, 0.9), #05060f);
+  border-top: 1px solid var(--line);
   color: rgba(255, 255, 255, 0.88);
   padding: 3.5rem 0 1.5rem;
 }
@@ -52,6 +53,15 @@
 
 .socials a:hover {
   background: rgba(255, 255, 255, 0.22);
+}
+
+.socials a.social-wa {
+  background: rgba(37, 211, 102, 0.18);
+  color: #7dffb0;
+}
+
+.socials a.social-wa:hover {
+  background: rgba(37, 211, 102, 0.3);
 }
 
 .site-footer h4 {

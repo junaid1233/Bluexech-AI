@@ -10,25 +10,33 @@ import Pricing from './components/Pricing'
 import FAQ from './components/FAQ'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import GalaxyBackground from './components/GalaxyBackground'
+import ScrollProgress from './components/ScrollProgress'
+import WhatsAppFloat from './components/WhatsAppFloat'
 import './App.css'
 
 export default function App() {
   return (
     <>
-      <Header />
-      <main>
-        <Hero />
-        <About />
-        <Services />
-        <Features />
-        <Portfolio />
-        <Process />
-        <Testimonials />
-        <Pricing />
-        <FAQ />
-        <Contact />
-      </main>
-      <Footer />
+      <ScrollProgress />
+      <GalaxyBackground />
+      <div className="shell">
+        <Header />
+        <main>
+          <Hero />
+          <About />
+          <Services />
+          <Features />
+          <Portfolio />
+          <Process />
+          <Testimonials />
+          <Pricing />
+          <FAQ />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
+      <WhatsAppFloat />
     </>
   )
 }

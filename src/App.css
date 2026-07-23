@@ -1,18 +1,15 @@
-/* App-level section backgrounds */
+/* App-level section backgrounds — translucent over galaxy */
 #about {
-  background:
-    radial-gradient(ellipse 80% 60% at 100% 0%, rgba(10, 102, 255, 0.08), transparent 55%),
-    linear-gradient(180deg, var(--blue-mist), var(--white));
+  background: linear-gradient(180deg, rgba(5, 6, 15, 0.35), rgba(10, 14, 36, 0.55));
 }
 
 #services {
-  background: var(--white);
+  background: transparent;
 }
 
 #features {
-  background:
-    linear-gradient(135deg, #071a33 0%, #0b2a5c 45%, #0a4fd6 100%);
-  color: var(--white);
+  background: linear-gradient(135deg, rgba(7, 26, 51, 0.85) 0%, rgba(11, 42, 92, 0.75) 45%, rgba(10, 79, 214, 0.45) 100%);
+  color: var(--ink);
 }
 
 #features .eyebrow {
@@ -20,33 +17,33 @@
 }
 
 #features .section-head p {
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(234, 240, 255, 0.72);
 }
 
 #portfolio {
-  background: var(--blue-mist);
+  background: linear-gradient(180deg, rgba(10, 14, 36, 0.5), rgba(5, 6, 15, 0.35));
 }
 
 #process {
-  background: var(--white);
+  background: transparent;
 }
 
 #testimonials {
   background:
-    radial-gradient(circle at 0% 50%, rgba(10, 102, 255, 0.1), transparent 45%),
-    var(--blue-mist);
+    radial-gradient(circle at 0% 50%, rgba(10, 102, 255, 0.18), transparent 45%),
+    rgba(10, 14, 36, 0.4);
 }
 
 #pricing {
-  background: var(--white);
+  background: transparent;
 }
 
 #faq {
-  background: linear-gradient(180deg, var(--blue-mist), var(--white));
+  background: linear-gradient(180deg, rgba(10, 14, 36, 0.45), rgba(5, 6, 15, 0.2));
 }
 
 #contact {
   background:
-    radial-gradient(ellipse at 20% 0%, rgba(10, 102, 255, 0.12), transparent 50%),
-    var(--blue-mist);
+    radial-gradient(ellipse at 20% 0%, rgba(10, 102, 255, 0.2), transparent 50%),
+    rgba(10, 14, 36, 0.5);
 }
