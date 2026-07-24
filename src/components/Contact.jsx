@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import { useReveal } from '../hooks/useReveal'
+import { COUNTRY_CODES } from '../data/countryCodes'
 import './Contact.css'
 
 const initial = {
   name: '',
   email: '',
+  country: 'PK',
   phone: '',
   service: '',
+  description: '',
   message: '',
 }
 
@@ -14,6 +17,8 @@ export default function Contact() {
   const [form, setForm] = useState(initial)
   const [sent, setSent] = useState(false)
   const ref = useReveal()
+
+  const dial = COUNTRY_CODES.find((c) => c.code === form.country)?.dial || '+92'
 
   const onChange = (e) => {
     const { name, value } = e.target
@@ -42,7 +47,7 @@ export default function Contact() {
             </li>
             <li>
               <strong>Phone</strong>
-              <a href="tel:+15550188200">+1 (555) 018-8200</a>
+              <a href="tel:+923092547332">+92 309 2547332</a>
             </li>
             <li>
               <strong>Office</strong>
@@ -52,7 +57,7 @@ export default function Contact() {
 
           <a
             className="wa-link"
-            href="https://wa.me/15550188200?text=Hi%21%20I%27d%20like%20to%20talk%20about%20a%20project%20with%20Bluexche%20AI."
+            href="https://wa.me/923092547332?text=Hi%21%20I%27d%20like%20to%20talk%20about%20a%20project%20with%20Bluexche%20AI."
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -64,7 +69,7 @@ export default function Contact() {
             </span>
             <span className="wa-tx">
               <small>WHATSAPP</small>
-              <b>+1 (555) 018-8200</b>
+              <b>+92 309 2547332</b>
             </span>
           </a>
         </div>
@@ -90,31 +95,50 @@ export default function Contact() {
                 placeholder="Your name"
               />
             </div>
-            <div className="field-row">
-              <div className="field">
-                <label htmlFor="email">Email</label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  autoComplete="email"
-                  value={form.email}
+            <div className="field">
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                autoComplete="email"
+                value={form.email}
+                onChange={onChange}
+                placeholder="you@company.com"
+              />
+            </div>
+            <div className="field">
+              <label htmlFor="phone">Phone</label>
+              <div className="phone-combo">
+                <select
+                  id="country"
+                  name="country"
+                  aria-label="Country code"
+                  value={form.country}
                   onChange={onChange}
-                  placeholder="you@company.com"
-                />
-              </div>
-              <div className="field">
-                <label htmlFor="phone">Phone</label>
-                <input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  autoComplete="tel"
-                  value={form.phone}
-                  onChange={onChange}
-                  placeholder="+1 ..."
-                />
+                >
+                  {COUNTRY_CODES.map((c) => (
+                    <option key={c.code} value={c.code}>
+                      {c.flag} {c.name} ({c.dial})
+                    </option>
+                  ))}
+                </select>
+                <div className="phone-input-wrap">
+                  <span className="phone-dial" aria-hidden="true">
+                    {dial}
+                  </span>
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    required
+                    autoComplete="tel-national"
+                    value={form.phone}
+                    onChange={onChange}
+                    placeholder="300 1234567"
+                  />
+                </div>
               </div>
             </div>
             <div className="field">
@@ -132,7 +156,19 @@ export default function Contact() {
               </select>
             </div>
             <div className="field">
-              <label htmlFor="message">Message</label>
+              <label htmlFor="description">Message description</label>
+              <input
+                id="description"
+                name="description"
+                type="text"
+                required
+                value={form.description}
+                onChange={onChange}
+                placeholder="Short summary — e.g. Need AI chatbot for support"
+              />
+            </div>
+            <div className="field">
+              <label htmlFor="message">Message details</label>
               <textarea
                 id="message"
                 name="message"
@@ -140,7 +176,7 @@ export default function Contact() {
                 rows={4}
                 value={form.message}
                 onChange={onChange}
-                placeholder="What are you looking to build or improve?"
+                placeholder="Describe your project, goals, timeline, and any challenges in detail…"
               />
             </div>
             <button type="submit" className="btn btn-light contact-submit">

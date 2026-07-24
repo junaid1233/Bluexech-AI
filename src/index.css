@@ -23,8 +23,8 @@
   --grad: linear-gradient(120deg, var(--cyan), var(--blue) 55%, var(--violet));
   --radius: 18px;
   --header-h: 72px;
-  --font-display: 'Outfit', system-ui, sans-serif;
-  --font-body: 'Sora', system-ui, sans-serif;
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
   --max: 1140px;
 }
@@ -126,9 +126,9 @@ ul {
 
 .section-head h2 {
   font-family: var(--font-display);
-  font-size: clamp(1.85rem, 3.5vw, 2.6rem);
+  font-size: clamp(1.75rem, 3.2vw, 2.45rem);
   font-weight: 700;
-  line-height: 1.15;
+  line-height: 1.2;
   letter-spacing: -0.02em;
   margin-bottom: 0.75rem;
   color: var(--ink);

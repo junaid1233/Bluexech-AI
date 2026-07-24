@@ -14,28 +14,25 @@
   background: transparent;
 }
 
-.hero-grid {
-  display: none;
-}
-
 .hero-glow {
   position: absolute;
   border-radius: 50%;
   filter: blur(70px);
+  pointer-events: none;
 }
 
 .hero-glow-1 {
-  width: 420px;
-  height: 420px;
-  background: rgba(10, 102, 255, 0.28);
+  width: 380px;
+  height: 380px;
+  background: rgba(10, 102, 255, 0.2);
   top: -80px;
   right: 8%;
 }
 
 .hero-glow-2 {
-  width: 320px;
-  height: 320px;
-  background: rgba(34, 211, 238, 0.14);
+  width: 280px;
+  height: 280px;
+  background: rgba(34, 211, 238, 0.1);
   bottom: 0;
   left: 5%;
 }
@@ -54,10 +51,10 @@
 
 .hero-brand {
   font-family: var(--font-display);
-  font-size: clamp(2.4rem, 6vw, 4rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1;
+  font-size: clamp(2.2rem, 5.2vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
   background: var(--grad);
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -69,19 +66,22 @@
 
 .hero-copy h1 {
   font-family: var(--font-display);
-  font-size: clamp(1.45rem, 3vw, 2rem);
+  font-size: clamp(1.25rem, 2.4vw, 1.7rem);
   font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.25;
+  letter-spacing: -0.015em;
+  line-height: 1.35;
   color: var(--ink);
   margin-bottom: 1rem;
 }
 
 .hero-lead {
+  font-family: var(--font-body);
   color: var(--dim);
-  font-size: 1.08rem;
+  font-size: 1.02rem;
+  font-weight: 400;
   max-width: 34rem;
   margin-bottom: 1.75rem;
+  line-height: 1.7;
 }
 
 .hero-ctas {
@@ -93,31 +93,82 @@
 .hero-visual {
   animation: heroIn 1s ease 0.15s both;
   justify-self: center;
-  width: min(100%, 520px);
+  width: min(100%, 540px);
 }
 
-.hero-art {
+.hero-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(120, 160, 255, 0.22);
+  background: #0a0e24;
+  box-shadow:
+    0 24px 50px rgba(8, 60, 160, 0.32),
+    0 0 60px rgba(10, 102, 255, 0.12);
+}
+
+.hero-video {
   width: 100%;
-  height: auto;
-  filter: drop-shadow(0 30px 50px rgba(8, 60, 160, 0.35));
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
-.orbit {
-  transform-origin: 280px 152px;
+.hero-media-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(34, 211, 238, 0.08), transparent 55%);
+  opacity: 0.7;
+}
+
+.hero-neural {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.75;
+}
+
+.neural-links .link {
+  opacity: 0.4;
+  animation: dashFlow 5s linear infinite;
+}
+
+.link-b {
+  animation-duration: 6s;
+  animation-direction: reverse;
+}
+
+.link-c {
+  animation-duration: 5.5s;
+}
+
+.orbit-ring {
+  transform-origin: 280px 210px;
   animation: spin 28s linear infinite;
 }
 
-.node-a {
-  animation: pulse 2.8s ease-in-out infinite;
+.node {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nodePulse 3s ease-in-out infinite;
 }
 
-.node-b {
-  animation: pulse 2.8s ease-in-out 0.6s infinite;
-}
-
-.node-c {
-  animation: pulse 2.8s ease-in-out 1.2s infinite;
-}
+.node-a { animation-delay: 0s; }
+.node-b { animation-delay: 0.2s; }
+.node-c { animation-delay: 0.4s; }
+.node-d { animation-delay: 0.15s; }
+.node-e { animation-delay: 0.35s; }
+.node-f { animation-delay: 0.55s; }
+.node-g { animation-delay: 0.25s; }
+.node-h { animation-delay: 0.45s; }
+.node-i { animation-delay: 0.65s; }
 
 @keyframes shimmer {
   to {
@@ -142,10 +193,16 @@
   }
 }
 
-@keyframes pulse {
+@keyframes dashFlow {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+@keyframes nodePulse {
   0%,
   100% {
-    opacity: 0.55;
+    opacity: 0.5;
     transform: scale(1);
   }
   50% {
@@ -158,5 +215,28 @@
   .hero-layout {
     grid-template-columns: 1.05fr 0.95fr;
     gap: 2rem;
+  }
+
+  .hero-visual {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-media {
+    border-radius: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neural-links .link,
+  .orbit-ring,
+  .node,
+  .hero-brand {
+    animation: none !important;
+  }
+
+  .node {
+    opacity: 0.8;
   }
 }

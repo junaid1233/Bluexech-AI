@@ -1,0 +1,56 @@
+.cursor-ring,
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 0.25s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.cursor-ring.is-on,
+.cursor-dot.is-on {
+  opacity: 1;
+}
+
+.cursor-ring {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(34, 211, 238, 0.65);
+  box-shadow:
+    0 0 18px rgba(10, 102, 255, 0.35),
+    inset 0 0 12px rgba(34, 211, 238, 0.12);
+  background: rgba(10, 102, 255, 0.06);
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22d3ee;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.8);
+  z-index: 9999;
+}
+
+.cursor-ring.is-down {
+  width: 28px;
+  height: 28px;
+  border-color: rgba(10, 102, 255, 0.9);
+  background: rgba(10, 102, 255, 0.14);
+}
+
+.cursor-dot.is-down {
+  width: 6px;
+  height: 6px;
+  background: #0a66ff;
+}
+
+@media (pointer: coarse) {
+  .cursor-ring,
+  .cursor-dot {
+    display: none !important;
+  }
+}

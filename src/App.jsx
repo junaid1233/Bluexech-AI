@@ -13,11 +13,13 @@ import Footer from './components/Footer'
 import GalaxyBackground from './components/GalaxyBackground'
 import ScrollProgress from './components/ScrollProgress'
 import WhatsAppFloat from './components/WhatsAppFloat'
+import CursorGlow from './components/CursorGlow'
 import './App.css'
 
 export default function App() {
   return (
     <>
+      <CursorGlow />
       <ScrollProgress />
       <GalaxyBackground />
       <div className="shell">

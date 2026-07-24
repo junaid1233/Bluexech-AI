@@ -152,6 +152,52 @@
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 
+.phone-combo {
+  display: grid;
+  grid-template-columns: minmax(140px, 1fr) 1.25fr;
+  gap: 0.55rem;
+}
+
+.phone-combo select {
+  padding-inline: 0.55rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.phone-combo select option {
+  color: #0a0e24;
+}
+
+.phone-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding-left: 0.75rem;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.phone-input-wrap:focus-within {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.phone-dial {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.75);
+  white-space: nowrap;
+}
+
+.phone-input-wrap input {
+  border: none !important;
+  background: transparent !important;
+  padding-left: 0.25rem;
+  border-radius: 0 12px 12px 0;
+}
+
 .field input::placeholder,
 .field textarea::placeholder {
   color: rgba(255, 255, 255, 0.55);
@@ -175,6 +221,12 @@
 .contact-submit {
   width: 100%;
   margin-top: 0.35rem;
+}
+
+@media (max-width: 520px) {
+  .phone-combo {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (min-width: 640px) {

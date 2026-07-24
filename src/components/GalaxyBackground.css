@@ -19,12 +19,12 @@
 .galaxy-grid {
   position: absolute;
   inset: 0;
-  opacity: 0.4;
+  opacity: 0.18;
   background-image:
-    linear-gradient(rgba(120, 160, 255, 0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(120, 160, 255, 0.12) 1px, transparent 1px);
-  background-size: 54px 54px;
-  mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 35%, transparent 75%);
+    linear-gradient(rgba(120, 160, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 160, 255, 0.1) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 30%, transparent 75%);
 }
 
 .galaxy-stars {
