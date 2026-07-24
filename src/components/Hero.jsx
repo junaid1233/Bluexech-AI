@@ -36,7 +36,7 @@ export default function Hero() {
               preload="auto"
               aria-label="Bluexche AI product showcase"
             >
-              <source src="/videos/hero.mp4" type="video/mp4" />
+              <source src={`${import.meta.env.BASE_URL}videos/hero.mp4`} type="video/mp4" />
             </video>
 
             <div className="hero-media-shade" aria-hidden="true" />
