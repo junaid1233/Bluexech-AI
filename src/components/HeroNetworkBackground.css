@@ -1,0 +1,25 @@
+/* Hero-only AI network background layer */
+.hero-network {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-network-gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 20%, rgba(37, 99, 235, 0.22), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 70%, rgba(6, 182, 212, 0.12), transparent 55%),
+    linear-gradient(180deg, #050816 0%, #0a1024 55%, #050816 100%);
+}
+
+.hero-network-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}

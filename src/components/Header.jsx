@@ -63,12 +63,12 @@ export default function Header() {
     <>
       <header className={`site-header ${scrolled ? 'is-scrolled' : ''} ${open ? 'is-open' : ''}`}>
         <div className="container header-inner">
-          <a href="#home" className="logo" onClick={close} aria-label="Bluexche AI home">
+          <a href="#home" className="logo" onClick={close} aria-label="Bluexech AI home">
             <span className="logo-mark" aria-hidden="true">
               B
             </span>
             <span className="logo-text">
-              Bluexche <em>AI</em>
+              Bluexech <em>AI</em>
             </span>
           </a>
 

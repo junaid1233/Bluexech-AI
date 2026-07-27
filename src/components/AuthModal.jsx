@@ -160,7 +160,7 @@ export default function AuthModal({ open, mode: initialMode = 'login', onClose }
             <p className="auth-lead">
               {mode === 'login'
                 ? 'Log in to manage your AI projects and messages.'
-                : 'Sign up to get started with Bluexche AI.'}
+                : 'Sign up to get started with Bluexech AI.'}
             </p>
 
             {error ? <p className="auth-error">{error}</p> : null}

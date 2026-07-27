@@ -18,7 +18,7 @@ export default function Features() {
       <div className="container">
         <div className="section-head center">
           <span className="eyebrow">Why Us</span>
-          <h2>What sets Bluexche AI apart</h2>
+          <h2>What sets Bluexech AI apart</h2>
           <p>Reliable delivery, sharp craft, and partners who stay accountable after launch.</p>
         </div>
         <div className="features-grid reveal" ref={ref}>

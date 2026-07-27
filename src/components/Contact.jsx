@@ -43,7 +43,7 @@ export default function Contact() {
           <ul className="contact-details">
             <li>
               <strong>Email</strong>
-              <a href="mailto:hello@bluexche.ai">hello@bluexche.ai</a>
+              <a href="mailto:hello@bluexech.ai">hello@bluexech.ai</a>
             </li>
             <li>
               <strong>Phone</strong>
@@ -57,7 +57,7 @@ export default function Contact() {
 
           <a
             className="wa-link"
-            href="https://wa.me/923092547332?text=Hi%21%20I%27d%20like%20to%20talk%20about%20a%20project%20with%20Bluexche%20AI."
+            href="https://wa.me/923092547332?text=Hi%21%20I%27d%20like%20to%20talk%20about%20a%20project%20with%20Bluexech%20AI."
             target="_blank"
             rel="noopener noreferrer"
           >

@@ -1,7 +1,7 @@
 import './WhatsAppFloat.css'
 
 const WA_LINK =
-  'https://wa.me/15550188200?text=Hi%21%20I%27d%20like%20to%20talk%20about%20a%20project%20with%20Bluexche%20AI.'
+  'https://wa.me/15550188200?text=Hi%21%20I%27d%20like%20to%20talk%20about%20a%20project%20with%20Bluexech%20AI.'
 
 export default function WhatsAppFloat() {
   return (

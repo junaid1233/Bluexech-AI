@@ -11,7 +11,7 @@ export default function About() {
           <span className="eyebrow">About Us</span>
           <h2>Technology partners who build with purpose</h2>
           <p>
-            Bluexche AI helps organizations modernize operations with practical AI, reliable software,
+            Bluexech AI helps organizations modernize operations with practical AI, reliable software,
             and secure infrastructure — delivered by specialists who stay close to your goals.
           </p>
         </div>

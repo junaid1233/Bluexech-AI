@@ -3,7 +3,7 @@ import './Testimonials.css'
 
 const quotes = [
   {
-    text: 'Bluexche AI turned a messy backlog into a shipping rhythm. Our platform is faster and our team finally trusts the stack.',
+    text: 'Bluexech AI turned a messy backlog into a shipping rhythm. Our platform is faster and our team finally trusts the stack.',
     name: 'Sara Malik',
     role: 'CTO, Freightline',
   },
@@ -28,7 +28,7 @@ export default function Testimonials() {
         <div className="section-head center">
           <span className="eyebrow">Testimonials</span>
           <h2>Trusted by teams who ship</h2>
-          <p>What partners say after working with Bluexche AI.</p>
+          <p>What partners say after working with Bluexech AI.</p>
         </div>
         <div className="testimonials-grid reveal" ref={ref}>
           {quotes.map((q) => (

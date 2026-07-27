@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="container footer-grid">
         <div className="footer-brand">
           <a href="#home" className="footer-logo">
-            Bluexche <em>AI</em>
+            Bluexech <em>AI</em>
           </a>
           <p>Intelligent IT solutions for modern business — AI, cloud, security, and custom software.</p>
           <div className="socials" aria-label="Social links">
@@ -85,7 +85,7 @@ export default function Footer() {
           <h4>Contact</h4>
           <ul className="footer-contact">
             <li>
-              <a href="mailto:hello@bluexche.ai">hello@bluexche.ai</a>
+              <a href="mailto:hello@bluexech.ai">hello@bluexech.ai</a>
             </li>
             <li>
               <a href="tel:+15550188200">+1 (555) 018-8200</a>
@@ -96,7 +96,7 @@ export default function Footer() {
       </div>
 
       <div className="container footer-bottom">
-        <p>Bluexche AI</p>
+        <p>Bluexech AI</p>
       </div>
     </footer>
   )

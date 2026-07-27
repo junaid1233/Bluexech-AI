@@ -35,7 +35,7 @@ export default function FAQ() {
         <div className="section-head">
           <span className="eyebrow">FAQ</span>
           <h2>Answers before you reach out</h2>
-          <p>Quick clarity on how Bluexche AI partners with teams.</p>
+          <p>Quick clarity on how Bluexech AI partners with teams.</p>
         </div>
         <div className="faq-list reveal" ref={ref}>
           {items.map((item, i) => {

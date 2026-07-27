@@ -1,4 +1,4 @@
-# Bluexche AI
+# Bluexech AI
 
 Modern IT services company website built with React + Vite.
 
