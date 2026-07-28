@@ -14,7 +14,7 @@ export default function Footer() {
               LinkedIn
             </a>
             <a
-              href="https://wa.me/15550188200"
+              href="https://wa.me/923092547332"
               target="_blank"
               rel="noreferrer"
               className="social-wa"
@@ -85,10 +85,10 @@ export default function Footer() {
           <h4>Contact</h4>
           <ul className="footer-contact">
             <li>
-              <a href="mailto:hello@bluexech.ai">hello@bluexech.ai</a>
+              <a href="mailto:support@bluexech.com">support@bluexech.com</a>
             </li>
             <li>
-              <a href="tel:+15550188200">+1 (555) 018-8200</a>
+              <a href="tel:+923092547332">03092547332</a>
             </li>
             <li>120 Innovation Drive, Austin, TX</li>
           </ul>

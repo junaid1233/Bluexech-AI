@@ -6,8 +6,8 @@
   left: 0;
   pointer-events: none;
   opacity: 0;
-  will-change: transform, opacity;
-  transition: opacity 0.3s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  will-change: transform;
+  transition: opacity 0.18s ease, width 0.15s ease, height 0.15s ease;
 }
 
 .cursor-shade.is-on,

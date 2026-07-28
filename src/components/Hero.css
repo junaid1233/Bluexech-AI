@@ -15,12 +15,13 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  contain: paint;
   background:
     radial-gradient(circle at 18% 14%, rgba(70, 135, 255, 0.14), transparent 44%),
     radial-gradient(circle at 82% 12%, rgba(86, 158, 255, 0.12), transparent 42%),
     linear-gradient(180deg, #050505 0%, #050505 100%);
-  transform: translate3d(calc(var(--parallax-x) * -0.09), calc(var(--parallax-y) * -0.09), 0);
-  transition: transform 240ms ease-out;
+  transform: translate3d(calc(var(--parallax-x) * -0.12), calc(var(--parallax-y) * -0.12), 0);
+  will-change: transform;
 }
 
 .hero-line-bg::after {
@@ -28,9 +29,8 @@
   position: absolute;
   inset: -8%;
   pointer-events: none;
-  background: radial-gradient(ellipse at 50% 38%, rgba(86, 156, 255, 0.2), transparent 60%);
-  filter: blur(36px);
-  opacity: 0.72;
+  background: radial-gradient(ellipse at 50% 38%, rgba(86, 156, 255, 0.18), transparent 60%);
+  opacity: 0.65;
 }
 
 .hero-wave-svg {
@@ -41,11 +41,11 @@
 }
 
 .hero-wave-glow {
-  opacity: 0.54;
+  opacity: 0.45;
 }
 
 .hero-wave-main {
-  opacity: 0.92;
+  opacity: 0.9;
 }
 
 .hero-wave-line {
@@ -55,20 +55,16 @@
   stroke-linejoin: round;
   opacity: var(--line-opacity);
   stroke-width: var(--line-width);
-  stroke-dasharray: 86 180;
+  stroke-dasharray: 80 170;
   stroke-dashoffset: 0;
-  transform-origin: center;
-  transform-box: fill-box;
-  will-change: transform, stroke-dashoffset, opacity;
   animation:
     lineTravel var(--line-duration) linear infinite,
-    lineWave var(--line-wave-duration) ease-in-out infinite,
     lineBreathe var(--line-breath-duration) ease-in-out infinite;
-  animation-delay: var(--line-delay), var(--line-delay), var(--line-delay);
+  animation-delay: var(--line-delay), var(--line-delay);
 }
 
-.hero-path-particles circle {
-  will-change: transform, opacity;
+.hero-wave-line-glow {
+  opacity: calc(var(--line-opacity) * 0.7);
 }
 
 .hero-layout {
@@ -150,6 +146,8 @@
   object-fit: cover;
   object-position: center;
   display: block;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .hero-media-shade {
@@ -180,51 +178,22 @@
 
 @keyframes lineTravel {
   from {
-    transform: translate3d(
-      calc((var(--parallax-x) * 0.12) - var(--line-travel-x)),
-      calc((var(--parallax-y) * 0.15) + (var(--line-drift-y) * -0.5)),
-      0
-    );
+    transform: translate3d(calc(var(--line-travel-x) * -1), calc(var(--line-drift-y) * -0.4), 0);
     stroke-dashoffset: 0;
   }
   to {
-    transform: translate3d(
-      calc((var(--parallax-x) * 0.18) + var(--line-travel-x)),
-      calc((var(--parallax-y) * 0.15) + var(--line-drift-y)),
-      0
-    );
-    stroke-dashoffset: -360;
+    transform: translate3d(var(--line-travel-x), var(--line-drift-y), 0);
+    stroke-dashoffset: -320;
   }
 }
 
 @keyframes lineBreathe {
   0%,
   100% {
-    opacity: calc(var(--line-opacity) * 0.56);
-  }
-  45% {
-    opacity: var(--line-opacity);
-  }
-  70% {
-    opacity: calc(var(--line-opacity) * 0.74);
-  }
-}
-
-@keyframes lineWave {
-  0%,
-  100% {
-    transform: translate3d(
-      calc(var(--parallax-x) * 0.08),
-      calc(var(--parallax-y) * 0.08),
-      0
-    );
+    opacity: calc(var(--line-opacity) * 0.58);
   }
   50% {
-    transform: translate3d(
-      calc((var(--parallax-x) * 0.12) + var(--line-sway)),
-      calc((var(--parallax-y) * -0.08) - (var(--line-sway) * 0.45)),
-      0
-    );
+    opacity: var(--line-opacity);
   }
 }
 
@@ -241,8 +210,7 @@
 
 @media (max-width: 640px) {
   .hero-line-bg::after {
-    opacity: 0.45;
-    filter: blur(20px);
+    opacity: 0.4;
   }
 
   .hero-wave-line {

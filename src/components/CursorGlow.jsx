@@ -65,12 +65,11 @@ export default function CursorGlow() {
     }
 
     const tick = () => {
-      // Soft shade lags a bit (spotlight feel)
-      sx += (x - sx) * 0.12
-      sy += (y - sy) * 0.12
-      // Ring follows a bit faster
-      rx += (x - rx) * 0.18
-      ry += (y - ry) * 0.18
+      // Fast, snappy follow — still slightly soft for premium feel
+      sx += (x - sx) * 0.42
+      sy += (y - sy) * 0.42
+      rx += (x - rx) * 0.62
+      ry += (y - ry) * 0.62
 
       shade.style.transform = `translate3d(${sx}px, ${sy}px, 0) translate(-50%, -50%)`
       ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%)`
@@ -97,7 +96,6 @@ export default function CursorGlow() {
 
   return (
     <>
-      {/* Soft white spotlight behind cursor (Markenexus-style) */}
       <div ref={shadeRef} className="cursor-shade" aria-hidden="true" />
       <div ref={ringRef} className="cursor-ring" aria-hidden="true" />
       <div ref={dotRef} className="cursor-dot" aria-hidden="true" />
