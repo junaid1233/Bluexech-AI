@@ -1,12 +1,8 @@
-import HeroNetworkBackground from './HeroNetworkBackground'
 import './Hero.css'
 
 export default function Hero() {
   return (
     <section id="home" className="hero" aria-label="Bluexech AI">
-      {/* AI network canvas — behind all hero content */}
-      <HeroNetworkBackground />
-
       <div className="container hero-layout">
         <div className="hero-copy">
           <p className="hero-brand">Bluexech AI</p>

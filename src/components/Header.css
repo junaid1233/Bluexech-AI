@@ -89,20 +89,9 @@
   margin-left: auto;
 }
 
-.header-login {
-  padding: 0.55rem 0.95rem;
-  font-size: 0.88rem;
-}
-
 .header-contact {
   padding: 0.65rem 1.15rem;
   font-size: 0.9rem;
-}
-
-.header-contact-link {
-  display: none;
-  padding: 0.55rem 0.95rem;
-  font-size: 0.88rem;
 }
 
 .mobile-auth-btn {
@@ -118,6 +107,7 @@
   border-bottom: 1px solid var(--line);
   color: var(--ink);
   cursor: pointer;
+  text-decoration: none;
 }
 
 .mobile-auth-btn.is-primary {
@@ -217,7 +207,6 @@
 }
 
 @media (max-width: 959px) {
-  .header-login,
   .header-contact {
     display: none;
   }
@@ -234,9 +223,5 @@
 
   .header-actions {
     margin-left: 0.5rem;
-  }
-
-  .header-contact-link {
-    display: inline-flex;
   }
 }

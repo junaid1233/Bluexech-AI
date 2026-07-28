@@ -1,6 +1,6 @@
-/* App-level section backgrounds — translucent over galaxy */
+/* Translucent sections so Markenexus-style bg-grid shows through */
 #about {
-  background: linear-gradient(180deg, rgba(5, 6, 15, 0.35), rgba(10, 14, 36, 0.55));
+  background: linear-gradient(180deg, rgba(5, 8, 22, 0.2), rgba(10, 16, 36, 0.32));
 }
 
 #services {
@@ -8,7 +8,12 @@
 }
 
 #features {
-  background: linear-gradient(135deg, rgba(7, 26, 51, 0.85) 0%, rgba(11, 42, 92, 0.75) 45%, rgba(10, 79, 214, 0.45) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(7, 26, 51, 0.5) 0%,
+    rgba(11, 42, 92, 0.38) 45%,
+    rgba(10, 79, 214, 0.2) 100%
+  );
   color: var(--ink);
 }
 
@@ -21,7 +26,7 @@
 }
 
 #portfolio {
-  background: linear-gradient(180deg, rgba(10, 14, 36, 0.5), rgba(5, 6, 15, 0.35));
+  background: linear-gradient(180deg, rgba(10, 16, 36, 0.28), rgba(5, 8, 22, 0.18));
 }
 
 #process {
@@ -30,8 +35,8 @@
 
 #testimonials {
   background:
-    radial-gradient(circle at 0% 50%, rgba(10, 102, 255, 0.18), transparent 45%),
-    rgba(10, 14, 36, 0.4);
+    radial-gradient(circle at 0% 50%, rgba(37, 99, 235, 0.12), transparent 45%),
+    rgba(10, 16, 36, 0.22);
 }
 
 #pricing {
@@ -39,11 +44,11 @@
 }
 
 #faq {
-  background: linear-gradient(180deg, rgba(10, 14, 36, 0.45), rgba(5, 6, 15, 0.2));
+  background: linear-gradient(180deg, rgba(10, 16, 36, 0.25), rgba(5, 8, 22, 0.1));
 }
 
 #contact {
   background:
-    radial-gradient(ellipse at 20% 0%, rgba(10, 102, 255, 0.2), transparent 50%),
-    rgba(10, 14, 36, 0.5);
+    radial-gradient(ellipse at 20% 0%, rgba(37, 99, 235, 0.14), transparent 50%),
+    rgba(10, 16, 36, 0.28);
 }
