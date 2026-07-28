@@ -5,32 +5,38 @@ const services = [
   {
     title: 'AI Solutions',
     desc: 'Custom models, automation, and intelligent workflows that reduce busywork and surface better decisions.',
-    icon: '◎',
+    image: 'images/services/ai.png',
+    alt: 'AI neural network and intelligent systems',
   },
   {
     title: 'Web Development',
     desc: 'Fast, accessible product sites and web apps engineered for performance and conversion.',
-    icon: '◇',
+    image: 'images/services/web.png',
+    alt: 'Modern web development and interface design',
   },
   {
     title: 'Cloud & DevOps',
     desc: 'Scalable cloud architecture, CI/CD, and observability so releases stay predictable.',
-    icon: '☁',
+    image: 'images/services/cloud.png',
+    alt: 'Cloud infrastructure and DevOps pipelines',
   },
   {
     title: 'Cybersecurity',
     desc: 'Threat assessments, hardening, and continuous monitoring to protect data and uptime.',
-    icon: '⬡',
+    image: 'images/services/cyber.png',
+    alt: 'Cybersecurity shield and digital protection',
   },
   {
     title: 'Custom Software',
     desc: 'Tailored platforms that fit your processes — from internal tools to customer-facing products.',
-    icon: '▣',
+    image: 'images/services/software.png',
+    alt: 'Custom software modules and applications',
   },
   {
     title: 'IT Consulting',
     desc: 'Clear roadmaps, stack choices, and delivery plans aligned to growth and budget.',
-    icon: '✦',
+    image: 'images/services/consulting.png',
+    alt: 'IT consulting strategy and technology roadmap',
   },
 ]
 
@@ -48,11 +54,18 @@ export default function Services() {
         <div className="services-grid reveal" ref={ref}>
           {services.map((item) => (
             <article key={item.title} className="service-item">
-              <span className="service-icon" aria-hidden="true">
-                {item.icon}
-              </span>
-              <h3>{item.title}</h3>
-              <p>{item.desc}</p>
+              <div className="service-media">
+                <img
+                  src={`${import.meta.env.BASE_URL}${item.image}`}
+                  alt={item.alt}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div className="service-body">
+                <h3>{item.title}</h3>
+                <p>{item.desc}</p>
+              </div>
             </article>
           ))}
         </div>

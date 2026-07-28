@@ -4,7 +4,7 @@
 }
 
 .service-item {
-  padding: 1.6rem 1.4rem;
+  overflow: hidden;
   border-radius: var(--radius);
   border: 1px solid var(--line);
   background: linear-gradient(180deg, rgba(18, 26, 61, 0.72), rgba(10, 14, 36, 0.72));
@@ -17,16 +17,28 @@
   box-shadow: var(--shadow);
 }
 
-.service-icon {
-  display: grid;
-  place-items: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  background: var(--blue);
-  color: var(--white);
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
+.service-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #070b1a;
+}
+
+.service-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.45s ease;
+}
+
+.service-item:hover .service-media img {
+  transform: scale(1.04);
+}
+
+.service-body {
+  padding: 1.25rem 1.35rem 1.45rem;
 }
 
 .service-item h3 {
