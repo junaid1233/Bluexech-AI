@@ -69,7 +69,9 @@ export default function Header() {
         </div>
       </div>
 
-      <div id="mobile-nav" className={`mobile-nav ${open ? 'is-open' : ''}`} hidden={!open}>
+      <div className={`mobile-nav-overlay ${open ? 'is-open' : ''}`} hidden={!open} onClick={close} aria-hidden="true" />
+
+      <aside id="mobile-nav" className={`mobile-nav ${open ? 'is-open' : ''}`} hidden={!open} aria-label="Mobile sidebar">
         <nav aria-label="Mobile">
           {links.map((link) => (
             <a key={link.href} href={link.href} onClick={close}>
@@ -80,7 +82,7 @@ export default function Header() {
             Contact
           </a>
         </nav>
-      </div>
+      </aside>
     </header>
   )
 }

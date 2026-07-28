@@ -1,26 +1,66 @@
 import { useEffect, useMemo, useRef } from 'react'
 import './Hero.css'
 
+const STROKE_COLORS = ['rgba(255,255,255,0.08)', 'rgba(120,180,255,0.18)', 'rgba(80,150,255,0.25)']
+
+const createSeededRandom = (seed) => () => {
+  let value = seed
+  return () => {
+    value = (value * 1664525 + 1013904223) % 4294967296
+    return value / 4294967296
+  }
+}
+
 export default function Hero() {
   const heroRef = useRef(null)
-  const waveLines = useMemo(
-    () =>
-      Array.from({ length: 36 }, (_, index) => {
-        const y = -140 + index * 34
-        const ampA = 16 + (index % 6) * 5
-        const ampB = 12 + ((index + 3) % 5) * 6
-        return {
-          id: `line-${index}`,
-          d: `M -260 ${y} C 140 ${y + ampA}, 360 ${y - ampA}, 720 ${y} S 1240 ${y + ampB}, 1720 ${y}`,
-          delay: `${(index % 10) * -0.55}s`,
-          duration: `${18 + (index % 7) * 1.7}s`,
-          opacity: (0.08 + (index % 8) * 0.035).toFixed(3),
-          width: (0.7 + (index % 4) * 0.22).toFixed(2),
-          sway: `${8 + (index % 6) * 2}px`
-        }
-      }),
-    []
-  )
+  const videoRef = useRef(null)
+  const { waveLines, particleTracks } = useMemo(() => {
+    const rnd = createSeededRandom(20260728)()
+    const lineCount = 112
+    const lines = Array.from({ length: lineCount }, (_, index) => {
+      const n = index / (lineCount - 1)
+      const baseY = -250 + n * 1450
+      const slope = (rnd() - 0.5) * 260
+      const ampA = 10 + rnd() * 36
+      const ampB = 8 + rnd() * 42
+      const ampC = 12 + rnd() * 30
+      const midY = baseY + slope * 0.52
+      const endY = baseY + slope
+      const cp1y = baseY + ampA
+      const cp2y = baseY - ampB
+      const cp3y = midY + ampC * (rnd() > 0.5 ? 1 : -1)
+      const duration = 28 + rnd() * 24
+      const waveDuration = 16 + rnd() * 16
+      const breathDuration = 6 + rnd() * 7
+      return {
+        id: `line-${index}`,
+        d: `M -320 ${baseY.toFixed(2)} C 120 ${cp1y.toFixed(2)}, 580 ${cp2y.toFixed(2)}, 900 ${midY.toFixed(2)} S 1500 ${cp3y.toFixed(2)}, 1920 ${endY.toFixed(2)}`,
+        delay: `${(-rnd() * duration).toFixed(2)}s`,
+        duration: `${duration.toFixed(2)}s`,
+        waveDuration: `${waveDuration.toFixed(2)}s`,
+        breathDuration: `${breathDuration.toFixed(2)}s`,
+        opacity: (0.34 + rnd() * 0.64).toFixed(3),
+        width: (0.5 + rnd() * 0.5).toFixed(2),
+        sway: `${(-10 + rnd() * 20).toFixed(2)}px`,
+        driftY: `${(-14 + rnd() * 28).toFixed(2)}px`,
+        travelX: `${(16 + rnd() * 30).toFixed(2)}px`,
+        color: STROKE_COLORS[Math.floor(rnd() * STROKE_COLORS.length)]
+      }
+    })
+
+    const tracks = lines
+      .filter((_, index) => index % 14 === 0)
+      .map((line, index) => ({
+        id: `particle-${index}`,
+        d: line.d,
+        duration: `${14 + rnd() * 16}s`,
+        delay: `${(-rnd() * 12).toFixed(2)}s`,
+        radius: (0.85 + rnd() * 1.5).toFixed(2),
+        opacity: (0.45 + rnd() * 0.5).toFixed(2)
+      }))
+
+    return { waveLines: lines, particleTracks: tracks }
+  }, [])
 
   useEffect(() => {
     const node = heroRef.current
@@ -35,8 +75,8 @@ export default function Hero() {
       const bounds = node.getBoundingClientRect()
       const x = (event.clientX - bounds.left) / bounds.width
       const y = (event.clientY - bounds.top) / bounds.height
-      const px = (x - 0.5) * 20
-      const py = (y - 0.5) * 14
+      const px = (x - 0.5) * 12
+      const py = (y - 0.5) * 8
 
       if (frame) cancelAnimationFrame(frame)
       frame = requestAnimationFrame(() => {
@@ -60,22 +100,48 @@ export default function Hero() {
     }
   }, [])
 
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    video.defaultPlaybackRate = 1
+    video.playbackRate = 1
+
+    const forceNormalSpeed = () => {
+      if (video.playbackRate !== 1) {
+        video.playbackRate = 1
+      }
+    }
+
+    video.addEventListener('ratechange', forceNormalSpeed)
+    return () => {
+      video.removeEventListener('ratechange', forceNormalSpeed)
+    }
+  }, [])
+
   return (
     <section id="home" className="hero" aria-label="Bluexech AI" ref={heroRef}>
       <div className="hero-line-bg" aria-hidden="true">
-        <svg className="hero-wave-svg" viewBox="0 0 1440 900" fill="none" preserveAspectRatio="none">
+        <svg className="hero-wave-svg" viewBox="0 0 1600 1000" fill="none" preserveAspectRatio="none">
           <defs>
-            <linearGradient id="heroLineGradient" x1="0" y1="0" x2="1440" y2="900" gradientUnits="userSpaceOnUse">
+            <linearGradient id="heroLineGradient" x1="0" y1="0" x2="1600" y2="1000" gradientUnits="userSpaceOnUse">
               <stop offset="0" stopColor="#89a8ff" />
               <stop offset="0.5" stopColor="#47bfff" />
               <stop offset="1" stopColor="#1d68ff" />
             </linearGradient>
-            <filter id="heroLineBlur" x="-30%" y="-30%" width="160%" height="160%">
-              <feGaussianBlur stdDeviation="3.2" />
+            <filter id="heroLineBlur" x="-40%" y="-40%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="2.6" />
+            </filter>
+            <filter id="heroParticleGlow" x="-220%" y="-220%" width="520%" height="520%">
+              <feGaussianBlur stdDeviation="3.8" result="glow" />
+              <feMerge>
+                <feMergeNode in="glow" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
             </filter>
           </defs>
 
-          <g className="hero-wave-glow" stroke="url(#heroLineGradient)" filter="url(#heroLineBlur)">
+          <g className="hero-wave-glow" filter="url(#heroLineBlur)">
             {waveLines.map((line) => (
               <path
                 key={`${line.id}-glow`}
@@ -84,15 +150,20 @@ export default function Hero() {
                 style={{
                   '--line-delay': line.delay,
                   '--line-duration': line.duration,
-                  '--line-opacity': Number(line.opacity) * 0.55,
-                  '--line-width': Number(line.width) + 0.25,
-                  '--line-sway': line.sway
+                  '--line-wave-duration': line.waveDuration,
+                  '--line-breath-duration': line.breathDuration,
+                  '--line-opacity': Number(line.opacity) * 0.32,
+                  '--line-width': Number(line.width) + 0.35,
+                  '--line-sway': line.sway,
+                  '--line-drift-y': line.driftY,
+                  '--line-travel-x': line.travelX,
+                  '--line-color': line.color
                 }}
               />
             ))}
           </g>
 
-          <g className="hero-wave-main" stroke="url(#heroLineGradient)">
+          <g className="hero-wave-main">
             {waveLines.map((line) => (
               <path
                 key={line.id}
@@ -101,11 +172,25 @@ export default function Hero() {
                 style={{
                   '--line-delay': line.delay,
                   '--line-duration': line.duration,
+                  '--line-wave-duration': line.waveDuration,
+                  '--line-breath-duration': line.breathDuration,
                   '--line-opacity': line.opacity,
                   '--line-width': line.width,
-                  '--line-sway': line.sway
+                  '--line-sway': line.sway,
+                  '--line-drift-y': line.driftY,
+                  '--line-travel-x': line.travelX,
+                  '--line-color': line.color
                 }}
               />
+            ))}
+          </g>
+
+          <g className="hero-path-particles" filter="url(#heroParticleGlow)">
+            {particleTracks.map((track) => (
+              <circle key={track.id} r={track.radius} fill="#8bc2ff" opacity={track.opacity}>
+                <animate attributeName="opacity" values="0.2;0.95;0.3;0.8;0.2" dur="5.8s" repeatCount="indefinite" />
+                <animateMotion dur={track.duration} begin={track.delay} repeatCount="indefinite" path={track.d} rotate="auto" />
+              </circle>
             ))}
           </g>
         </svg>
@@ -131,6 +216,7 @@ export default function Hero() {
         <div className="hero-visual">
           <div className="hero-media">
             <video
+              ref={videoRef}
               className="hero-video"
               autoPlay
               muted
@@ -143,59 +229,6 @@ export default function Hero() {
             </video>
 
             <div className="hero-media-shade" aria-hidden="true" />
-
-            <svg
-              className="hero-neural"
-              viewBox="0 0 560 420"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-              preserveAspectRatio="xMidYMid meet"
-            >
-              <defs>
-                <linearGradient id="neuralStroke" x1="40" y1="40" x2="520" y2="380" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#06B6D4" />
-                  <stop offset="1" stopColor="#2563EB" />
-                </linearGradient>
-                <filter id="nodeGlow" x="-80%" y="-80%" width="260%" height="260%">
-                  <feGaussianBlur stdDeviation="2.5" result="b" />
-                  <feMerge>
-                    <feMergeNode in="b" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-
-              <g className="neural-links" stroke="url(#neuralStroke)" strokeWidth="1.4" strokeLinecap="round">
-                <path className="link link-a" d="M48 70 L140 110 L240 55" strokeDasharray="7 12" />
-                <path className="link link-b" d="M480 80 L400 140 L520 200" strokeDasharray="6 11" />
-                <path className="link link-c" d="M60 340 L150 300 L80 250" strokeDasharray="8 14" />
-              </g>
-
-              <ellipse
-                className="orbit-ring"
-                cx="280"
-                cy="210"
-                rx="200"
-                ry="125"
-                stroke="#2563EB"
-                strokeWidth="1"
-                strokeDasharray="3 9"
-                opacity="0.28"
-              />
-
-              <g filter="url(#nodeGlow)">
-                <circle className="node node-a" cx="48" cy="70" r="4.5" fill="#06B6D4" />
-                <circle className="node node-b" cx="140" cy="110" r="5.5" fill="#2563EB" />
-                <circle className="node node-c" cx="240" cy="55" r="4" fill="#06B6D4" />
-                <circle className="node node-d" cx="480" cy="80" r="4.5" fill="#2563EB" />
-                <circle className="node node-e" cx="400" cy="140" r="5" fill="#06B6D4" />
-                <circle className="node node-f" cx="520" cy="200" r="4" fill="#2563EB" />
-                <circle className="node node-g" cx="60" cy="340" r="4.5" fill="#06B6D4" />
-                <circle className="node node-h" cx="150" cy="300" r="5" fill="#2563EB" />
-                <circle className="node node-i" cx="80" cy="250" r="4" fill="#06B6D4" />
-              </g>
-            </svg>
           </div>
         </div>
       </div>

@@ -16,10 +16,10 @@
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at 10% 15%, rgba(46, 123, 255, 0.22), transparent 45%),
-    radial-gradient(circle at 80% 5%, rgba(74, 171, 255, 0.13), transparent 40%),
-    linear-gradient(180deg, #020205 0%, #05070f 45%, #020205 100%);
-  transform: translate3d(calc(var(--parallax-x) * -0.16), calc(var(--parallax-y) * -0.16), 0);
+    radial-gradient(circle at 18% 14%, rgba(70, 135, 255, 0.14), transparent 44%),
+    radial-gradient(circle at 82% 12%, rgba(86, 158, 255, 0.12), transparent 42%),
+    linear-gradient(180deg, #050505 0%, #050505 100%);
+  transform: translate3d(calc(var(--parallax-x) * -0.09), calc(var(--parallax-y) * -0.09), 0);
   transition: transform 240ms ease-out;
 }
 
@@ -28,9 +28,9 @@
   position: absolute;
   inset: -8%;
   pointer-events: none;
-  background: radial-gradient(ellipse at 50% -10%, rgba(60, 140, 255, 0.17), transparent 58%);
-  filter: blur(30px);
-  opacity: 0.7;
+  background: radial-gradient(ellipse at 50% 38%, rgba(86, 156, 255, 0.2), transparent 60%);
+  filter: blur(36px);
+  opacity: 0.72;
 }
 
 .hero-wave-svg {
@@ -41,28 +41,34 @@
 }
 
 .hero-wave-glow {
-  opacity: 0.42;
+  opacity: 0.54;
 }
 
 .hero-wave-main {
-  opacity: 0.86;
+  opacity: 0.92;
 }
 
 .hero-wave-line {
   fill: none;
+  stroke: var(--line-color);
   stroke-linecap: round;
   stroke-linejoin: round;
   opacity: var(--line-opacity);
   stroke-width: var(--line-width);
-  stroke-dasharray: 72 160;
+  stroke-dasharray: 86 180;
   stroke-dashoffset: 0;
   transform-origin: center;
   transform-box: fill-box;
-  will-change: transform, stroke-dashoffset;
+  will-change: transform, stroke-dashoffset, opacity;
   animation:
-    lineFlow var(--line-duration) linear infinite,
-    lineWave calc(var(--line-duration) * 0.7) ease-in-out infinite;
-  animation-delay: var(--line-delay), var(--line-delay);
+    lineTravel var(--line-duration) linear infinite,
+    lineWave var(--line-wave-duration) ease-in-out infinite,
+    lineBreathe var(--line-breath-duration) ease-in-out infinite;
+  animation-delay: var(--line-delay), var(--line-delay), var(--line-delay);
+}
+
+.hero-path-particles circle {
+  will-change: transform, opacity;
 }
 
 .hero-layout {
@@ -155,51 +161,6 @@
   opacity: 0.7;
 }
 
-.hero-neural {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 2;
-  opacity: 0.75;
-}
-
-.neural-links .link {
-  opacity: 0.4;
-  animation: dashFlow 5s linear infinite;
-}
-
-.link-b {
-  animation-duration: 6s;
-  animation-direction: reverse;
-}
-
-.link-c {
-  animation-duration: 5.5s;
-}
-
-.orbit-ring {
-  transform-origin: 280px 210px;
-  animation: spin 28s linear infinite;
-}
-
-.node {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: nodePulse 3s ease-in-out infinite;
-}
-
-.node-a { animation-delay: 0s; }
-.node-b { animation-delay: 0.2s; }
-.node-c { animation-delay: 0.4s; }
-.node-d { animation-delay: 0.15s; }
-.node-e { animation-delay: 0.35s; }
-.node-f { animation-delay: 0.55s; }
-.node-g { animation-delay: 0.25s; }
-.node-h { animation-delay: 0.45s; }
-.node-i { animation-delay: 0.65s; }
-
 @keyframes shimmer {
   to {
     background-position: 200% center;
@@ -217,36 +178,35 @@
   }
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes dashFlow {
-  to {
-    stroke-dashoffset: -100;
-  }
-}
-
-@keyframes nodePulse {
-  0%,
-  100% {
-    opacity: 0.5;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.25);
-  }
-}
-
-@keyframes lineFlow {
+@keyframes lineTravel {
   from {
+    transform: translate3d(
+      calc((var(--parallax-x) * 0.12) - var(--line-travel-x)),
+      calc((var(--parallax-y) * 0.15) + (var(--line-drift-y) * -0.5)),
+      0
+    );
     stroke-dashoffset: 0;
   }
   to {
-    stroke-dashoffset: -420;
+    transform: translate3d(
+      calc((var(--parallax-x) * 0.18) + var(--line-travel-x)),
+      calc((var(--parallax-y) * 0.15) + var(--line-drift-y)),
+      0
+    );
+    stroke-dashoffset: -360;
+  }
+}
+
+@keyframes lineBreathe {
+  0%,
+  100% {
+    opacity: calc(var(--line-opacity) * 0.56);
+  }
+  45% {
+    opacity: var(--line-opacity);
+  }
+  70% {
+    opacity: calc(var(--line-opacity) * 0.74);
   }
 }
 
@@ -254,15 +214,15 @@
   0%,
   100% {
     transform: translate3d(
-      calc(var(--parallax-x) * 0.24),
-      calc(var(--parallax-y) * 0.24),
+      calc(var(--parallax-x) * 0.08),
+      calc(var(--parallax-y) * 0.08),
       0
     );
   }
   50% {
     transform: translate3d(
-      calc((var(--parallax-x) * 0.3) + var(--line-sway)),
-      calc((var(--parallax-y) * -0.22) - (var(--line-sway) * 0.32)),
+      calc((var(--parallax-x) * 0.12) + var(--line-sway)),
+      calc((var(--parallax-y) * -0.08) - (var(--line-sway) * 0.45)),
       0
     );
   }
@@ -286,7 +246,7 @@
   }
 
   .hero-wave-line {
-    stroke-dasharray: 54 142;
+    stroke-dasharray: 62 148;
   }
 
   .hero-media {
@@ -301,16 +261,10 @@
 
   .hero-wave-line {
     animation: none !important;
+    opacity: calc(var(--line-opacity) * 0.62);
   }
 
-  .neural-links .link,
-  .orbit-ring,
-  .node,
   .hero-brand {
     animation: none !important;
-  }
-
-  .node {
-    opacity: 0.8;
   }
 }
