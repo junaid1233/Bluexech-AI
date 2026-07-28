@@ -162,10 +162,12 @@
   padding-inline: 0.55rem;
   font-size: 0.8rem;
   cursor: pointer;
+  color: #050505;
 }
 
 .phone-combo select option {
-  color: #0a0e24;
+  color: #050505;
+  background: #ffffff;
 }
 
 .phone-input-wrap {
@@ -187,13 +189,14 @@
 .phone-dial {
   font-family: var(--font-mono);
   font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.75);
+  color: #050505;
   white-space: nowrap;
 }
 
 .phone-input-wrap input {
   border: none !important;
   background: transparent !important;
+  color: #050505;
   padding-left: 0.25rem;
   border-radius: 0 12px 12px 0;
 }
@@ -205,10 +208,12 @@
 
 .field select {
   cursor: pointer;
+  color: #050505;
 }
 
 .field select option {
-  color: var(--navy);
+  color: #050505;
+  background: #ffffff;
 }
 
 .field input:focus,
