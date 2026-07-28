@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import FlowingLines from './FlowingLines'
+import HeroNetworkBackground from './HeroNetworkBackground'
 import './Hero.css'
 
 export default function Hero() {
@@ -101,7 +101,7 @@ export default function Hero() {
   return (
     <section id="home" className="hero" aria-label="Bluexech AI" ref={heroRef}>
       <div className="hero-bg-wrap" ref={bgRef}>
-        <FlowingLines variant="background" />
+        <HeroNetworkBackground />
       </div>
 
       <div className="container hero-layout">
