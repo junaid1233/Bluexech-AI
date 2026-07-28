@@ -1,54 +1,96 @@
+.cursor-shade,
 .cursor-ring,
 .cursor-dot {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 9998;
   pointer-events: none;
   opacity: 0;
   will-change: transform, opacity;
-  transition: opacity 0.25s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  transition: opacity 0.3s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
+.cursor-shade.is-on,
 .cursor-ring.is-on,
 .cursor-dot.is-on {
   opacity: 1;
 }
 
+/* Soft white shade behind cursor — like Markenexus spotlight */
+.cursor-shade {
+  z-index: 9997;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.08) 35%,
+    rgba(255, 255, 255, 0.02) 60%,
+    transparent 72%
+  );
+  mix-blend-mode: screen;
+  filter: blur(2px);
+}
+
+.cursor-shade.is-down {
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.22) 0%,
+    rgba(255, 255, 255, 0.1) 40%,
+    transparent 70%
+  );
+}
+
 .cursor-ring {
+  z-index: 9998;
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  border: 1.5px solid rgba(34, 211, 238, 0.65);
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
   box-shadow:
-    0 0 18px rgba(10, 102, 255, 0.35),
-    inset 0 0 12px rgba(34, 211, 238, 0.12);
-  background: rgba(10, 102, 255, 0.06);
+    0 0 18px rgba(255, 255, 255, 0.18),
+    0 0 18px rgba(37, 99, 235, 0.25),
+    inset 0 0 12px rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .cursor-dot {
+  z-index: 9999;
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #22d3ee;
-  box-shadow: 0 0 10px rgba(34, 211, 238, 0.8);
-  z-index: 9999;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 0 10px rgba(255, 255, 255, 0.7),
+    0 0 14px rgba(125, 211, 252, 0.55);
 }
 
 .cursor-ring.is-down {
   width: 28px;
   height: 28px;
-  border-color: rgba(10, 102, 255, 0.9);
-  background: rgba(10, 102, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .cursor-dot.is-down {
   width: 6px;
   height: 6px;
-  background: #0a66ff;
+  background: #fff;
 }
 
 @media (pointer: coarse) {
+  .cursor-shade,
+  .cursor-ring,
+  .cursor-dot {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-shade,
   .cursor-ring,
   .cursor-dot {
     display: none !important;
