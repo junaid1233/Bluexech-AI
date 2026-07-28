@@ -1,0 +1,78 @@
+.flowing-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.flowing-lines--background {
+  z-index: 0;
+  contain: paint;
+  background:
+    radial-gradient(circle at 18% 14%, rgba(70, 135, 255, 0.12), transparent 44%),
+    radial-gradient(circle at 82% 12%, rgba(86, 158, 255, 0.1), transparent 42%),
+    #050505;
+}
+
+.flowing-lines--background::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 40%, rgba(86, 156, 255, 0.16), transparent 58%);
+  opacity: 0.6;
+}
+
+.flowing-lines--overlay {
+  z-index: 2;
+  mix-blend-mode: screen;
+  opacity: 0.85;
+  background: transparent;
+}
+
+.flowing-lines-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.flowing-lines-group {
+  opacity: 1;
+}
+
+.flowing-lines-path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 90 180;
+  stroke-dashoffset: 0;
+  animation: flowingLineMove var(--line-duration) linear infinite;
+  animation-delay: var(--line-delay);
+}
+
+.flowing-lines--overlay .flowing-lines-path {
+  stroke-dasharray: 70 150;
+}
+
+@keyframes flowingLineMove {
+  to {
+    stroke-dashoffset: -360;
+  }
+}
+
+@media (max-width: 640px) {
+  .flowing-lines-path {
+    stroke-dasharray: 70 170;
+  }
+
+  .flowing-lines--overlay {
+    opacity: 0.7;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flowing-lines-path {
+    animation: none !important;
+  }
+}

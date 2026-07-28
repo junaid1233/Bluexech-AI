@@ -1,44 +1,16 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useRef } from 'react'
+import FlowingLines from './FlowingLines'
 import './Hero.css'
 
-const STROKE_COLORS = ['rgba(255,255,255,0.1)', 'rgba(120,180,255,0.2)', 'rgba(80,150,255,0.28)']
-
-const createSeededRandom = (seed) => {
-  let value = seed
-  return () => {
-    value = (value * 1664525 + 1013904223) % 4294967296
-    return value / 4294967296
-  }
-}
-
 export default function Hero() {
+  const heroRef = useRef(null)
   const bgRef = useRef(null)
   const videoRef = useRef(null)
 
-  const waveLines = useMemo(() => {
-    const rnd = createSeededRandom(20260728)
-    return Array.from({ length: 28 }, (_, index) => {
-      const n = index / 27
-      const baseY = -120 + n * 1240
-      const slope = (rnd() - 0.5) * 180
-      const amp = 14 + rnd() * 28
-      const midY = baseY + slope * 0.5
-      const endY = baseY + slope
-      return {
-        id: `line-${index}`,
-        d: `M -240 ${baseY.toFixed(0)} C 200 ${(baseY + amp).toFixed(0)}, 700 ${(baseY - amp).toFixed(0)}, 960 ${midY.toFixed(0)} S 1500 ${(midY + amp * 0.6).toFixed(0)}, 1840 ${endY.toFixed(0)}`,
-        delay: `${(-rnd() * 20).toFixed(1)}s`,
-        duration: `${(22 + rnd() * 16).toFixed(1)}s`,
-        opacity: (0.35 + rnd() * 0.5).toFixed(2),
-        width: (0.55 + rnd() * 0.4).toFixed(2),
-        color: STROKE_COLORS[Math.floor(rnd() * STROKE_COLORS.length)]
-      }
-    })
-  }, [])
-
   useEffect(() => {
+    const hero = heroRef.current
     const bg = bgRef.current
-    if (!bg) return
+    if (!hero || !bg) return
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     let frame = 0
@@ -49,7 +21,7 @@ export default function Hero() {
     let active = false
 
     const onMove = (event) => {
-      const bounds = bg.parentElement.getBoundingClientRect()
+      const bounds = hero.getBoundingClientRect()
       targetX = ((event.clientX - bounds.left) / bounds.width - 0.5) * 8
       targetY = ((event.clientY - bounds.top) / bounds.height - 0.5) * 5
       if (!active) {
@@ -76,7 +48,6 @@ export default function Hero() {
       }
     }
 
-    const hero = bg.parentElement
     hero.addEventListener('pointermove', onMove, { passive: true })
     hero.addEventListener('pointerleave', onLeave)
 
@@ -128,26 +99,9 @@ export default function Hero() {
   }, [])
 
   return (
-    <section id="home" className="hero" aria-label="Bluexech AI">
-      <div className="hero-line-bg" ref={bgRef} aria-hidden="true">
-        <svg className="hero-wave-svg" viewBox="0 0 1600 1000" fill="none" preserveAspectRatio="xMidYMid slice">
-          <g className="hero-wave-main">
-            {waveLines.map((line) => (
-              <path
-                key={line.id}
-                className="hero-wave-line"
-                d={line.d}
-                stroke={line.color}
-                strokeWidth={line.width}
-                opacity={line.opacity}
-                style={{
-                  '--line-delay': line.delay,
-                  '--line-duration': line.duration
-                }}
-              />
-            ))}
-          </g>
-        </svg>
+    <section id="home" className="hero" aria-label="Bluexech AI" ref={heroRef}>
+      <div className="hero-bg-wrap" ref={bgRef}>
+        <FlowingLines variant="background" />
       </div>
 
       <div className="container hero-layout">
@@ -183,6 +137,61 @@ export default function Hero() {
             >
               <source src={`${import.meta.env.BASE_URL}videos/hero.mp4`} type="video/mp4" />
             </video>
+
+            <div className="hero-media-shade" aria-hidden="true" />
+
+            <svg
+              className="hero-neural"
+              viewBox="0 0 560 420"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+              preserveAspectRatio="xMidYMid meet"
+            >
+              <defs>
+                <linearGradient id="neuralStroke" x1="40" y1="40" x2="520" y2="380" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#06B6D4" />
+                  <stop offset="1" stopColor="#2563EB" />
+                </linearGradient>
+                <filter id="nodeGlow" x="-80%" y="-80%" width="260%" height="260%">
+                  <feGaussianBlur stdDeviation="2.5" result="b" />
+                  <feMerge>
+                    <feMergeNode in="b" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              <g className="neural-links" stroke="url(#neuralStroke)" strokeWidth="1.4" strokeLinecap="round">
+                <path className="link link-a" d="M48 70 L140 110 L240 55" strokeDasharray="7 12" />
+                <path className="link link-b" d="M480 80 L400 140 L520 200" strokeDasharray="6 11" />
+                <path className="link link-c" d="M60 340 L150 300 L80 250" strokeDasharray="8 14" />
+              </g>
+
+              <ellipse
+                className="orbit-ring"
+                cx="280"
+                cy="210"
+                rx="200"
+                ry="125"
+                stroke="#2563EB"
+                strokeWidth="1"
+                strokeDasharray="3 9"
+                opacity="0.28"
+              />
+
+              <g filter="url(#nodeGlow)">
+                <circle className="node node-a" cx="48" cy="70" r="4.5" fill="#06B6D4" />
+                <circle className="node node-b" cx="140" cy="110" r="5.5" fill="#2563EB" />
+                <circle className="node node-c" cx="240" cy="55" r="4" fill="#06B6D4" />
+                <circle className="node node-d" cx="480" cy="80" r="4.5" fill="#2563EB" />
+                <circle className="node node-e" cx="400" cy="140" r="5" fill="#06B6D4" />
+                <circle className="node node-f" cx="520" cy="200" r="4" fill="#2563EB" />
+                <circle className="node node-g" cx="60" cy="340" r="4.5" fill="#06B6D4" />
+                <circle className="node node-h" cx="150" cy="300" r="5" fill="#2563EB" />
+                <circle className="node node-i" cx="80" cy="250" r="4" fill="#06B6D4" />
+              </g>
+            </svg>
           </div>
         </div>
       </div>
