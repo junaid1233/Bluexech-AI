@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react'
 import './Hero.css'
 
-const STROKE_COLORS = ['rgba(255,255,255,0.08)', 'rgba(120,180,255,0.18)', 'rgba(80,150,255,0.25)']
+const STROKE_COLORS = ['rgba(255,255,255,0.1)', 'rgba(120,180,255,0.2)', 'rgba(80,150,255,0.28)']
 
 const createSeededRandom = (seed) => {
   let value = seed
@@ -12,93 +12,78 @@ const createSeededRandom = (seed) => {
 }
 
 export default function Hero() {
-  const heroRef = useRef(null)
+  const bgRef = useRef(null)
   const videoRef = useRef(null)
-  const { waveLines, glowLines, particleTracks } = useMemo(() => {
+
+  const waveLines = useMemo(() => {
     const rnd = createSeededRandom(20260728)
-    const lineCount = 48
-    const lines = Array.from({ length: lineCount }, (_, index) => {
-      const n = index / (lineCount - 1)
-      const baseY = -180 + n * 1360
-      const slope = (rnd() - 0.5) * 220
-      const ampA = 10 + rnd() * 32
-      const ampB = 8 + rnd() * 36
-      const ampC = 12 + rnd() * 28
-      const midY = baseY + slope * 0.52
+    return Array.from({ length: 28 }, (_, index) => {
+      const n = index / 27
+      const baseY = -120 + n * 1240
+      const slope = (rnd() - 0.5) * 180
+      const amp = 14 + rnd() * 28
+      const midY = baseY + slope * 0.5
       const endY = baseY + slope
-      const duration = 26 + rnd() * 20
       return {
         id: `line-${index}`,
-        d: `M -280 ${baseY.toFixed(1)} C 160 ${(baseY + ampA).toFixed(1)}, 560 ${(baseY - ampB).toFixed(1)}, 880 ${midY.toFixed(1)} S 1480 ${(midY + ampC * (rnd() > 0.5 ? 1 : -1)).toFixed(1)}, 1880 ${endY.toFixed(1)}`,
-        delay: `${(-rnd() * duration).toFixed(2)}s`,
-        duration: `${duration.toFixed(2)}s`,
-        breathDuration: `${(7 + rnd() * 6).toFixed(2)}s`,
-        opacity: (0.4 + rnd() * 0.55).toFixed(3),
-        width: (0.5 + rnd() * 0.5).toFixed(2),
-        travelX: `${(18 + rnd() * 28).toFixed(1)}px`,
-        driftY: `${(-12 + rnd() * 24).toFixed(1)}px`,
+        d: `M -240 ${baseY.toFixed(0)} C 200 ${(baseY + amp).toFixed(0)}, 700 ${(baseY - amp).toFixed(0)}, 960 ${midY.toFixed(0)} S 1500 ${(midY + amp * 0.6).toFixed(0)}, 1840 ${endY.toFixed(0)}`,
+        delay: `${(-rnd() * 20).toFixed(1)}s`,
+        duration: `${(22 + rnd() * 16).toFixed(1)}s`,
+        opacity: (0.35 + rnd() * 0.5).toFixed(2),
+        width: (0.55 + rnd() * 0.4).toFixed(2),
         color: STROKE_COLORS[Math.floor(rnd() * STROKE_COLORS.length)]
       }
     })
-
-    const glow = lines.filter((_, index) => index % 4 === 0)
-    const tracks = lines
-      .filter((_, index) => index % 12 === 0)
-      .slice(0, 4)
-      .map((line, index) => ({
-        id: `particle-${index}`,
-        d: line.d,
-        duration: `${12 + rnd() * 10}s`,
-        delay: `${(-rnd() * 8).toFixed(2)}s`,
-        radius: (1 + rnd() * 1.2).toFixed(2),
-        opacity: (0.5 + rnd() * 0.4).toFixed(2)
-      }))
-
-    return { waveLines: lines, glowLines: glow, particleTracks: tracks }
   }, [])
 
   useEffect(() => {
-    const node = heroRef.current
-    if (!node || typeof window === 'undefined') return
-
-    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
-    if (media.matches) return
+    const bg = bgRef.current
+    if (!bg) return
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     let frame = 0
     let targetX = 0
     let targetY = 0
     let currentX = 0
     let currentY = 0
+    let active = false
 
-    const setParallax = (event) => {
-      const bounds = node.getBoundingClientRect()
-      const x = (event.clientX - bounds.left) / bounds.width
-      const y = (event.clientY - bounds.top) / bounds.height
-      targetX = (x - 0.5) * 10
-      targetY = (y - 0.5) * 6
+    const onMove = (event) => {
+      const bounds = bg.parentElement.getBoundingClientRect()
+      targetX = ((event.clientX - bounds.left) / bounds.width - 0.5) * 8
+      targetY = ((event.clientY - bounds.top) / bounds.height - 0.5) * 5
+      if (!active) {
+        active = true
+        frame = requestAnimationFrame(tick)
+      }
     }
 
-    const resetParallax = () => {
+    const onLeave = () => {
       targetX = 0
       targetY = 0
     }
 
     const tick = () => {
-      currentX += (targetX - currentX) * 0.08
-      currentY += (targetY - currentY) * 0.08
-      node.style.setProperty('--parallax-x', `${currentX.toFixed(2)}px`)
-      node.style.setProperty('--parallax-y', `${currentY.toFixed(2)}px`)
-      frame = requestAnimationFrame(tick)
+      currentX += (targetX - currentX) * 0.1
+      currentY += (targetY - currentY) * 0.1
+      bg.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0)`
+
+      if (Math.abs(targetX - currentX) > 0.05 || Math.abs(targetY - currentY) > 0.05) {
+        frame = requestAnimationFrame(tick)
+      } else {
+        active = false
+        bg.style.transform = `translate3d(${targetX.toFixed(2)}px, ${targetY.toFixed(2)}px, 0)`
+      }
     }
 
-    node.addEventListener('pointermove', setParallax, { passive: true })
-    node.addEventListener('pointerleave', resetParallax)
-    frame = requestAnimationFrame(tick)
+    const hero = bg.parentElement
+    hero.addEventListener('pointermove', onMove, { passive: true })
+    hero.addEventListener('pointerleave', onLeave)
 
     return () => {
       cancelAnimationFrame(frame)
-      node.removeEventListener('pointermove', setParallax)
-      node.removeEventListener('pointerleave', resetParallax)
+      hero.removeEventListener('pointermove', onMove)
+      hero.removeEventListener('pointerleave', onLeave)
     }
   }, [])
 
@@ -106,90 +91,60 @@ export default function Hero() {
     const video = videoRef.current
     if (!video) return
 
+    video.muted = true
+    video.playsInline = true
     video.defaultPlaybackRate = 1
     video.playbackRate = 1
 
-    const playVideo = () => {
+    const ensurePlay = () => {
       video.playbackRate = 1
-      const playPromise = video.play()
-      if (playPromise?.catch) playPromise.catch(() => {})
+      if (video.paused) {
+        const p = video.play()
+        if (p?.catch) p.catch(() => {})
+      }
     }
 
-    const forceNormalSpeed = () => {
-      if (video.playbackRate !== 1) video.playbackRate = 1
+    const onVisible = (entries) => {
+      const entry = entries[0]
+      if (!entry) return
+      if (entry.isIntersecting) ensurePlay()
+      else video.pause()
     }
 
-    video.addEventListener('loadeddata', playVideo)
-    video.addEventListener('canplay', playVideo)
-    video.addEventListener('ratechange', forceNormalSpeed)
-    playVideo()
+    const observer = new IntersectionObserver(onVisible, { threshold: 0.2 })
+    observer.observe(video)
+
+    video.addEventListener('canplay', ensurePlay)
+    video.addEventListener('stalled', ensurePlay)
+    video.addEventListener('waiting', ensurePlay)
+    ensurePlay()
 
     return () => {
-      video.removeEventListener('loadeddata', playVideo)
-      video.removeEventListener('canplay', playVideo)
-      video.removeEventListener('ratechange', forceNormalSpeed)
+      observer.disconnect()
+      video.removeEventListener('canplay', ensurePlay)
+      video.removeEventListener('stalled', ensurePlay)
+      video.removeEventListener('waiting', ensurePlay)
     }
   }, [])
 
   return (
-    <section id="home" className="hero" aria-label="Bluexech AI" ref={heroRef}>
-      <div className="hero-line-bg" aria-hidden="true">
-        <svg className="hero-wave-svg" viewBox="0 0 1600 1000" fill="none" preserveAspectRatio="none">
-          <defs>
-            <filter id="heroParticleGlow" x="-200%" y="-200%" width="500%" height="500%">
-              <feGaussianBlur stdDeviation="2.4" result="glow" />
-              <feMerge>
-                <feMergeNode in="glow" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
-
-          <g className="hero-wave-glow">
-            {glowLines.map((line) => (
-              <path
-                key={`${line.id}-glow`}
-                className="hero-wave-line hero-wave-line-glow"
-                d={line.d}
-                style={{
-                  '--line-delay': line.delay,
-                  '--line-duration': line.duration,
-                  '--line-breath-duration': line.breathDuration,
-                  '--line-opacity': Number(line.opacity) * 0.28,
-                  '--line-width': Number(line.width) + 0.8,
-                  '--line-travel-x': line.travelX,
-                  '--line-drift-y': line.driftY,
-                  '--line-color': line.color
-                }}
-              />
-            ))}
-          </g>
-
+    <section id="home" className="hero" aria-label="Bluexech AI">
+      <div className="hero-line-bg" ref={bgRef} aria-hidden="true">
+        <svg className="hero-wave-svg" viewBox="0 0 1600 1000" fill="none" preserveAspectRatio="xMidYMid slice">
           <g className="hero-wave-main">
             {waveLines.map((line) => (
               <path
                 key={line.id}
                 className="hero-wave-line"
                 d={line.d}
+                stroke={line.color}
+                strokeWidth={line.width}
+                opacity={line.opacity}
                 style={{
                   '--line-delay': line.delay,
-                  '--line-duration': line.duration,
-                  '--line-breath-duration': line.breathDuration,
-                  '--line-opacity': line.opacity,
-                  '--line-width': line.width,
-                  '--line-travel-x': line.travelX,
-                  '--line-drift-y': line.driftY,
-                  '--line-color': line.color
+                  '--line-duration': line.duration
                 }}
               />
-            ))}
-          </g>
-
-          <g className="hero-path-particles" filter="url(#heroParticleGlow)">
-            {particleTracks.map((track) => (
-              <circle key={track.id} r={track.radius} fill="#8bc2ff" opacity={track.opacity}>
-                <animateMotion dur={track.duration} begin={track.delay} repeatCount="indefinite" path={track.d} />
-              </circle>
             ))}
           </g>
         </svg>
@@ -222,12 +177,12 @@ export default function Hero() {
               loop
               playsInline
               preload="auto"
+              disablePictureInPicture
+              disableRemotePlayback
               aria-label="Bluexech AI product showcase"
             >
               <source src={`${import.meta.env.BASE_URL}videos/hero.mp4`} type="video/mp4" />
             </video>
-
-            <div className="hero-media-shade" aria-hidden="true" />
           </div>
         </div>
       </div>

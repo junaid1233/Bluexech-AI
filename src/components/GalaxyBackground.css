@@ -10,10 +10,9 @@
 .galaxy-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(120px);
-  opacity: 0.35;
-  will-change: transform;
-  animation: aurora 22s ease-in-out infinite;
+  filter: blur(90px);
+  opacity: 0.28;
+  animation: aurora 28s ease-in-out infinite;
 }
 
 .galaxy-orb-primary {
