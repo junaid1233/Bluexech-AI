@@ -1,4 +1,6 @@
 .hero {
+  --parallax-x: 0px;
+  --parallax-y: 0px;
   position: relative;
   min-height: calc(100vh - var(--header-h));
   display: flex;
@@ -6,6 +8,61 @@
   overflow: hidden;
   isolation: isolate;
   background: transparent;
+}
+
+.hero-line-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 15%, rgba(46, 123, 255, 0.22), transparent 45%),
+    radial-gradient(circle at 80% 5%, rgba(74, 171, 255, 0.13), transparent 40%),
+    linear-gradient(180deg, #020205 0%, #05070f 45%, #020205 100%);
+  transform: translate3d(calc(var(--parallax-x) * -0.16), calc(var(--parallax-y) * -0.16), 0);
+  transition: transform 240ms ease-out;
+}
+
+.hero-line-bg::after {
+  content: '';
+  position: absolute;
+  inset: -8%;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% -10%, rgba(60, 140, 255, 0.17), transparent 58%);
+  filter: blur(30px);
+  opacity: 0.7;
+}
+
+.hero-wave-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-wave-glow {
+  opacity: 0.42;
+}
+
+.hero-wave-main {
+  opacity: 0.86;
+}
+
+.hero-wave-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: var(--line-opacity);
+  stroke-width: var(--line-width);
+  stroke-dasharray: 72 160;
+  stroke-dashoffset: 0;
+  transform-origin: center;
+  transform-box: fill-box;
+  will-change: transform, stroke-dashoffset;
+  animation:
+    lineFlow var(--line-duration) linear infinite,
+    lineWave calc(var(--line-duration) * 0.7) ease-in-out infinite;
+  animation-delay: var(--line-delay), var(--line-delay);
 }
 
 .hero-layout {
@@ -184,6 +241,33 @@
   }
 }
 
+@keyframes lineFlow {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -420;
+  }
+}
+
+@keyframes lineWave {
+  0%,
+  100% {
+    transform: translate3d(
+      calc(var(--parallax-x) * 0.24),
+      calc(var(--parallax-y) * 0.24),
+      0
+    );
+  }
+  50% {
+    transform: translate3d(
+      calc((var(--parallax-x) * 0.3) + var(--line-sway)),
+      calc((var(--parallax-y) * -0.22) - (var(--line-sway) * 0.32)),
+      0
+    );
+  }
+}
+
 @media (min-width: 900px) {
   .hero-layout {
     grid-template-columns: 1.05fr 0.95fr;
@@ -196,12 +280,29 @@
 }
 
 @media (max-width: 640px) {
+  .hero-line-bg::after {
+    opacity: 0.45;
+    filter: blur(20px);
+  }
+
+  .hero-wave-line {
+    stroke-dasharray: 54 142;
+  }
+
   .hero-media {
     border-radius: 16px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero-line-bg {
+    transform: none !important;
+  }
+
+  .hero-wave-line {
+    animation: none !important;
+  }
+
   .neural-links .link,
   .orbit-ring,
   .node,

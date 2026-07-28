@@ -1,8 +1,116 @@
+import { useEffect, useMemo, useRef } from 'react'
 import './Hero.css'
 
 export default function Hero() {
+  const heroRef = useRef(null)
+  const waveLines = useMemo(
+    () =>
+      Array.from({ length: 36 }, (_, index) => {
+        const y = -140 + index * 34
+        const ampA = 16 + (index % 6) * 5
+        const ampB = 12 + ((index + 3) % 5) * 6
+        return {
+          id: `line-${index}`,
+          d: `M -260 ${y} C 140 ${y + ampA}, 360 ${y - ampA}, 720 ${y} S 1240 ${y + ampB}, 1720 ${y}`,
+          delay: `${(index % 10) * -0.55}s`,
+          duration: `${18 + (index % 7) * 1.7}s`,
+          opacity: (0.08 + (index % 8) * 0.035).toFixed(3),
+          width: (0.7 + (index % 4) * 0.22).toFixed(2),
+          sway: `${8 + (index % 6) * 2}px`
+        }
+      }),
+    []
+  )
+
+  useEffect(() => {
+    const node = heroRef.current
+    if (!node || typeof window === 'undefined') return
+
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (media.matches) return
+
+    let frame = 0
+
+    const setParallax = (event) => {
+      const bounds = node.getBoundingClientRect()
+      const x = (event.clientX - bounds.left) / bounds.width
+      const y = (event.clientY - bounds.top) / bounds.height
+      const px = (x - 0.5) * 20
+      const py = (y - 0.5) * 14
+
+      if (frame) cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(() => {
+        node.style.setProperty('--parallax-x', `${px.toFixed(2)}px`)
+        node.style.setProperty('--parallax-y', `${py.toFixed(2)}px`)
+      })
+    }
+
+    const resetParallax = () => {
+      node.style.setProperty('--parallax-x', '0px')
+      node.style.setProperty('--parallax-y', '0px')
+    }
+
+    node.addEventListener('pointermove', setParallax, { passive: true })
+    node.addEventListener('pointerleave', resetParallax)
+
+    return () => {
+      if (frame) cancelAnimationFrame(frame)
+      node.removeEventListener('pointermove', setParallax)
+      node.removeEventListener('pointerleave', resetParallax)
+    }
+  }, [])
+
   return (
-    <section id="home" className="hero" aria-label="Bluexech AI">
+    <section id="home" className="hero" aria-label="Bluexech AI" ref={heroRef}>
+      <div className="hero-line-bg" aria-hidden="true">
+        <svg className="hero-wave-svg" viewBox="0 0 1440 900" fill="none" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="heroLineGradient" x1="0" y1="0" x2="1440" y2="900" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stopColor="#89a8ff" />
+              <stop offset="0.5" stopColor="#47bfff" />
+              <stop offset="1" stopColor="#1d68ff" />
+            </linearGradient>
+            <filter id="heroLineBlur" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="3.2" />
+            </filter>
+          </defs>
+
+          <g className="hero-wave-glow" stroke="url(#heroLineGradient)" filter="url(#heroLineBlur)">
+            {waveLines.map((line) => (
+              <path
+                key={`${line.id}-glow`}
+                className="hero-wave-line"
+                d={line.d}
+                style={{
+                  '--line-delay': line.delay,
+                  '--line-duration': line.duration,
+                  '--line-opacity': Number(line.opacity) * 0.55,
+                  '--line-width': Number(line.width) + 0.25,
+                  '--line-sway': line.sway
+                }}
+              />
+            ))}
+          </g>
+
+          <g className="hero-wave-main" stroke="url(#heroLineGradient)">
+            {waveLines.map((line) => (
+              <path
+                key={line.id}
+                className="hero-wave-line"
+                d={line.d}
+                style={{
+                  '--line-delay': line.delay,
+                  '--line-duration': line.duration,
+                  '--line-opacity': line.opacity,
+                  '--line-width': line.width,
+                  '--line-sway': line.sway
+                }}
+              />
+            ))}
+          </g>
+        </svg>
+      </div>
+
       <div className="container hero-layout">
         <div className="hero-copy">
           <p className="hero-brand">Bluexech AI</p>

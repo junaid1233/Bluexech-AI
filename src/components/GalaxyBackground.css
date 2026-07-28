@@ -42,22 +42,6 @@
   animation-delay: -14s;
 }
 
-/*
-  Markenexus bg-grid recreation (same structure):
-  48px lines, #ffffff0f, top radial fade, pan animation
-*/
-.galaxy-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(#ffffff1f 1px, transparent 1px),
-    linear-gradient(90deg, #ffffff1f 1px, transparent 1px);
-  background-size: 48px 48px;
-  -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 0%, #000, transparent);
-  mask-image: radial-gradient(ellipse 60% 60% at 50% 0%, #000, transparent);
-  animation: grid-pan 6s linear infinite;
-}
-
 @keyframes aurora {
   0%,
   100% {
@@ -71,29 +55,15 @@
   }
 }
 
-@keyframes grid-pan {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 48px 48px;
-  }
-}
-
 @media (max-width: 900px) {
   .galaxy-orb {
     opacity: 0.25;
     filter: blur(90px);
   }
-
-  .galaxy-grid {
-    animation: none;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .galaxy-orb,
-  .galaxy-grid {
+  .galaxy-orb {
     animation: none !important;
   }
 }
