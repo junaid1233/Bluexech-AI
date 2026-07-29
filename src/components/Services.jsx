@@ -1,47 +1,62 @@
+import { useEffect, useState } from 'react'
 import { useReveal } from '../hooks/useReveal'
+import { services, getServiceById } from '../data/services'
+import DetailModal from './DetailModal'
 import './Services.css'
-
-const services = [
-  {
-    title: 'AI Solutions',
-    desc: 'Custom models, automation, and intelligent workflows that reduce busywork and surface better decisions.',
-    image: 'images/services/ai.png',
-    alt: 'AI neural network and intelligent systems',
-  },
-  {
-    title: 'Web Development',
-    desc: 'Fast, accessible product sites and web apps engineered for performance and conversion.',
-    image: 'images/services/web.png',
-    alt: 'Modern web development and interface design',
-  },
-  {
-    title: 'Cloud & DevOps',
-    desc: 'Scalable cloud architecture, CI/CD, and observability so releases stay predictable.',
-    image: 'images/services/cloud.png',
-    alt: 'Cloud infrastructure and DevOps pipelines',
-  },
-  {
-    title: 'Cybersecurity',
-    desc: 'Threat assessments, hardening, and continuous monitoring to protect data and uptime.',
-    image: 'images/services/cyber.png',
-    alt: 'Cybersecurity shield and digital protection',
-  },
-  {
-    title: 'Custom Software',
-    desc: 'Tailored platforms that fit your processes — from internal tools to customer-facing products.',
-    image: 'images/services/software.png',
-    alt: 'Custom software modules and applications',
-  },
-  {
-    title: 'IT Consulting',
-    desc: 'Clear roadmaps, stack choices, and delivery plans aligned to growth and budget.',
-    image: 'images/services/consulting.png',
-    alt: 'IT consulting strategy and technology roadmap',
-  },
-]
 
 export default function Services() {
   const ref = useReveal()
+  const [activeId, setActiveId] = useState(null)
+  const active = activeId ? getServiceById(activeId) : null
+
+  useEffect(() => {
+    const openFromHash = () => {
+      const hash = window.location.hash.replace('#', '')
+      if (hash.startsWith('service-')) {
+        const id = hash.replace('service-', '')
+        if (getServiceById(id)) {
+          setActiveId(id)
+          document.getElementById('services')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+      }
+    }
+
+    openFromHash()
+    window.addEventListener('hashchange', openFromHash)
+    return () => window.removeEventListener('hashchange', openFromHash)
+  }, [])
+
+  useEffect(() => {
+    if (!activeId) return
+    const onKey = (e) => {
+      if (e.key === 'Escape') closeModal()
+    }
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [activeId])
+
+  const openService = (id) => {
+    setActiveId(id)
+    window.history.replaceState(null, '', `#service-${id}`)
+  }
+
+  const closeModal = () => {
+    setActiveId(null)
+    if (window.location.hash.startsWith('#service-')) {
+      window.history.replaceState(null, '', '#services')
+    }
+  }
+
+  const goContact = (title) => {
+    sessionStorage.setItem('selectedService', title)
+    closeModal()
+    window.location.hash = 'contact'
+    window.dispatchEvent(new CustomEvent('prefill-service', { detail: title }))
+  }
 
   return (
     <section id="services" className="section">
@@ -49,27 +64,68 @@ export default function Services() {
         <div className="section-head center">
           <span className="eyebrow">Services</span>
           <h2>IT capabilities built for real outcomes</h2>
-          <p>From strategy to shipping — one team across AI, software, cloud, and security.</p>
+          <p>From strategy to shipping — one team across AI, software, cloud, and security. Tap a course to open details.</p>
         </div>
         <div className="services-grid reveal" ref={ref}>
           {services.map((item) => (
-            <article key={item.title} className="service-item">
-              <div className="service-media">
-                <img
-                  src={`${import.meta.env.BASE_URL}${item.image}`}
-                  alt={item.alt}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div className="service-body">
-                <h3>{item.title}</h3>
-                <p>{item.desc}</p>
-              </div>
+            <article key={item.id} className="service-item">
+              <button type="button" className="service-open" onClick={() => openService(item.id)} aria-label={`Open ${item.title}`}>
+                <div className="service-media">
+                  <img
+                    src={`${import.meta.env.BASE_URL}${item.image}`}
+                    alt={item.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div className="service-body">
+                  <h3>{item.title}</h3>
+                  <p>{item.desc}</p>
+                  <span className="service-cta">Open course →</span>
+                </div>
+              </button>
             </article>
           ))}
         </div>
       </div>
+
+      <DetailModal
+        open={Boolean(active)}
+        onClose={closeModal}
+        title={active?.title}
+        image={active ? `${import.meta.env.BASE_URL}${active.image}` : ''}
+        imageAlt={active?.alt}
+      >
+        {active ? (
+          <>
+            <div className="detail-meta">
+              <span>{active.duration}</span>
+              <span>{active.level}</span>
+            </div>
+            <p>{active.details}</p>
+            <p className="detail-list-title">What you get</p>
+            <ul className="detail-list">
+              {active.modules.map((m) => (
+                <li key={m}>{m}</li>
+              ))}
+            </ul>
+            <p className="detail-list-title">Outcomes</p>
+            <ul className="detail-list">
+              {active.outcomes.map((o) => (
+                <li key={o}>{o}</li>
+              ))}
+            </ul>
+            <div className="detail-actions">
+              <button type="button" className="btn btn-primary" onClick={() => goContact(active.title)}>
+                Enroll / Talk to us
+              </button>
+              <button type="button" className="btn btn-ghost" onClick={closeModal}>
+                Close
+              </button>
+            </div>
+          </>
+        ) : null}
+      </DetailModal>
     </section>
   )
 }

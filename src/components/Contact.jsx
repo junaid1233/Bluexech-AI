@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useReveal } from '../hooks/useReveal'
 import { COUNTRY_CODES } from '../data/countryCodes'
 import './Contact.css'
@@ -21,6 +21,24 @@ export default function Contact() {
   const ref = useReveal()
 
   const dial = COUNTRY_CODES.find((c) => c.code === form.country)?.dial || '+92'
+
+  useEffect(() => {
+    const applyService = (title) => {
+      if (!title) return
+      setForm((prev) => ({ ...prev, service: title }))
+      setSent(false)
+    }
+
+    const fromStorage = sessionStorage.getItem('selectedService')
+    if (fromStorage) {
+      applyService(fromStorage)
+      sessionStorage.removeItem('selectedService')
+    }
+
+    const onPrefill = (e) => applyService(e.detail)
+    window.addEventListener('prefill-service', onPrefill)
+    return () => window.removeEventListener('prefill-service', onPrefill)
+  }, [])
 
   const onChange = (e) => {
     const { name, value } = e.target

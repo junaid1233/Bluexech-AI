@@ -11,7 +11,20 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.service-item:hover {
+.service-open {
+  display: block;
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+}
+
+.service-item:hover,
+.service-item:focus-within {
   transform: translateY(-6px);
   border-color: var(--cyan);
   box-shadow: var(--shadow);
@@ -51,6 +64,15 @@
 .service-item p {
   color: var(--navy-muted);
   font-size: 0.98rem;
+}
+
+.service-cta {
+  display: inline-block;
+  margin-top: 0.85rem;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--cyan);
 }
 
 @media (min-width: 640px) {

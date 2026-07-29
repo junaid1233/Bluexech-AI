@@ -84,16 +84,16 @@ export default function Footer() {
           <h4>Services</h4>
           <ul>
             <li>
-              <a href="#services">AI Solutions</a>
+              <a href="#service-ai-solutions">AI Solutions</a>
             </li>
             <li>
-              <a href="#services">Web Development</a>
+              <a href="#service-web-development">Web Development</a>
             </li>
             <li>
-              <a href="#services">Cloud & DevOps</a>
+              <a href="#service-cloud-devops">Cloud & DevOps</a>
             </li>
             <li>
-              <a href="#services">Cybersecurity</a>
+              <a href="#service-cybersecurity">Cybersecurity</a>
             </li>
           </ul>
         </div>

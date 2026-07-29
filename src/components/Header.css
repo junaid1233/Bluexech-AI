@@ -12,16 +12,13 @@
   transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.site-header.is-scrolled,
-.site-header.is-open {
-  background: rgba(5, 6, 15, 0.94);
+.site-header.is-scrolled {
+  background: rgba(5, 6, 15, 0.88);
   border-bottom-color: var(--line);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
 }
 
 .header-inner {
-  position: relative;
-  z-index: 1301;
   display: flex;
   align-items: center;
   gap: 1.25rem;
@@ -64,10 +61,17 @@
 }
 
 .nav-desktop {
-  display: none;
+  display: flex;
   align-items: center;
   gap: 0.15rem;
   margin-left: auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.nav-desktop::-webkit-scrollbar {
+  display: none;
 }
 
 .nav-desktop a {
@@ -77,6 +81,7 @@
   color: var(--dim);
   padding: 0.45rem 0.7rem;
   border-radius: 8px;
+  white-space: nowrap;
   transition: color 0.2s ease, background 0.2s ease;
 }
 
@@ -89,7 +94,8 @@
   display: flex;
   align-items: center;
   gap: 0.55rem;
-  margin-left: auto;
+  margin-left: 0.5rem;
+  flex-shrink: 0;
 }
 
 .header-contact {
@@ -97,178 +103,29 @@
   font-size: 0.9rem;
 }
 
-.menu-toggle {
-  position: relative;
-  z-index: 1302;
-  width: 44px;
-  height: 44px;
-  border: none;
-  background: transparent;
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 7px;
-  cursor: pointer;
-  padding: 0 4px;
-}
-
-.menu-line {
-  display: block;
-  background: var(--ink);
-  border-radius: 99px;
-  transition: transform 0.3s ease, width 0.3s ease, opacity 0.3s ease;
-}
-
-.menu-line-thick {
-  width: 26px;
-  height: 3.5px;
-}
-
-.menu-line-thin {
-  width: 18px;
-  height: 2px;
-}
-
-.menu-toggle.is-active .menu-line-thick {
-  transform: translateY(4.5px) rotate(45deg);
-  width: 24px;
-}
-
-.menu-toggle.is-active .menu-line-thin {
-  transform: translateY(-4.5px) rotate(-45deg);
-  width: 24px;
-  height: 3.5px;
-}
-
-.mobile-nav-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(2, 3, 8, 0.6);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  z-index: 1200;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.25s ease, visibility 0.25s ease;
-}
-
-.mobile-nav-overlay.is-open {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-.mobile-nav {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: min(86vw, 340px);
-  background: #080b1c;
-  border-left: 1px solid var(--line);
-  padding: 1.1rem 1.15rem 1.6rem;
-  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.45);
-  z-index: 1250;
-  transform: translateX(105%);
-  transition: transform 0.28s ease;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.mobile-nav.is-open {
-  transform: translateX(0);
-}
-
-.mobile-nav-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.75rem;
-  padding-bottom: 0.85rem;
-  border-bottom: 1px solid var(--line);
-}
-
-.mobile-nav-head span {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--ink);
-}
-
-.mobile-nav-close {
-  width: 40px;
-  height: 40px;
-  border: none;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--ink);
-  font-size: 1.6rem;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.mobile-nav-close:hover {
-  background: rgba(34, 211, 238, 0.12);
-  color: var(--cyan);
-}
-
-.mobile-nav nav {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.mobile-nav a {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.15rem;
-  padding: 0.9rem 0.55rem;
-  border-bottom: 1px solid var(--line);
-  color: var(--ink);
-  transition: color 0.2s ease, background 0.2s ease;
-}
-
-.mobile-nav a:last-child {
-  border-bottom: none;
-}
-
-.mobile-nav a:hover,
-.mobile-nav a:active {
-  color: var(--cyan);
-  background: rgba(34, 211, 238, 0.06);
-}
-
 @media (max-width: 959px) {
   .header-contact {
     display: none;
   }
 
-  .nav-desktop {
-    display: none !important;
+  .logo-text {
+    font-size: 1rem;
   }
 
-  .menu-toggle {
-    display: inline-flex;
+  .nav-desktop a {
+    font-size: 0.92rem;
+    padding: 0.4rem 0.55rem;
   }
 }
 
-@media (min-width: 960px) {
+@media (max-width: 520px) {
+  .logo-mark {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+  }
+
   .nav-desktop {
-    display: flex;
-  }
-
-  .menu-toggle {
-    display: none;
-  }
-
-  .header-actions {
-    margin-left: 0.5rem;
-  }
-
-  .mobile-nav,
-  .mobile-nav-overlay {
-    display: none !important;
+    margin-left: 0.35rem;
   }
 }
