@@ -11,6 +11,22 @@
   box-shadow: var(--shadow);
 }
 
+.quote-stars {
+  display: flex;
+  gap: 0.2rem;
+  margin-bottom: 0.85rem;
+}
+
+.quote-stars svg {
+  width: 16px;
+  height: 16px;
+  fill: rgba(255, 255, 255, 0.2);
+}
+
+.quote-stars svg.is-on {
+  fill: #f5c542;
+}
+
 .quote p {
   font-size: 1.02rem;
   color: var(--navy);

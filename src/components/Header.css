@@ -12,13 +12,16 @@
   transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.site-header.is-scrolled {
-  background: rgba(5, 6, 15, 0.88);
+.site-header.is-scrolled,
+.site-header.is-open {
+  background: rgba(5, 6, 15, 0.94);
   border-bottom-color: var(--line);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
 }
 
 .header-inner {
+  position: relative;
+  z-index: 1301;
   display: flex;
   align-items: center;
   gap: 1.25rem;
@@ -69,7 +72,7 @@
 
 .nav-desktop a {
   font-family: var(--font-display);
-  font-size: 0.92rem;
+  font-size: 1.02rem;
   font-weight: 500;
   color: var(--dim);
   padding: 0.45rem 0.7rem;
@@ -94,27 +97,9 @@
   font-size: 0.9rem;
 }
 
-.mobile-auth-btn {
-  display: block;
-  width: 100%;
-  text-align: left;
-  border: none;
-  background: transparent;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.1rem;
-  padding: 0.85rem 0.5rem;
-  border-bottom: 1px solid var(--line);
-  color: var(--ink);
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.mobile-auth-btn.is-primary {
-  color: var(--cyan);
-}
-
 .menu-toggle {
+  position: relative;
+  z-index: 1302;
   width: 44px;
   height: 44px;
   border: none;
@@ -156,83 +141,103 @@
   height: 3.5px;
 }
 
+.mobile-nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 3, 8, 0.6);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 1200;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.mobile-nav-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
 .mobile-nav {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
-  width: min(82vw, 340px);
-  background: rgba(8, 11, 28, 0.98);
+  width: min(86vw, 340px);
+  background: #080b1c;
   border-left: 1px solid var(--line);
-  padding: calc(var(--header-h) + 0.8rem) 1.15rem 1.4rem;
+  padding: 1.1rem 1.15rem 1.6rem;
   box-shadow: -16px 0 40px rgba(0, 0, 0, 0.45);
-  z-index: 1200;
-}
-
-.mobile-nav[hidden] {
-  display: none;
+  z-index: 1250;
+  transform: translateX(105%);
+  transition: transform 0.28s ease;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .mobile-nav.is-open {
-  display: block;
-  animation: slideInRight 0.28s ease;
+  transform: translateX(0);
 }
 
-.mobile-nav-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(2, 3, 8, 0.56);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  z-index: 1100;
+.mobile-nav-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--line);
 }
 
-.mobile-nav-overlay[hidden] {
-  display: none;
+.mobile-nav-head span {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
 }
 
-.mobile-nav-overlay.is-open {
-  display: block;
-  animation: fadeIn 0.22s ease;
+.mobile-nav-close {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--ink);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.mobile-nav-close:hover {
+  background: rgba(34, 211, 238, 0.12);
+  color: var(--cyan);
 }
 
 .mobile-nav nav {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.15rem;
 }
 
 .mobile-nav a {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.1rem;
-  padding: 0.85rem 0.5rem;
+  font-size: 1.15rem;
+  padding: 0.9rem 0.55rem;
   border-bottom: 1px solid var(--line);
   color: var(--ink);
+  transition: color 0.2s ease, background 0.2s ease;
 }
 
 .mobile-nav a:last-child {
   border-bottom: none;
 }
 
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.mobile-nav a:hover,
+.mobile-nav a:active {
+  color: var(--cyan);
+  background: rgba(34, 211, 238, 0.06);
 }
 
 @media (max-width: 959px) {
@@ -241,7 +246,11 @@
   }
 
   .nav-desktop {
-    display: none;
+    display: none !important;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
   }
 }
 

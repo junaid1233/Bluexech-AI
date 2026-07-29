@@ -9,6 +9,7 @@ const initial = {
   country: 'PK',
   phone: '',
   service: '',
+  rating: 0,
   description: '',
   message: '',
 }
@@ -16,6 +17,7 @@ const initial = {
 export default function Contact() {
   const [form, setForm] = useState(initial)
   const [sent, setSent] = useState(false)
+  const [hoverRating, setHoverRating] = useState(0)
   const ref = useReveal()
 
   const dial = COUNTRY_CODES.find((c) => c.code === form.country)?.dial || '+92'
@@ -25,10 +27,16 @@ export default function Contact() {
     setForm((prev) => ({ ...prev, [name]: value }))
   }
 
+  const setRating = (value) => {
+    setForm((prev) => ({ ...prev, rating: value }))
+  }
+
   const onSubmit = (e) => {
     e.preventDefault()
+    if (!form.rating) return
     setSent(true)
     setForm(initial)
+    setHoverRating(0)
   }
 
   return (
@@ -154,6 +162,41 @@ export default function Contact() {
                 <option>Custom Software</option>
                 <option>IT Consulting</option>
               </select>
+            </div>
+            <div className="field">
+              <span className="rating-label" id="rating-label">
+                Your rating
+              </span>
+              <div
+                className="star-rating"
+                role="radiogroup"
+                aria-labelledby="rating-label"
+                onMouseLeave={() => setHoverRating(0)}
+              >
+                {[1, 2, 3, 4, 5].map((value) => {
+                  const active = (hoverRating || form.rating) >= value
+                  return (
+                    <button
+                      key={value}
+                      type="button"
+                      className={`star-btn ${active ? 'is-active' : ''}`}
+                      role="radio"
+                      aria-checked={form.rating === value}
+                      aria-label={`${value} star${value > 1 ? 's' : ''}`}
+                      onMouseEnter={() => setHoverRating(value)}
+                      onFocus={() => setHoverRating(value)}
+                      onClick={() => setRating(value)}
+                    >
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9L12 2.5z" />
+                      </svg>
+                    </button>
+                  )
+                })}
+              </div>
+              {!form.rating ? <span className="rating-hint">Select 1 to 5 stars</span> : (
+                <span className="rating-hint">{form.rating} / 5 selected</span>
+              )}
             </div>
             <div className="field">
               <label htmlFor="description">Message description</label>

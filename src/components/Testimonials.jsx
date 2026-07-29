@@ -6,18 +6,38 @@ const quotes = [
     text: 'Bluexech AI turned a messy backlog into a shipping rhythm. Our platform is faster and our team finally trusts the stack.',
     name: 'Sara Malik',
     role: 'CTO, Freightline',
+    rating: 5,
   },
   {
     text: 'Their security review caught gaps we had overlooked for years. The remediation plan was practical and well sequenced.',
     name: 'Daniel Okoye',
     role: 'Head of IT, Meridian Health',
+    rating: 5,
   },
   {
     text: 'From discovery to launch, communication stayed crisp. The AI automation they built paid for itself in the first quarter.',
     name: 'Priya Nair',
     role: 'COO, Atlas Retail',
+    rating: 5,
   },
 ]
+
+function Stars({ rating }) {
+  return (
+    <div className="quote-stars" aria-label={`${rating} out of 5 stars`}>
+      {[1, 2, 3, 4, 5].map((value) => (
+        <svg
+          key={value}
+          className={value <= rating ? 'is-on' : ''}
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9L12 2.5z" />
+        </svg>
+      ))}
+    </div>
+  )
+}
 
 export default function Testimonials() {
   const ref = useReveal()
@@ -33,6 +53,7 @@ export default function Testimonials() {
         <div className="testimonials-grid reveal" ref={ref}>
           {quotes.map((q) => (
             <blockquote key={q.name} className="quote">
+              <Stars rating={q.rating} />
               <p>“{q.text}”</p>
               <footer>
                 <strong>{q.name}</strong>
