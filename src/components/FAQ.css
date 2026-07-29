@@ -1,11 +1,8 @@
-.faq-layout {
-  display: grid;
-  gap: 2rem;
-}
-
 .faq-list {
   display: grid;
   gap: 0.75rem;
+  max-width: 820px;
+  margin-inline: auto;
 }
 
 .faq-item {
@@ -55,11 +52,4 @@
 
 .faq-panel p {
   color: var(--navy-muted);
-}
-
-@media (min-width: 860px) {
-  .faq-layout {
-    grid-template-columns: 0.85fr 1.15fr;
-    align-items: start;
-  }
 }

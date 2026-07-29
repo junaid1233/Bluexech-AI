@@ -107,6 +107,8 @@ ul {
 .section-head {
   max-width: 640px;
   margin-bottom: 2.75rem;
+  margin-inline: auto;
+  text-align: center;
 }
 
 .section-head.center {

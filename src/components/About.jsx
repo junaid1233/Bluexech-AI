@@ -6,8 +6,8 @@ export default function About() {
 
   return (
     <section id="about" className="section">
-      <div className="container about-grid reveal" ref={ref}>
-        <div className="section-head">
+      <div className="container">
+        <div className="section-head center">
           <span className="eyebrow">About Us</span>
           <h2>Technology partners who build with purpose</h2>
           <p>
@@ -15,7 +15,7 @@ export default function About() {
             and secure infrastructure — delivered by specialists who stay close to your goals.
           </p>
         </div>
-        <div className="about-stats">
+        <div className="about-stats reveal" ref={ref}>
           <div>
             <strong>120+</strong>
             <span>Projects delivered</span>

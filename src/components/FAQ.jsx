@@ -31,8 +31,8 @@ export default function FAQ() {
 
   return (
     <section id="faq" className="section">
-      <div className="container faq-layout">
-        <div className="section-head">
+      <div className="container">
+        <div className="section-head center">
           <span className="eyebrow">FAQ</span>
           <h2>Answers before you reach out</h2>
           <p>Quick clarity on how Bluexech AI partners with teams.</p>

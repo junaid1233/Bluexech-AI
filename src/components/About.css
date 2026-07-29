@@ -1,12 +1,9 @@
-.about-grid {
-  display: grid;
-  gap: 2.5rem;
-}
-
 .about-stats {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
+  max-width: 820px;
+  margin-inline: auto;
 }
 
 .about-stats > div {
@@ -15,6 +12,7 @@
   background: linear-gradient(180deg, rgba(18, 26, 61, 0.75), rgba(10, 14, 36, 0.75));
   border: 1px solid var(--line);
   box-shadow: var(--shadow);
+  text-align: center;
 }
 
 .about-stats strong {
@@ -34,12 +32,7 @@
 }
 
 @media (min-width: 800px) {
-  .about-grid {
-    grid-template-columns: 1.2fr 1fr;
-    align-items: end;
-  }
-
   .about-stats {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }

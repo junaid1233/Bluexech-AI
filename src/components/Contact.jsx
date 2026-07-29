@@ -59,13 +59,16 @@ export default function Contact() {
 
   return (
     <section id="contact" className="section">
-      <div className="container contact-layout reveal" ref={ref}>
-        <div className="contact-info">
+      <div className="container">
+        <div className="section-head center">
           <span className="eyebrow">Contact</span>
           <h2>Let’s build what’s next</h2>
           <p>
             Tell us about your goals. We’ll reply within one business day with next steps and a clear path forward.
           </p>
+        </div>
+        <div className="contact-layout reveal" ref={ref}>
+        <div className="contact-info">
           <ul className="contact-details">
             <li>
               <strong>Email</strong>
@@ -244,6 +247,7 @@ export default function Contact() {
               Submit
             </button>
           </form>
+        </div>
         </div>
       </div>
     </section>
