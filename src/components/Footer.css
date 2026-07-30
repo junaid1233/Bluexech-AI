@@ -63,15 +63,6 @@
   transform: translateY(-2px);
 }
 
-.socials a.social-wa {
-  background: rgba(37, 211, 102, 0.2);
-  color: #7dffb0;
-}
-
-.socials a.social-wa:hover {
-  background: rgba(37, 211, 102, 0.34);
-}
-
 .site-footer h4 {
   font-family: var(--font-display);
   font-size: 0.95rem;
