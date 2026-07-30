@@ -76,7 +76,7 @@ export default function Contact() {
             </li>
             <li>
               <strong>Phone</strong>
-              <a href="tel:+923092547332">03092547332</a>
+              <a href="tel:+923092547332">+92 309 2547332</a>
             </li>
             <li>
               <strong>Office</strong>
@@ -98,7 +98,7 @@ export default function Contact() {
             </span>
             <span className="wa-tx">
               <small>WHATSAPP</small>
-              <b>03092547332</b>
+              <b>+92 309 2547332</b>
             </span>
           </a>
         </div>

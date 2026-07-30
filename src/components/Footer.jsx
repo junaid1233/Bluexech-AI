@@ -124,7 +124,7 @@ export default function Footer() {
               <a href="mailto:support@bluexech.com">support@bluexech.com</a>
             </li>
             <li>
-              <a href="tel:+923092547332">03092547332</a>
+              <a href="tel:+923092547332">+92 309 2547332</a>
             </li>
             <li>120 Innovation Drive, Austin, TX</li>
           </ul>
