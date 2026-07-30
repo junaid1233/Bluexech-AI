@@ -26,7 +26,7 @@ const items = [
 ]
 
 export default function FAQ() {
-  const [open, setOpen] = useState(0)
+  const [open, setOpen] = useState(-1)
   const ref = useReveal()
 
   return (
