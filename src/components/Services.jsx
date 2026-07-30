@@ -64,7 +64,7 @@ export default function Services() {
         <div className="section-head center">
           <span className="eyebrow">Services</span>
           <h2>IT capabilities built for real outcomes</h2>
-          <p>From strategy to shipping — one team across AI, software, cloud, and security. Tap a course to open details.</p>
+          <p>From strategy to shipping — one team across AI, software, cloud, and security. Tap a service to open details.</p>
         </div>
         <div className="services-grid reveal" ref={ref}>
           {services.map((item) => (
@@ -81,7 +81,7 @@ export default function Services() {
                 <div className="service-body">
                   <h3>{item.title}</h3>
                   <p>{item.desc}</p>
-                  <span className="service-cta">Open course →</span>
+                  <span className="service-cta">View service →</span>
                 </div>
               </button>
             </article>
@@ -117,7 +117,7 @@ export default function Services() {
             </ul>
             <div className="detail-actions">
               <button type="button" className="btn btn-primary" onClick={() => goContact(active.title)}>
-                Enroll / Talk to us
+                Get this service
               </button>
               <button type="button" className="btn btn-ghost" onClick={closeModal}>
                 Close

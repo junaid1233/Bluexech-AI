@@ -85,18 +85,12 @@ export default function Header() {
         aria-hidden="true"
       />
 
-      <aside
+      <div
         id="mobile-nav"
         className={`mobile-nav ${open ? 'is-open' : ''}`}
         aria-hidden={!open}
         aria-label="Mobile menu"
       >
-        <div className="mobile-nav-head">
-          <span>Menu</span>
-          <button type="button" className="mobile-nav-close" onClick={close} aria-label="Close menu">
-            ×
-          </button>
-        </div>
         <nav aria-label="Mobile">
           {links.map((link) => (
             <a key={link.href} href={link.href} onClick={close}>
@@ -104,7 +98,7 @@ export default function Header() {
             </a>
           ))}
         </nav>
-      </aside>
+      </div>
     </header>
   )
 }

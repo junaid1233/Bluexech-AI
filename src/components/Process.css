@@ -1,15 +1,24 @@
 .process-list {
   display: grid;
   gap: 1.15rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
   counter-reset: none;
 }
 
 .process-list li {
   position: relative;
+  list-style: none;
   padding: 1.5rem 1.35rem 1.5rem 1.35rem;
   border-radius: var(--radius);
   border: 1px solid var(--line);
   background: linear-gradient(180deg, rgba(18, 26, 61, 0.7), rgba(10, 14, 36, 0.7));
+}
+
+.process-list li::marker {
+  content: '';
+  display: none;
 }
 
 .process-index {

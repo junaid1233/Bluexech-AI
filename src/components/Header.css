@@ -145,7 +145,8 @@
 .mobile-nav-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(2, 3, 8, 0.6);
+  top: var(--header-h);
+  background: rgba(2, 3, 8, 0.55);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
   z-index: 1200;
@@ -163,71 +164,55 @@
 
 .mobile-nav {
   position: fixed;
-  top: 0;
+  top: var(--header-h);
+  left: 0;
   right: 0;
-  bottom: 0;
-  width: min(86vw, 340px);
+  width: 100%;
+  max-height: min(70vh, calc(100dvh - var(--header-h)));
   background: #080b1c;
-  border-left: 1px solid var(--line);
-  padding: 1.1rem 1.15rem 1.6rem;
-  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.45);
+  border-bottom: 1px solid var(--line);
+  padding: 0.5rem 0 1rem;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
   z-index: 1250;
-  transform: translateX(105%);
-  transition: transform 0.28s ease;
+  transform: translateY(-12px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.28s ease, opacity 0.28s ease, visibility 0.28s ease;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
 .mobile-nav.is-open {
-  transform: translateX(0);
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .mobile-nav-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.75rem;
-  padding-bottom: 0.85rem;
-  border-bottom: 1px solid var(--line);
-}
-
-.mobile-nav-head span {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--ink);
-}
-
-.mobile-nav-close {
-  width: 40px;
-  height: 40px;
-  border: none;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--ink);
-  font-size: 1.6rem;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.mobile-nav-close:hover {
-  background: rgba(34, 211, 238, 0.12);
-  color: var(--cyan);
+  display: none;
 }
 
 .mobile-nav nav {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  align-items: stretch;
+  width: min(100% - 2rem, var(--max));
+  margin-inline: auto;
+  gap: 0;
 }
 
 .mobile-nav a {
+  display: block;
+  width: 100%;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.15rem;
-  padding: 0.9rem 0.55rem;
+  font-size: 1.1rem;
+  padding: 0.95rem 0.35rem;
   border-bottom: 1px solid var(--line);
   color: var(--ink);
+  text-align: left;
   transition: color 0.2s ease, background 0.2s ease;
 }
 

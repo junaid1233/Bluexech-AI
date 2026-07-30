@@ -19,7 +19,7 @@ export default function Process() {
           <h2>A clear path from idea to impact</h2>
           <p>Four focused stages keep projects moving without surprises.</p>
         </div>
-        <ol className="process-list reveal" ref={ref}>
+        <ul className="process-list reveal" ref={ref}>
           {steps.map((step, i) => (
             <li key={step.title}>
               <span className="process-index">{i + 1}</span>
@@ -27,7 +27,7 @@ export default function Process() {
               <p>{step.desc}</p>
             </li>
           ))}
-        </ol>
+        </ul>
       </div>
     </section>
   )
