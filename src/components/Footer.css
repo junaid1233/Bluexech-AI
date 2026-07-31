@@ -28,7 +28,7 @@
   width: 28px;
   height: 28px;
   object-fit: contain;
-  filter: drop-shadow(0 0 8px rgba(96, 165, 250, 0.55));
+  filter: none;
 }
 
 .footer-logo em {

@@ -32,46 +32,27 @@
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 0.7rem;
+  gap: 0.65rem;
   flex-shrink: 0;
 }
 
 .logo-mark {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background:
-    radial-gradient(circle at 50% 40%, rgba(34, 211, 238, 0.28), transparent 62%),
-    radial-gradient(circle at 30% 70%, rgba(99, 102, 241, 0.35), transparent 55%),
-    rgba(8, 12, 28, 0.9);
-  border: 1px solid rgba(96, 165, 250, 0.35);
+  width: 40px;
+  height: 40px;
   display: grid;
   place-items: center;
-  overflow: hidden;
-  box-shadow:
-    0 0 0 1px rgba(37, 99, 235, 0.15),
-    0 0 18px rgba(37, 99, 235, 0.45),
-    0 0 32px rgba(34, 211, 238, 0.18),
-    0 8px 20px rgba(10, 102, 255, 0.25);
-  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  overflow: visible;
 }
 
 .logo-mark img {
-  width: 78%;
-  height: 78%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   display: block;
-  filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.55)) drop-shadow(0 0 12px rgba(34, 211, 238, 0.35));
-}
-
-.logo:hover .logo-mark {
-  border-color: rgba(34, 211, 238, 0.55);
-  transform: translateY(-1px);
-  box-shadow:
-    0 0 0 1px rgba(34, 211, 238, 0.2),
-    0 0 22px rgba(37, 99, 235, 0.55),
-    0 0 40px rgba(34, 211, 238, 0.28),
-    0 10px 24px rgba(10, 102, 255, 0.3);
+  filter: none;
 }
 
 .logo-text {
