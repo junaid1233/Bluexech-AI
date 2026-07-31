@@ -18,8 +18,17 @@
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--white);
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
   margin-bottom: 0.75rem;
+}
+
+.footer-logo-mark {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(96, 165, 250, 0.55));
 }
 
 .footer-logo em {

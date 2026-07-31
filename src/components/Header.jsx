@@ -42,7 +42,13 @@ export default function Header() {
       <div className="container header-inner">
         <a href="#home" className="logo" onClick={close} aria-label="Bluexech AI home">
           <span className="logo-mark" aria-hidden="true">
-            B
+            <img
+              src={`${import.meta.env.BASE_URL}images/logo.png`}
+              alt=""
+              width={40}
+              height={40}
+              decoding="async"
+            />
           </span>
           <span className="logo-text">
             Bluexech <em>AI</em>

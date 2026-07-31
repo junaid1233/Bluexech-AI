@@ -26,6 +26,14 @@ export default function Footer() {
       <div className="container footer-grid">
         <div className="footer-brand">
           <a href="#home" className="footer-logo">
+            <img
+              className="footer-logo-mark"
+              src={`${import.meta.env.BASE_URL}images/logo.png`}
+              alt=""
+              width={28}
+              height={28}
+              decoding="async"
+            />
             Bluexech <em>AI</em>
           </a>
           <p>Intelligent IT solutions for modern business — AI, cloud, security, and custom software.</p>
