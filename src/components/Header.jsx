@@ -3,8 +3,9 @@ import './Header.css'
 
 const links = [
   { href: '#home', label: 'Home' },
-  { href: '#about', label: 'About' },
   { href: '#services', label: 'Services' },
+  { href: '#portfolio', label: 'Portfolio' },
+  { href: '#blog', label: 'Blog' },
   { href: '#contact', label: 'Contact' },
 ]
 
@@ -64,7 +65,7 @@ export default function Header() {
 
         <div className="header-actions">
           <a href="#contact" className="btn btn-primary header-contact">
-            Contact
+            Get Started
           </a>
           <button
             type="button"

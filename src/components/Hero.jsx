@@ -107,16 +107,16 @@ export default function Hero() {
       <div className="container hero-layout">
         <div className="hero-copy">
           <p className="hero-brand">Bluexech AI</p>
-          <h1>Stop Guessing. Start Growing with AI.</h1>
+          <h1>Build Smarter with AI, Automation & Modern Web Solutions</h1>
           <p className="hero-lead">
-            We help teams automate workflows, improve efficiency, and move faster with production-grade AI systems.
+            We help businesses grow using AI-powered automation, modern websites, SaaS solutions, and digital innovation.
           </p>
           <div className="hero-ctas">
             <a href="#contact" className="btn btn-primary">
-              Book Free Strategy Call
+              Get Started
             </a>
-            <a href="#services" className="btn btn-ghost">
-              Explore Services
+            <a href="#contact" className="btn btn-ghost">
+              Book Free Consultation
             </a>
           </div>
         </div>

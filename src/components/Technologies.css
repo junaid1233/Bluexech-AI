@@ -1,0 +1,41 @@
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.85rem;
+}
+
+.tech-chip {
+  padding: 1rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(18, 26, 61, 0.7), rgba(10, 14, 36, 0.7));
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.tech-chip:hover {
+  border-color: rgba(37, 99, 235, 0.45);
+  transform: translateY(-3px);
+}
+
+.tech-group {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 0.35rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.tech-chip strong {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+@media (min-width: 700px) {
+  .tech-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

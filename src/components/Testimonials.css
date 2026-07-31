@@ -40,10 +40,33 @@
 
 .quote footer {
   display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
   margin-top: auto;
   padding-top: 0.25rem;
+}
+
+.quote-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--white);
+  background: linear-gradient(135deg, var(--blue), var(--violet));
+  border: 1px solid var(--line2);
+}
+
+.quote-person {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
 }
 
 .quote strong {
@@ -51,7 +74,7 @@
   color: var(--cyan);
 }
 
-.quote span {
+.quote-person span {
   color: var(--navy-muted);
   font-size: 0.9rem;
 }

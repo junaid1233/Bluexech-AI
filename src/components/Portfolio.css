@@ -248,13 +248,16 @@
   border: 1px solid var(--line2);
 }
 
-.pc-cta {
-  display: inline-block;
-  margin-top: 12px;
-  font-family: var(--font-display);
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--cyan);
+.pc-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  padding: 0 18px 18px;
+}
+
+.pc-link-btn {
+  padding: 0.55rem 0.95rem;
+  font-size: 0.85rem;
 }
 
 @keyframes livePulse {

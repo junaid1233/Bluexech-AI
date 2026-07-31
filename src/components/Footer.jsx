@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './Footer.css'
 
 const LINKEDIN_ICON = (
@@ -21,6 +22,16 @@ const INSTAGRAM_ICON = (
 )
 
 export default function Footer() {
+  const [email, setEmail] = useState('')
+  const [joined, setJoined] = useState(false)
+
+  const onNewsletter = (e) => {
+    e.preventDefault()
+    if (!email.trim()) return
+    setJoined(true)
+    setEmail('')
+  }
+
   return (
     <footer className="site-footer">
       <div className="container footer-grid">
@@ -77,13 +88,13 @@ export default function Footer() {
           <h4>Company</h4>
           <ul>
             <li>
-              <a href="#about">About</a>
+              <a href="#features">Why Bluexech</a>
             </li>
             <li>
-              <a href="#features">Why Us</a>
+              <a href="#process">How We Work</a>
             </li>
             <li>
-              <a href="#portfolio">Portfolio</a>
+              <a href="#testimonials">Testimonials</a>
             </li>
             <li>
               <a href="#contact">Contact</a>
@@ -95,25 +106,28 @@ export default function Footer() {
           <h4>Services</h4>
           <ul>
             <li>
-              <a href="#service-ai-solutions">AI Solutions</a>
+              <a href="#service-ai-development">AI Development</a>
+            </li>
+            <li>
+              <a href="#service-ai-automation">AI Automation</a>
             </li>
             <li>
               <a href="#service-web-development">Web Development</a>
             </li>
             <li>
-              <a href="#service-cloud-devops">Cloud & DevOps</a>
-            </li>
-            <li>
-              <a href="#service-cybersecurity">Cybersecurity</a>
+              <a href="#service-saas-development">SaaS Development</a>
             </li>
           </ul>
         </div>
 
         <div>
-          <h4>Resources</h4>
+          <h4>Explore</h4>
           <ul>
             <li>
-              <a href="#process">How We Work</a>
+              <a href="#portfolio">Portfolio</a>
+            </li>
+            <li>
+              <a href="#blog">Blog</a>
             </li>
             <li>
               <a href="#pricing">Packages</a>
@@ -122,13 +136,40 @@ export default function Footer() {
               <a href="#faq">FAQ</a>
             </li>
             <li>
-              <a href="#testimonials">Testimonials</a>
+              <a href="#contact">Privacy Policy</a>
+            </li>
+            <li>
+              <a href="#contact">Terms</a>
             </li>
           </ul>
         </div>
 
-        <div>
-          <h4>Contact</h4>
+        <div className="footer-news">
+          <h4>Newsletter</h4>
+          <p>Get practical AI and product insights in your inbox.</p>
+          {joined ? (
+            <p className="footer-news-ok" role="status">
+              Thanks — you’re on the list.
+            </p>
+          ) : (
+            <form className="footer-news-form" onSubmit={onNewsletter}>
+              <label className="sr-only" htmlFor="newsletter-email">
+                Email
+              </label>
+              <input
+                id="newsletter-email"
+                type="email"
+                required
+                placeholder="you@company.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoComplete="email"
+              />
+              <button type="submit" className="btn btn-primary">
+                Join
+              </button>
+            </form>
+          )}
           <ul className="footer-contact">
             <li>
               <a href="mailto:support@bluexech.com">support@bluexech.com</a>
@@ -136,13 +177,13 @@ export default function Footer() {
             <li>
               <a href="tel:+923092547332">+92 309 2547332</a>
             </li>
-            <li>120 Innovation Drive, Austin, TX</li>
+            <li>120 Innovation Drive, Suite 400, Austin, TX 78701</li>
           </ul>
         </div>
       </div>
 
       <div className="container footer-bottom">
-        <p>Bluexech AI</p>
+        <p>© {new Date().getFullYear()} Bluexech AI. All rights reserved.</p>
       </div>
     </footer>
   )

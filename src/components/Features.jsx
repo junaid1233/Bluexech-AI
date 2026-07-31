@@ -2,28 +2,46 @@ import { useReveal } from '../hooks/useReveal'
 import './Features.css'
 
 const features = [
-  { title: '24/7 Support', desc: 'Always-on response for critical systems and production issues.' },
-  { title: 'Expert Team', desc: 'Senior engineers across AI, cloud, security, and product design.' },
-  { title: 'Scalable Solutions', desc: 'Architectures that grow with traffic, teams, and markets.' },
-  { title: 'Transparent Delivery', desc: 'Clear milestones, demos, and communication every sprint.' },
-  { title: 'Security First', desc: 'Hardening and compliance woven into every engagement.' },
-  { title: 'Business Alignment', desc: 'Technology choices tied to measurable ROI — not hype.' },
+  {
+    title: 'Outcome-first delivery',
+    desc: 'Every engagement is tied to measurable business results — not vanity demos.',
+  },
+  {
+    title: 'Senior specialists',
+    desc: 'AI, product, cloud, and design experts who ship production systems.',
+  },
+  {
+    title: 'Security by default',
+    desc: 'Hardening, access control, and compliance awareness baked into the build.',
+  },
+  {
+    title: 'Transparent communication',
+    desc: 'Clear milestones, demos, and ownership so you always know what is next.',
+  },
+  {
+    title: 'Scalable architecture',
+    desc: 'Systems designed to grow with traffic, teams, and new product lines.',
+  },
+  {
+    title: 'Long-term partnership',
+    desc: 'Support, iteration, and guidance after launch — not a one-and-done handoff.',
+  },
 ]
 
 export default function Features() {
   const ref = useReveal()
 
   return (
-    <section id="features" className="section">
+    <section id="features" className="section" aria-labelledby="why-heading">
       <div className="container">
         <div className="section-head center">
-          <span className="eyebrow">Why Us</span>
-          <h2>What sets Bluexech AI apart</h2>
-          <p>Reliable delivery, sharp craft, and partners who stay accountable after launch.</p>
+          <span className="eyebrow">Why Choose Bluexech</span>
+          <h2 id="why-heading">Built for teams that need real results</h2>
+          <p>Reliable craft, sharp strategy, and partners who stay accountable after launch.</p>
         </div>
         <div className="features-grid reveal" ref={ref}>
           {features.map((f, i) => (
-            <article key={f.title} className="feature-item" style={{ transitionDelay: `${i * 60}ms` }}>
+            <article key={f.title} className="feature-item" style={{ transitionDelay: `${i * 50}ms` }}>
               <span className="feature-num">{String(i + 1).padStart(2, '0')}</span>
               <h3>{f.title}</h3>
               <p>{f.desc}</p>

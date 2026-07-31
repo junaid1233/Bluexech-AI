@@ -1,0 +1,56 @@
+export const blogPosts = [
+  {
+    id: 'best-ai-tools-2026',
+    title: 'Best AI Tools in 2026',
+    excerpt: 'A practical shortlist of AI tools that help teams ship faster without drowning in hype.',
+    tag: 'AI',
+    readTime: '6 min',
+  },
+  {
+    id: 'ai-for-business-growth',
+    title: 'AI for Business Growth',
+    excerpt: 'Where AI actually moves revenue, retention, and operations — with realistic timelines.',
+    tag: 'Growth',
+    readTime: '7 min',
+  },
+  {
+    id: 'web-development-trends',
+    title: 'Web Development Trends',
+    excerpt: 'Performance, accessibility, and product UX patterns shaping modern web builds.',
+    tag: 'Web',
+    readTime: '5 min',
+  },
+  {
+    id: 'saas-guide',
+    title: 'SaaS Guide',
+    excerpt: 'From MVP architecture to billing and onboarding — a clear path for SaaS founders.',
+    tag: 'SaaS',
+    readTime: '8 min',
+  },
+  {
+    id: 'automation-guide',
+    title: 'Automation Guide',
+    excerpt: 'How to automate workflows safely with AI, integrations, and human oversight.',
+    tag: 'Automation',
+    readTime: '6 min',
+  },
+]
+
+export const technologies = [
+  { name: 'React', group: 'Frontend' },
+  { name: 'Next.js', group: 'Frontend' },
+  { name: 'TypeScript', group: 'Frontend' },
+  { name: 'Node.js', group: 'Backend' },
+  { name: 'Python', group: 'AI' },
+  { name: 'OpenAI', group: 'AI' },
+  { name: 'PostgreSQL', group: 'Data' },
+  { name: 'MongoDB', group: 'Data' },
+  { name: 'AWS', group: 'Cloud' },
+  { name: 'Azure', group: 'Cloud' },
+  { name: 'Docker', group: 'DevOps' },
+  { name: 'Kubernetes', group: 'DevOps' },
+  { name: 'Figma', group: 'Design' },
+  { name: 'Tailwind', group: 'Frontend' },
+  { name: 'GraphQL', group: 'API' },
+  { name: 'Firebase', group: 'Backend' },
+]

@@ -269,6 +269,20 @@
   color: rgba(255, 255, 255, 0.65);
 }
 
+.rating-hint.is-error,
+.field-error {
+  color: #fca5a5;
+  font-size: 0.82rem;
+  margin-top: 0.35rem;
+  display: block;
+}
+
+.field input[aria-invalid='true'],
+.field select[aria-invalid='true'],
+.field textarea[aria-invalid='true'] {
+  border-color: rgba(248, 113, 113, 0.65);
+}
+
 .contact-submit {
   width: 100%;
   margin-top: 0.35rem;

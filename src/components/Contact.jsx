@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useReveal } from '../hooks/useReveal'
 import { COUNTRY_CODES } from '../data/countryCodes'
+import { serviceTitles } from '../data/services'
 import './Contact.css'
 
 const initial = {
@@ -19,6 +20,8 @@ export default function Contact() {
   const [sent, setSent] = useState(false)
   const [hoverRating, setHoverRating] = useState(0)
   const ref = useReveal()
+
+  const [errors, setErrors] = useState({})
 
   const dial = COUNTRY_CODES.find((c) => c.code === form.country)?.dial || '+92'
 
@@ -43,18 +46,34 @@ export default function Contact() {
   const onChange = (e) => {
     const { name, value } = e.target
     setForm((prev) => ({ ...prev, [name]: value }))
+    setErrors((prev) => ({ ...prev, [name]: '' }))
   }
 
   const setRating = (value) => {
     setForm((prev) => ({ ...prev, rating: value }))
+    setErrors((prev) => ({ ...prev, rating: '' }))
+  }
+
+  const validate = () => {
+    const next = {}
+    if (!form.name.trim()) next.name = 'Please enter your name.'
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) next.email = 'Enter a valid email.'
+    if (!form.phone.trim()) next.phone = 'Enter your phone number.'
+    if (!form.service) next.service = 'Select a service.'
+    if (!form.rating) next.rating = 'Select a rating from 1 to 5.'
+    if (!form.description.trim()) next.description = 'Add a short description.'
+    if (form.message.trim().length < 10) next.message = 'Please share a bit more detail.'
+    setErrors(next)
+    return Object.keys(next).length === 0
   }
 
   const onSubmit = (e) => {
     e.preventDefault()
-    if (!form.rating) return
+    if (!validate()) return
     setSent(true)
     setForm(initial)
     setHoverRating(0)
+    setErrors({})
   }
 
   return (
@@ -122,7 +141,9 @@ export default function Contact() {
                 value={form.name}
                 onChange={onChange}
                 placeholder="Your name"
+                aria-invalid={Boolean(errors.name)}
               />
+              {errors.name ? <span className="field-error">{errors.name}</span> : null}
             </div>
             <div className="field">
               <label htmlFor="email">Email</label>
@@ -135,7 +156,9 @@ export default function Contact() {
                 value={form.email}
                 onChange={onChange}
                 placeholder="you@company.com"
+                aria-invalid={Boolean(errors.email)}
               />
+              {errors.email ? <span className="field-error">{errors.email}</span> : null}
             </div>
             <div className="field">
               <label htmlFor="phone">Phone</label>
@@ -169,20 +192,21 @@ export default function Contact() {
                   />
                 </div>
               </div>
+              {errors.phone ? <span className="field-error">{errors.phone}</span> : null}
             </div>
             <div className="field">
               <label htmlFor="service">Service</label>
-              <select id="service" name="service" required value={form.service} onChange={onChange}>
+              <select id="service" name="service" required value={form.service} onChange={onChange} aria-invalid={Boolean(errors.service)}>
                 <option value="" disabled>
                   Select a service
                 </option>
-                <option>AI Solutions</option>
-                <option>Web Development</option>
-                <option>Cloud & DevOps</option>
-                <option>Cybersecurity</option>
-                <option>Custom Software</option>
-                <option>IT Consulting</option>
+                {serviceTitles.map((title) => (
+                  <option key={title} value={title}>
+                    {title}
+                  </option>
+                ))}
               </select>
+              {errors.service ? <span className="field-error">{errors.service}</span> : null}
             </div>
             <div className="field">
               <span className="rating-label" id="rating-label">
@@ -215,7 +239,11 @@ export default function Contact() {
                   )
                 })}
               </div>
-              {!form.rating ? <span className="rating-hint">Select 1 to 5 stars</span> : (
+              {!form.rating ? (
+                <span className={`rating-hint ${errors.rating ? 'is-error' : ''}`}>
+                  {errors.rating || 'Select 1 to 5 stars'}
+                </span>
+              ) : (
                 <span className="rating-hint">{form.rating} / 5 selected</span>
               )}
             </div>
@@ -229,7 +257,9 @@ export default function Contact() {
                 value={form.description}
                 onChange={onChange}
                 placeholder="Short summary — e.g. Need AI chatbot for support"
+                aria-invalid={Boolean(errors.description)}
               />
+              {errors.description ? <span className="field-error">{errors.description}</span> : null}
             </div>
             <div className="field">
               <label htmlFor="message">Message details</label>
@@ -241,7 +271,9 @@ export default function Contact() {
                 value={form.message}
                 onChange={onChange}
                 placeholder="Describe your project, goals, timeline, and any challenges in detail…"
+                aria-invalid={Boolean(errors.message)}
               />
+              {errors.message ? <span className="field-error">{errors.message}</span> : null}
             </div>
             <button type="submit" className="btn btn-light contact-submit">
               Submit
