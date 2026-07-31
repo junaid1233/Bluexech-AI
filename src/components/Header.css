@@ -40,8 +40,8 @@
 }
 
 .logo-mark {
-  width: 1.35em;
-  height: 1.35em;
+  width: 1.55em;
+  height: 1.55em;
   object-fit: contain;
   object-position: bottom center;
   display: inline-block;
@@ -52,7 +52,7 @@
   filter: none;
   vertical-align: baseline;
   /* optical baseline match with wordmark */
-  transform: translateY(0.14em);
+  transform: translateY(0.16em);
 }
 
 .logo-text {
