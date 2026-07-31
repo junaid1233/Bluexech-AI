@@ -10,7 +10,6 @@ const initial = {
   country: 'PK',
   phone: '',
   service: '',
-  rating: 0,
   description: '',
   message: '',
 }
@@ -18,7 +17,6 @@ const initial = {
 export default function Contact() {
   const [form, setForm] = useState(initial)
   const [sent, setSent] = useState(false)
-  const [hoverRating, setHoverRating] = useState(0)
   const ref = useReveal()
 
   const [errors, setErrors] = useState({})
@@ -49,18 +47,12 @@ export default function Contact() {
     setErrors((prev) => ({ ...prev, [name]: '' }))
   }
 
-  const setRating = (value) => {
-    setForm((prev) => ({ ...prev, rating: value }))
-    setErrors((prev) => ({ ...prev, rating: '' }))
-  }
-
   const validate = () => {
     const next = {}
     if (!form.name.trim()) next.name = 'Please enter your name.'
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) next.email = 'Enter a valid email.'
     if (!form.phone.trim()) next.phone = 'Enter your phone number.'
     if (!form.service) next.service = 'Select a service.'
-    if (!form.rating) next.rating = 'Select a rating from 1 to 5.'
     if (!form.description.trim()) next.description = 'Add a short description.'
     if (form.message.trim().length < 10) next.message = 'Please share a bit more detail.'
     setErrors(next)
@@ -72,7 +64,6 @@ export default function Contact() {
     if (!validate()) return
     setSent(true)
     setForm(initial)
-    setHoverRating(0)
     setErrors({})
   }
 
@@ -207,45 +198,6 @@ export default function Contact() {
                 ))}
               </select>
               {errors.service ? <span className="field-error">{errors.service}</span> : null}
-            </div>
-            <div className="field">
-              <span className="rating-label" id="rating-label">
-                Your rating
-              </span>
-              <div
-                className="star-rating"
-                role="radiogroup"
-                aria-labelledby="rating-label"
-                onMouseLeave={() => setHoverRating(0)}
-              >
-                {[1, 2, 3, 4, 5].map((value) => {
-                  const active = (hoverRating || form.rating) >= value
-                  return (
-                    <button
-                      key={value}
-                      type="button"
-                      className={`star-btn ${active ? 'is-active' : ''}`}
-                      role="radio"
-                      aria-checked={form.rating === value}
-                      aria-label={`${value} star${value > 1 ? 's' : ''}`}
-                      onMouseEnter={() => setHoverRating(value)}
-                      onFocus={() => setHoverRating(value)}
-                      onClick={() => setRating(value)}
-                    >
-                      <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M12 2.5l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.8 6.2 20.4l1.1-6.5L2.6 9.3l6.5-.9L12 2.5z" />
-                      </svg>
-                    </button>
-                  )
-                })}
-              </div>
-              {!form.rating ? (
-                <span className={`rating-hint ${errors.rating ? 'is-error' : ''}`}>
-                  {errors.rating || 'Select 1 to 5 stars'}
-                </span>
-              ) : (
-                <span className="rating-hint">{form.rating} / 5 selected</span>
-              )}
             </div>
             <div className="field">
               <label htmlFor="description">Message description</label>
