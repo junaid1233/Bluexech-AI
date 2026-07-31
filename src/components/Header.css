@@ -32,35 +32,29 @@
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.35rem;
   flex-shrink: 0;
 }
 
 .logo-mark {
-  width: 40px;
-  height: 40px;
-  display: grid;
-  place-items: center;
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
   background: transparent;
   border: none;
   box-shadow: none;
-  overflow: visible;
-}
-
-.logo-mark img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
   filter: none;
 }
 
 .logo-text {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.15rem;
-  letter-spacing: -0.015em;
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
   color: var(--ink);
+  line-height: 1;
 }
 
 .logo-text em {

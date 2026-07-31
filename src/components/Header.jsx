@@ -41,17 +41,16 @@ export default function Header() {
     <header className={`site-header ${scrolled ? 'is-scrolled' : ''} ${open ? 'is-open' : ''}`}>
       <div className="container header-inner">
         <a href="#home" className="logo" onClick={close} aria-label="Bluexech AI home">
-          <span className="logo-mark" aria-hidden="true">
-            <img
-              src={`${import.meta.env.BASE_URL}images/logo.png`}
-              alt=""
-              width={40}
-              height={40}
-              decoding="async"
-            />
-          </span>
+          <img
+            className="logo-mark"
+            src={`${import.meta.env.BASE_URL}images/logo.png`}
+            alt=""
+            width={44}
+            height={44}
+            decoding="async"
+          />
           <span className="logo-text">
-            Bluexech <em>AI</em>
+            luexech <em>AI</em>
           </span>
         </a>
 

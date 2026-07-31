@@ -30,11 +30,13 @@ export default function Footer() {
               className="footer-logo-mark"
               src={`${import.meta.env.BASE_URL}images/logo.png`}
               alt=""
-              width={28}
-              height={28}
+              width={32}
+              height={32}
               decoding="async"
             />
-            Bluexech <em>AI</em>
+            <span>
+              luexech <em>AI</em>
+            </span>
           </a>
           <p>Intelligent IT solutions for modern business — AI, cloud, security, and custom software.</p>
           <div className="socials" aria-label="Social links">
