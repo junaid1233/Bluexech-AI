@@ -2,17 +2,81 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="shortcut icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Bluexech AI — Stop Guessing. Start Growing with AI. Production-grade AI systems, automation, and measurable ROI." />
     <title>Bluexech AI | Stop Guessing. Start Growing with AI</title>
+    <meta
+      name="description"
+      content="Bluexech AI — Stop Guessing. Start Growing with AI. Production-grade AI systems, automation, and measurable ROI."
+    />
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="application-name" content="Bluexech AI" />
+    <link rel="canonical" href="https://www.bluexech.com/" />
+
+    <!-- Favicons (Google Search requires a crawlable icon, ideally ≥48×48) -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    <!-- Open Graph / social brand -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Bluexech AI" />
+    <meta property="og:title" content="Bluexech AI | Stop Guessing. Start Growing with AI" />
+    <meta
+      property="og:description"
+      content="Production-grade AI systems, automation, and measurable ROI."
+    />
+    <meta property="og:url" content="https://www.bluexech.com/" />
+    <meta property="og:image" content="https://www.bluexech.com/images/logo.png" />
+    <meta property="og:image:alt" content="Bluexech AI logo" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Bluexech AI" />
+    <meta name="twitter:image" content="https://www.bluexech.com/images/logo.png" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Structured data: helps Google associate brand logo with the site -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://www.bluexech.com/#organization",
+            "name": "Bluexech AI",
+            "url": "https://www.bluexech.com/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://www.bluexech.com/images/logo.png",
+              "width": 356,
+              "height": 484
+            },
+            "image": "https://www.bluexech.com/images/logo.png",
+            "sameAs": [
+              "https://www.linkedin.com/company/bluexech-ai/",
+              "https://www.facebook.com/profile.php?id=61586923501415",
+              "https://www.instagram.com/bluexech_ai/"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.bluexech.com/#website",
+            "url": "https://www.bluexech.com/",
+            "name": "Bluexech AI",
+            "publisher": { "@id": "https://www.bluexech.com/#organization" },
+            "inLanguage": "en"
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
