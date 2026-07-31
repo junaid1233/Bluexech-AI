@@ -28,15 +28,15 @@
 }
 
 .footer-logo-mark {
-  width: 1.1em;
-  height: 1.1em;
+  width: 1.3em;
+  height: 1.3em;
   object-fit: contain;
   object-position: bottom center;
   filter: none;
   flex-shrink: 0;
   display: inline-block;
   vertical-align: baseline;
-  transform: translateY(0.12em);
+  transform: translateY(0.14em);
 }
 
 .footer-logo span {
