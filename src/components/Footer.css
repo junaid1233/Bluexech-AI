@@ -19,18 +19,29 @@
   letter-spacing: -0.02em;
   color: var(--white);
   display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
+  align-items: baseline;
+  gap: 0.15rem;
   margin-bottom: 0.75rem;
   line-height: 1;
+  text-decoration: none;
+  border: none;
 }
 
 .footer-logo-mark {
-  width: 1.5em;
-  height: 1.5em;
+  width: 1.1em;
+  height: 1.1em;
   object-fit: contain;
+  object-position: bottom center;
   filter: none;
   flex-shrink: 0;
+  display: inline-block;
+  vertical-align: baseline;
+  transform: translateY(0.12em);
+}
+
+.footer-logo span {
+  line-height: 1;
+  display: inline-block;
 }
 
 .footer-logo em {

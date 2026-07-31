@@ -31,21 +31,28 @@
 
 .logo {
   display: inline-flex;
-  align-items: center;
-  gap: 0.28rem;
+  align-items: baseline;
+  gap: 0.18rem;
   flex-shrink: 0;
+  line-height: 1;
+  border: none;
+  text-decoration: none;
 }
 
 .logo-mark {
-  width: 1.55em;
-  height: 1.55em;
+  width: 1.12em;
+  height: 1.12em;
   object-fit: contain;
-  display: block;
+  object-position: bottom center;
+  display: inline-block;
   flex-shrink: 0;
   background: transparent;
   border: none;
   box-shadow: none;
   filter: none;
+  vertical-align: baseline;
+  /* optical baseline match with wordmark */
+  transform: translateY(0.12em);
 }
 
 .logo-text {
@@ -55,6 +62,9 @@
   letter-spacing: -0.02em;
   color: var(--ink);
   line-height: 1;
+  display: inline-block;
+  border: none;
+  text-decoration: none;
 }
 
 .logo-text em {
