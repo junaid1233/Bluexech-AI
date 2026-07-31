@@ -10,7 +10,6 @@ const initial = {
   country: 'PK',
   phone: '',
   service: '',
-  description: '',
   message: '',
 }
 
@@ -20,8 +19,6 @@ export default function Contact() {
   const ref = useReveal()
 
   const [errors, setErrors] = useState({})
-
-  const dial = COUNTRY_CODES.find((c) => c.code === form.country)?.dial || '+92'
 
   useEffect(() => {
     const applyService = (title) => {
@@ -53,7 +50,6 @@ export default function Contact() {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) next.email = 'Enter a valid email.'
     if (!form.phone.trim()) next.phone = 'Enter your phone number.'
     if (!form.service) next.service = 'Select a service.'
-    if (!form.description.trim()) next.description = 'Add a short description.'
     if (form.message.trim().length < 10) next.message = 'Please share a bit more detail.'
     setErrors(next)
     return Object.keys(next).length === 0
@@ -157,31 +153,28 @@ export default function Contact() {
                 <select
                   id="country"
                   name="country"
+                  className="country-code"
                   aria-label="Country code"
                   value={form.country}
                   onChange={onChange}
                 >
                   {COUNTRY_CODES.map((c) => (
                     <option key={c.code} value={c.code}>
-                      {c.flag} {c.name} ({c.dial})
+                      {c.dial}
                     </option>
                   ))}
                 </select>
-                <div className="phone-input-wrap">
-                  <span className="phone-dial" aria-hidden="true">
-                    {dial}
-                  </span>
-                  <input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    required
-                    autoComplete="tel-national"
-                    value={form.phone}
-                    onChange={onChange}
-                    placeholder="300 1234567"
-                  />
-                </div>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  required
+                  autoComplete="tel-national"
+                  value={form.phone}
+                  onChange={onChange}
+                  placeholder="300 1234567"
+                  aria-invalid={Boolean(errors.phone)}
+                />
               </div>
               {errors.phone ? <span className="field-error">{errors.phone}</span> : null}
             </div>
@@ -200,21 +193,7 @@ export default function Contact() {
               {errors.service ? <span className="field-error">{errors.service}</span> : null}
             </div>
             <div className="field">
-              <label htmlFor="description">Message description</label>
-              <input
-                id="description"
-                name="description"
-                type="text"
-                required
-                value={form.description}
-                onChange={onChange}
-                placeholder="Short summary — e.g. Need AI chatbot for support"
-                aria-invalid={Boolean(errors.description)}
-              />
-              {errors.description ? <span className="field-error">{errors.description}</span> : null}
-            </div>
-            <div className="field">
-              <label htmlFor="message">Message details</label>
+              <label htmlFor="message">Message</label>
               <textarea
                 id="message"
                 name="message"
@@ -222,7 +201,7 @@ export default function Contact() {
                 rows={4}
                 value={form.message}
                 onChange={onChange}
-                placeholder="Describe your project, goals, timeline, and any challenges in detail…"
+                placeholder="Describe your project, goals, timeline, and any challenges…"
                 aria-invalid={Boolean(errors.message)}
               />
               {errors.message ? <span className="field-error">{errors.message}</span> : null}

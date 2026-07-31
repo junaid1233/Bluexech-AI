@@ -154,51 +154,26 @@
 
 .phone-combo {
   display: grid;
-  grid-template-columns: minmax(140px, 1fr) 1.25fr;
+  grid-template-columns: 5.5rem 1fr;
   gap: 0.55rem;
 }
 
-.phone-combo select {
-  padding-inline: 0.55rem;
-  font-size: 0.8rem;
+.phone-combo select.country-code {
+  padding-inline: 0.45rem;
+  font-size: 0.9rem;
+  font-family: var(--font-mono);
   cursor: pointer;
   color: #050505;
+  text-align: center;
 }
 
-.phone-combo select option {
+.phone-combo select.country-code option {
   color: #050505;
   background: #ffffff;
 }
 
-.phone-input-wrap {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: 12px;
-  padding-left: 0.75rem;
-  transition: border-color 0.2s ease, background 0.2s ease;
-}
-
-.phone-input-wrap:focus-within {
-  border-color: #fff;
-  background: rgba(255, 255, 255, 0.18);
-}
-
-.phone-dial {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  color: #050505;
-  white-space: nowrap;
-}
-
-.phone-input-wrap input {
-  border: none !important;
-  background: transparent !important;
-  color: #050505;
-  padding-left: 0.25rem;
-  border-radius: 0 12px 12px 0;
+.phone-combo input {
+  min-width: 0;
 }
 
 .field input::placeholder,
@@ -290,7 +265,7 @@
 
 @media (max-width: 520px) {
   .phone-combo {
-    grid-template-columns: 1fr;
+    grid-template-columns: 5rem 1fr;
   }
 }
 
