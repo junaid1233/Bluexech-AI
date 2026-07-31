@@ -45,8 +45,8 @@ export default function Header() {
             className="logo-mark"
             src={`${import.meta.env.BASE_URL}images/logo.png`}
             alt=""
-            width={44}
-            height={44}
+            width={28}
+            height={28}
             decoding="async"
           />
           <span className="logo-text">

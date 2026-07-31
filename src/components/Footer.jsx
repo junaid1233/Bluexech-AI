@@ -30,8 +30,8 @@ export default function Footer() {
               className="footer-logo-mark"
               src={`${import.meta.env.BASE_URL}images/logo.png`}
               alt=""
-              width={32}
-              height={32}
+              width={24}
+              height={24}
               decoding="async"
             />
             <span>

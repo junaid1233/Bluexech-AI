@@ -32,13 +32,13 @@
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.28rem;
   flex-shrink: 0;
 }
 
 .logo-mark {
-  width: 44px;
-  height: 44px;
+  width: 1.55em;
+  height: 1.55em;
   object-fit: contain;
   display: block;
   flex-shrink: 0;
@@ -51,7 +51,7 @@
 .logo-text {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.35rem;
+  font-size: 1.28rem;
   letter-spacing: -0.02em;
   color: var(--ink);
   line-height: 1;
