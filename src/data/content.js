@@ -23,7 +23,7 @@ export const blogPosts = [
   {
     id: 'document-ai-ops',
     title: 'Document AI for Operations',
-    excerpt: 'Cut manual data entry with OCR + LLM pipelines that feed your CRM and ERP.',
+    excerpt: 'Cut manual data entry with OCR + AI pipelines that feed your CRM and ERP.',
     tag: 'Document AI',
     readTime: '8 min',
   },

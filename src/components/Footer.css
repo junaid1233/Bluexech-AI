@@ -56,6 +56,13 @@
   margin-bottom: 1.1rem;
 }
 
+.footer-address {
+  margin-top: -0.55rem;
+  margin-bottom: 1.1rem;
+  font-size: 0.9rem;
+  color: rgba(103, 232, 249, 0.9);
+}
+
 .socials {
   display: flex;
   flex-wrap: wrap;

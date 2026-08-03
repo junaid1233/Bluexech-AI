@@ -17,7 +17,7 @@ const items = [
   },
   {
     q: 'Do you build custom AI models or use existing ones?',
-    a: 'Both. We use proven LLMs and APIs where they fit, and fine-tune or train custom models when your data and accuracy need it.',
+    a: 'Both. We use proven AI models and APIs where they fit, and fine-tune or train custom models when your data and accuracy need it.',
   },
   {
     q: 'What does support look like after launch?',

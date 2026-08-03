@@ -10,7 +10,7 @@ export default function Technologies() {
         <div className="section-head center">
           <span className="eyebrow">Technologies</span>
           <h2>Modern stack. Proven delivery.</h2>
-          <p>Tools we use across LLMs, automation, data, cloud, and product delivery.</p>
+          <p>Tools we use across AI models, automation, data, cloud, and product delivery.</p>
         </div>
       </div>
 

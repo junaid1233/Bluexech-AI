@@ -20,7 +20,7 @@ export const services = [
   {
     id: 'generative-ai',
     title: 'Generative AI Systems',
-    desc: 'Custom GPT-powered tools for content, proposals, product copy, and internal knowledge writing.',
+    desc: 'Custom generative tools for content, proposals, product copy, and internal knowledge writing.',
     image: 'images/services/generative.png',
     alt: 'Content drafting workspace with laptop and notes',
     duration: '3–7 weeks',
@@ -47,7 +47,7 @@ export const services = [
       'Turn messy documents into structured data with OCR + AI extraction, validation rules, and push into your CRM or ERP.',
     modules: [
       'Document types and field mapping',
-      'OCR + LLM extraction pipeline',
+      'OCR + AI extraction pipeline',
       'Validation, exceptions, and human review',
       'Integration with sheets, CRM, or ERP',
     ],

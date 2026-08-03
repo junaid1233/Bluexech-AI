@@ -53,87 +53,8 @@
 .message-stack {
   display: grid;
   gap: 1.35rem;
-  max-width: 760px;
+  max-width: 640px;
   margin-inline: auto;
-}
-
-.message-guide {
-  padding: 1.6rem 1.4rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(18, 26, 61, 0.78), rgba(10, 14, 36, 0.78));
-}
-
-.message-guide h1 {
-  font-family: var(--font-display);
-  font-size: clamp(1.55rem, 3vw, 2.1rem);
-  line-height: 1.2;
-  margin: 0.35rem 0 0.75rem;
-}
-
-.message-guide > p {
-  color: var(--dim);
-  margin-bottom: 1.25rem;
-}
-
-.message-steps {
-  list-style: none;
-  display: grid;
-  gap: 0.85rem;
-  counter-reset: step;
-  margin-bottom: 1.4rem;
-}
-
-.message-steps li {
-  position: relative;
-  padding-left: 2.6rem;
-  counter-increment: step;
-}
-
-.message-steps li::before {
-  content: counter(step);
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 1.85rem;
-  height: 1.85rem;
-  border-radius: 10px;
-  display: grid;
-  place-items: center;
-  font-family: var(--font-display);
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--white);
-  background: var(--blue);
-}
-
-.message-steps strong {
-  display: block;
-  font-family: var(--font-display);
-  margin-bottom: 0.15rem;
-}
-
-.message-steps span {
-  color: var(--navy-muted);
-  font-size: 0.92rem;
-}
-
-.message-help {
-  padding-top: 1rem;
-  border-top: 1px solid var(--line);
-  display: grid;
-  gap: 0.35rem;
-}
-
-.message-help p {
-  color: var(--dim);
-  font-size: 0.92rem;
-}
-
-.message-help a {
-  color: var(--cyan);
-  font-family: var(--font-display);
-  font-weight: 600;
 }
 
 .message-form-card h2 {

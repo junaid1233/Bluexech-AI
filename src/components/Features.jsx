@@ -8,7 +8,7 @@ const features = [
   },
   {
     title: 'Senior AI specialists',
-    desc: 'LLM, automation, vision, and data experts who ship production AI systems.',
+    desc: 'AI, automation, vision, and data experts who ship production AI systems.',
   },
   {
     title: 'Safe AI by default',

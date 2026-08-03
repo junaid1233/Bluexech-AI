@@ -80,43 +80,6 @@ export default function MessagePage() {
 
         <main className="message-main container">
           <div className="message-stack">
-            <section className="message-guide">
-              <span className="eyebrow">Instructions</span>
-              <h1>Fill this form to contact us</h1>
-              <p>Complete every field carefully so we can understand your project and reply faster.</p>
-              <ol className="message-steps">
-                <li>
-                  <strong>Name</strong>
-                  <span>Enter your full name.</span>
-                </li>
-                <li>
-                  <strong>Email</strong>
-                  <span>Use an active email — we reply within one business day.</span>
-                </li>
-                <li>
-                  <strong>Phone</strong>
-                  <span>Select your country code, then enter your number.</span>
-                </li>
-                <li>
-                  <strong>Service</strong>
-                  <span>Choose the service you need from the list.</span>
-                </li>
-                <li>
-                  <strong>Message</strong>
-                  <span>Describe your goals, timeline, and any challenges.</span>
-                </li>
-                <li>
-                  <strong>Submit</strong>
-                  <span>Press Submit after checking all details.</span>
-                </li>
-              </ol>
-              <div className="message-help">
-                <p>Prefer a quick chat?</p>
-                <a href="mailto:support@bluexech.com">support@bluexech.com</a>
-                <a href="tel:+923092547332">+92 309 2547332</a>
-              </div>
-            </section>
-
             <section className="contact-box message-form-card">
               <h2>Send a message</h2>
               {sent ? (

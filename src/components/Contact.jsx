@@ -29,11 +29,15 @@ export default function Contact() {
               </li>
               <li>
                 <strong>Office</strong>
-                <span>
-                  120 Innovation Drive, Suite 400
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=Gulshan-e-Hadeed%2C+Karachi%2C+Pakistan"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Gulshan Hadeed
                   <br />
-                  Austin, TX 78701
-                </span>
+                  Karachi, Pakistan
+                </a>
               </li>
             </ul>
 
@@ -60,13 +64,23 @@ export default function Contact() {
             <span className="contact-cta-badge">Message Form</span>
             <h3>Ready to share your project?</h3>
             <p>
-              Open the message form in a new tab, follow the fill instructions, then submit your details.
+              Open the message form in a new tab and submit your details.
             </p>
             <span className="contact-cta-action">
               Open message form
               <span aria-hidden="true">→</span>
             </span>
           </a>
+        </div>
+
+        <div className="contact-map reveal">
+          <iframe
+            title="Bluexech AI office — Gulshan Hadeed, Karachi"
+            src="https://www.google.com/maps?q=Gulshan-e-Hadeed,+Karachi,+Pakistan&z=14&output=embed"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+          />
         </div>
       </div>
     </section>

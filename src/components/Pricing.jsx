@@ -15,7 +15,7 @@ const plans = [
     price: '$4,999',
     period: '/month',
     desc: 'Ongoing AI product and automation partnership.',
-    features: ['Dedicated AI squad', 'Agents + LLM scope', 'Sprint demos', 'Priority support'],
+    features: ['Dedicated AI squad', 'Agents + AI models scope', 'Sprint demos', 'Priority support'],
     featured: true,
   },
   {

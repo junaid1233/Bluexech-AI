@@ -14,6 +14,7 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import GalaxyBackground from './components/GalaxyBackground'
 import ScrollProgress from './components/ScrollProgress'
+import AIChatbot from './components/AIChatbot'
 import WhatsAppFloat from './components/WhatsAppFloat'
 import CursorGlow from './components/CursorGlow'
 import './App.css'
@@ -43,6 +44,7 @@ export default function App() {
         <Footer />
       </div>
       <WhatsAppFloat />
+      <AIChatbot />
     </>
   )
 }

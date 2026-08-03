@@ -39,6 +39,7 @@ export default function Footer() {
             </span>
           </a>
           <p>Unique AI solutions for modern business — chatbots, document AI, vision, forecasting, and agentic automation.</p>
+          <p className="footer-address">Gulshan Hadeed, Karachi, Pakistan</p>
           <div className="socials" aria-label="Social links">
             <a
               href="https://www.linkedin.com/company/bluexech-ai/"
@@ -142,7 +143,15 @@ export default function Footer() {
             <li>
               <a href="tel:+923092547332">+92 309 2547332</a>
             </li>
-            <li>120 Innovation Drive, Suite 400, Austin, TX 78701</li>
+            <li>
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=Gulshan-e-Hadeed%2C+Karachi%2C+Pakistan"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Gulshan Hadeed, Karachi, Pakistan
+              </a>
+            </li>
           </ul>
         </div>
       </div>

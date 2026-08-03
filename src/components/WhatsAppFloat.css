@@ -1,6 +1,6 @@
 .wa-float {
   position: fixed;
-  right: max(18px, env(safe-area-inset-right));
+  left: max(18px, env(safe-area-inset-left));
   bottom: max(22px, env(safe-area-inset-bottom));
   z-index: 4000;
   width: 58px;

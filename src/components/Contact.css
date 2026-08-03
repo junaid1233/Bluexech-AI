@@ -352,3 +352,19 @@
 .contact-cta-card:hover .contact-cta-action {
   color: #a5f3fc;
 }
+
+.contact-map {
+  margin-top: 2rem;
+  border-radius: calc(var(--radius) + 4px);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+  background: var(--panel);
+}
+
+.contact-map iframe {
+  display: block;
+  width: 100%;
+  height: min(360px, 55vw);
+  border: 0;
+}
