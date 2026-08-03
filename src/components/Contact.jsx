@@ -2,6 +2,11 @@ import { useReveal } from '../hooks/useReveal'
 import './Contact.css'
 
 const messagePageHref = `${import.meta.env.BASE_URL}message.html`
+const MAPS_URL =
+  'https://www.google.com/maps/search/?api=1&query=Gulshan-e-Hadeed%2C+Karachi%2C+Pakistan'
+/* OpenStreetMap embed — reliable in iframes; click opens Google Maps */
+const MAPS_EMBED =
+  'https://www.openstreetmap.org/export/embed.html?bbox=67.3300%2C24.8500%2C67.3900%2C24.8900&layer=mapnik&marker=24.86972%2C67.36028'
 
 export default function Contact() {
   const ref = useReveal()
@@ -29,11 +34,7 @@ export default function Contact() {
               </li>
               <li>
                 <strong>Office</strong>
-                <a
-                  href="https://www.google.com/maps/search/?api=1&query=Gulshan-e-Hadeed%2C+Karachi%2C+Pakistan"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href={MAPS_URL} target="_blank" rel="noopener noreferrer">
                   Gulshan Hadeed
                   <br />
                   Karachi, Pakistan
@@ -63,9 +64,7 @@ export default function Contact() {
           <a href={messagePageHref} target="_blank" rel="noopener noreferrer" className="contact-cta-card">
             <span className="contact-cta-badge">Message Form</span>
             <h3>Ready to share your project?</h3>
-            <p>
-              Open the message form in a new tab and submit your details.
-            </p>
+            <p>Open the message form in a new tab and submit your details.</p>
             <span className="contact-cta-action">
               Open message form
               <span aria-hidden="true">→</span>
@@ -73,15 +72,28 @@ export default function Contact() {
           </a>
         </div>
 
-        <div className="contact-map reveal">
+        <a
+          className="contact-map"
+          href={MAPS_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open Gulshan Hadeed, Karachi on Google Maps"
+        >
           <iframe
             title="Bluexech AI office — Gulshan Hadeed, Karachi"
-            src="https://www.google.com/maps?q=Gulshan-e-Hadeed,+Karachi,+Pakistan&z=14&output=embed"
+            src={MAPS_EMBED}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen
+            tabIndex={-1}
           />
-        </div>
+          <span className="contact-map-badge">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z" />
+            </svg>
+            Gulshan Hadeed, Karachi — Open in Maps
+          </span>
+        </a>
       </div>
     </section>
   )
