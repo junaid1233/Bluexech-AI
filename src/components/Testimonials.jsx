@@ -3,7 +3,7 @@ import './Testimonials.css'
 
 const quotes = [
   {
-    text: 'Bluexech AI turned a messy backlog into a shipping rhythm. Our platform is faster and our team finally trusts the stack.',
+    text: 'Bluexech AI built a WhatsApp agent that answers 80% of our support questions. Our team finally focuses on complex cases.',
     name: 'Sara Malik',
     role: 'CTO',
     company: 'Freightline',
@@ -11,15 +11,15 @@ const quotes = [
     initials: 'SM',
   },
   {
-    text: 'Their security review caught gaps we had overlooked for years. The remediation plan was practical and well sequenced.',
+    text: 'Their document AI cut invoice entry from hours to minutes. Accuracy stayed high and the finance team actually loves the tool.',
     name: 'Daniel Okoye',
-    role: 'Head of IT',
+    role: 'Head of Ops',
     company: 'Meridian Health',
     rating: 5,
     initials: 'DO',
   },
   {
-    text: 'From discovery to launch, communication stayed crisp. The AI automation they built paid for itself in the first quarter.',
+    text: 'From discovery to launch, communication stayed crisp. The agentic automation they built paid for itself in the first quarter.',
     name: 'Priya Nair',
     role: 'COO',
     company: 'Atlas Retail',

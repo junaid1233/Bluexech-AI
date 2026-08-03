@@ -64,7 +64,7 @@ export default function Header() {
         </nav>
 
         <div className="header-actions">
-          <a href="#contact" className="btn btn-primary header-contact">
+          <a href={`${import.meta.env.BASE_URL}message.html`} target="_blank" rel="noopener noreferrer" className="btn btn-primary header-contact">
             Get Started
           </a>
           <button

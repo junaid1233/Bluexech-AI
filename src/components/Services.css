@@ -4,65 +4,86 @@
   align-items: stretch;
 }
 
-.service-card {
+.service-item {
   display: flex;
-  flex-direction: column;
   height: 100%;
-  padding: 1.55rem 1.4rem 1.45rem;
+  overflow: hidden;
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(18, 26, 61, 0.78), rgba(10, 14, 36, 0.78));
-  box-shadow: var(--shadow-soft);
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  background: linear-gradient(180deg, rgba(18, 26, 61, 0.72), rgba(10, 14, 36, 0.72));
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.service-card:hover {
+.service-open {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+}
+
+.service-item:hover,
+.service-item:focus-within {
   transform: translateY(-6px);
-  border-color: rgba(34, 211, 238, 0.45);
+  border-color: var(--cyan);
   box-shadow: var(--shadow);
 }
 
-.service-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  display: grid;
-  place-items: center;
-  margin-bottom: 1rem;
-  color: var(--cyan);
-  background: rgba(34, 211, 238, 0.1);
-  border: 1px solid rgba(34, 211, 238, 0.22);
+.service-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #070b1a;
 }
 
-.service-icon svg {
-  width: 22px;
-  height: 22px;
+.service-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.45s ease;
 }
 
-.service-card h3 {
+.service-item:hover .service-media img {
+  transform: scale(1.04);
+}
+
+.service-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.25rem 1.35rem 1.45rem;
+}
+
+.service-item h3 {
   font-family: var(--font-display);
-  font-size: 1.18rem;
+  font-size: 1.2rem;
   font-weight: 700;
-  margin-bottom: 0.55rem;
+  margin-bottom: 0.5rem;
+  min-height: 1.45em;
 }
 
-.service-card > p {
+.service-item p {
+  flex: 1;
   color: var(--navy-muted);
   font-size: 0.98rem;
-  flex: 1;
-  margin-bottom: 1.15rem;
 }
 
-.service-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
+.service-cta {
+  display: inline-block;
   margin-top: auto;
-}
-
-.service-btn {
-  padding: 0.65rem 1rem;
-  font-size: 0.88rem;
+  padding-top: 0.85rem;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--cyan);
 }
 
 @media (min-width: 640px) {
@@ -73,6 +94,6 @@
 
 @media (min-width: 960px) {
   .services-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }

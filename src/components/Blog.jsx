@@ -11,7 +11,7 @@ export default function Blog() {
         <div className="section-head center">
           <span className="eyebrow">Blog</span>
           <h2>Insights for builders and founders</h2>
-          <p>Practical guides on AI, SaaS, web development, and automation.</p>
+          <p>Practical guides on AI chatbots, document AI, agents, and automation.</p>
         </div>
         <div className="blog-grid reveal" ref={ref}>
           {blogPosts.map((post) => (

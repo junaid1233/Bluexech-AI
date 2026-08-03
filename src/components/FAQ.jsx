@@ -1,35 +1,27 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useReveal } from '../hooks/useReveal'
 import './FAQ.css'
 
 const items = [
   {
-    q: 'What AI development services does Bluexech AI offer?',
-    a: 'We build custom AI solutions including copilots, chatbots, document intelligence, forecasting, and AI features integrated into your existing products and workflows.',
+    q: 'What industries do you serve?',
+    a: 'We work with healthcare, logistics, retail, finance, and professional services — anywhere AI chatbots, document AI, and automation create leverage.',
   },
   {
-    q: 'How does AI automation help my business?',
-    a: 'AI automation reduces repetitive work across sales, support, and operations. We map high-ROI processes, connect your tools, and add human review where decisions need oversight.',
+    q: 'How quickly can a project start?',
+    a: 'Most AI engagements begin within 1–2 weeks after discovery. Pilot chatbots or document pipelines can start sooner.',
   },
   {
-    q: 'What does your web development process look like?',
-    a: 'We start with discovery and UX, then build a responsive product with SEO foundations, performance checks, analytics, and a clear launch plan.',
+    q: 'Do you work with existing teams?',
+    a: 'Yes. We embed with your ops, product, and engineering teams — or run as a self-contained AI delivery squad.',
   },
   {
-    q: 'Can you build a SaaS product from scratch?',
-    a: 'Yes. We design multi-tenant architecture, authentication, billing, admin tools, and core features so you can launch an MVP and scale with confidence.',
+    q: 'Do you build custom AI models or use existing ones?',
+    a: 'Both. We use proven LLMs and APIs where they fit, and fine-tune or train custom models when your data and accuracy need it.',
   },
   {
-    q: 'How is pricing structured?',
-    a: 'Pricing depends on scope, timeline, and complexity. We offer package options and custom quotes after a short discovery call so costs stay transparent.',
-  },
-  {
-    q: 'How long does a typical project take?',
-    a: 'Most websites start in 3–8 weeks. AI and SaaS builds usually range from 4–16 weeks depending on features, integrations, and review cycles.',
-  },
-  {
-    q: 'What support do you provide after launch?',
-    a: 'We offer post-launch support, monitoring, iteration sprints, and optional SLAs so your product stays stable as usage grows.',
+    q: 'What does support look like after launch?',
+    a: 'Packages include monitoring, prompt/model updates, and post-launch coverage. Enterprise clients get SLAs and continuous improvement cycles.',
   },
 ]
 
@@ -37,36 +29,13 @@ export default function FAQ() {
   const [open, setOpen] = useState(-1)
   const ref = useReveal()
 
-  useEffect(() => {
-    const schema = {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: items.map((item) => ({
-        '@type': 'Question',
-        name: item.q,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: item.a,
-        },
-      })),
-    }
-
-    document.getElementById('faq-schema')?.remove()
-    const script = document.createElement('script')
-    script.type = 'application/ld+json'
-    script.id = 'faq-schema'
-    script.text = JSON.stringify(schema)
-    document.head.appendChild(script)
-    return () => document.getElementById('faq-schema')?.remove()
-  }, [])
-
   return (
     <section id="faq" className="section">
       <div className="container">
         <div className="section-head center">
           <span className="eyebrow">FAQ</span>
           <h2>Answers before you reach out</h2>
-          <p>Clear guidance on AI, web, SaaS, pricing, timelines, and support.</p>
+          <p>Quick clarity on how Bluexech AI partners with teams.</p>
         </div>
         <div className="faq-list reveal" ref={ref}>
           {items.map((item, i) => {

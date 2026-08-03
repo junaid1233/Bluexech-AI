@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useReveal } from '../hooks/useReveal'
 import { services, getServiceById } from '../data/services'
-import { SERVICE_ICONS } from '../data/icons'
 import DetailModal from './DetailModal'
 import './Services.css'
 
@@ -55,8 +54,7 @@ export default function Services() {
   const goContact = (title) => {
     sessionStorage.setItem('selectedService', title)
     closeModal()
-    window.location.hash = 'contact'
-    window.dispatchEvent(new CustomEvent('prefill-service', { detail: title }))
+    window.open(`${import.meta.env.BASE_URL}message.html`, '_blank', 'noopener,noreferrer')
   }
 
   return (
@@ -64,25 +62,27 @@ export default function Services() {
       <div className="container">
         <div className="section-head center">
           <span className="eyebrow">Services</span>
-          <h2>Capabilities built for modern growth</h2>
-          <p>From AI systems to cloud delivery — one team across product, design, and engineering.</p>
+          <h2>Unique AI services built for real outcomes</h2>
+          <p>From chatbots to vision and agentic automation — tap a service to open details.</p>
         </div>
         <div className="services-grid reveal" ref={ref}>
           {services.map((item) => (
-            <article key={item.id} className="service-card">
-              <div className="service-icon" aria-hidden="true">
-                {SERVICE_ICONS[item.icon]}
-              </div>
-              <h3>{item.title}</h3>
-              <p>{item.desc}</p>
-              <div className="service-actions">
-                <button type="button" className="btn btn-ghost service-btn" onClick={() => openService(item.id)}>
-                  Learn more
-                </button>
-                <button type="button" className="btn btn-primary service-btn" onClick={() => goContact(item.title)}>
-                  Get started
-                </button>
-              </div>
+            <article key={item.id} className="service-item">
+              <button type="button" className="service-open" onClick={() => openService(item.id)} aria-label={`Open ${item.title}`}>
+                <div className="service-media">
+                  <img
+                    src={`${import.meta.env.BASE_URL}${item.image}`}
+                    alt={item.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div className="service-body">
+                  <h3>{item.title}</h3>
+                  <p>{item.desc}</p>
+                  <span className="service-cta">View service ?</span>
+                </div>
+              </button>
             </article>
           ))}
         </div>

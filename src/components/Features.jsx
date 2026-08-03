@@ -7,20 +7,20 @@ const features = [
     desc: 'Every engagement is tied to measurable business results — not vanity demos.',
   },
   {
-    title: 'Senior specialists',
-    desc: 'AI, product, cloud, and design experts who ship production systems.',
+    title: 'Senior AI specialists',
+    desc: 'LLM, automation, vision, and data experts who ship production AI systems.',
   },
   {
-    title: 'Security by default',
-    desc: 'Hardening, access control, and compliance awareness baked into the build.',
+    title: 'Safe AI by default',
+    desc: 'Guardrails, human-in-the-loop checks, and data privacy baked into every build.',
   },
   {
     title: 'Transparent communication',
     desc: 'Clear milestones, demos, and ownership so you always know what is next.',
   },
   {
-    title: 'Scalable architecture',
-    desc: 'Systems designed to grow with traffic, teams, and new product lines.',
+    title: 'Scalable AI architecture',
+    desc: 'Pipelines and agents designed to grow with data volume, channels, and use cases.',
   },
   {
     title: 'Long-term partnership',

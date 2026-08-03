@@ -1,9 +1,8 @@
-import { useReveal } from '../hooks/useReveal'
 import { technologies } from '../data/content'
 import './Technologies.css'
 
 export default function Technologies() {
-  const ref = useReveal()
+  const track = [...technologies, ...technologies]
 
   return (
     <section id="technologies" className="section">
@@ -11,13 +10,24 @@ export default function Technologies() {
         <div className="section-head center">
           <span className="eyebrow">Technologies</span>
           <h2>Modern stack. Proven delivery.</h2>
-          <p>We ship with tools that scale — from frontend and AI to cloud and design systems.</p>
+          <p>Tools we use across LLMs, automation, data, cloud, and product delivery.</p>
         </div>
-        <div className="tech-grid reveal" ref={ref}>
-          {technologies.map((tech) => (
-            <div key={tech.name} className="tech-chip">
-              <span className="tech-group">{tech.group}</span>
+      </div>
+
+      <div className="tech-marquee" aria-label="Technology logos">
+        <div className="tech-track">
+          {track.map((tech, i) => (
+            <div key={`${tech.name}-${i}`} className="tech-card">
+              <img
+                src={`${import.meta.env.BASE_URL}${tech.image}`}
+                alt=""
+                width={40}
+                height={40}
+                loading="lazy"
+                decoding="async"
+              />
               <strong>{tech.name}</strong>
+              <span>{tech.group}</span>
             </div>
           ))}
         </div>

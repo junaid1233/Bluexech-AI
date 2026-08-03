@@ -118,14 +118,34 @@ ul {
 }
 
 .eyebrow {
-  display: inline-block;
-  font-family: var(--font-display);
-  font-size: 1.12rem;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--cyan);
-  margin-bottom: 0.7rem;
+  margin-bottom: 0.95rem;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(6, 182, 212, 0.35);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.18), rgba(6, 182, 212, 0.1));
+  box-shadow: 0 0 18px rgba(6, 182, 212, 0.12);
+  text-shadow: 0 0 18px rgba(6, 182, 212, 0.45);
+}
+
+.eyebrow::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.9);
+  flex-shrink: 0;
+  animation: aiPulse 2.2s ease-in-out infinite;
 }
 
 .section-head h2 {
@@ -135,12 +155,29 @@ ul {
   line-height: 1.18;
   letter-spacing: -0.02em;
   margin-bottom: 0.8rem;
-  color: var(--ink);
+  background: linear-gradient(115deg, #ffffff 12%, #8ec5ff 48%, #22d3ee 88%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 22px rgba(37, 99, 235, 0.22));
 }
 
 .section-head p {
   color: var(--dim);
   font-size: 1.12rem;
+}
+
+@keyframes aiPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.85);
+  }
 }
 
 .btn {
@@ -219,7 +256,8 @@ ul {
   .reveal,
   .btn,
   .hero-visual,
-  .hero-copy {
+  .hero-copy,
+  .eyebrow::before {
     transition: none !important;
     animation: none !important;
     opacity: 1 !important;

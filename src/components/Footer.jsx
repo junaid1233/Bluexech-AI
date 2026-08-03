@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './Footer.css'
 
 const LINKEDIN_ICON = (
@@ -22,16 +21,6 @@ const INSTAGRAM_ICON = (
 )
 
 export default function Footer() {
-  const [email, setEmail] = useState('')
-  const [joined, setJoined] = useState(false)
-
-  const onNewsletter = (e) => {
-    e.preventDefault()
-    if (!email.trim()) return
-    setJoined(true)
-    setEmail('')
-  }
-
   return (
     <footer className="site-footer">
       <div className="container footer-grid">
@@ -49,7 +38,7 @@ export default function Footer() {
               luexech <em>AI</em>
             </span>
           </a>
-          <p>Intelligent IT solutions for modern business — AI, cloud, security, and custom software.</p>
+          <p>Unique AI solutions for modern business — chatbots, document AI, vision, forecasting, and agentic automation.</p>
           <div className="socials" aria-label="Social links">
             <a
               href="https://www.linkedin.com/company/bluexech-ai/"
@@ -106,16 +95,16 @@ export default function Footer() {
           <h4>Services</h4>
           <ul>
             <li>
-              <a href="#service-ai-development">AI Development</a>
+              <a href="#service-ai-chatbots">AI Chatbots</a>
             </li>
             <li>
-              <a href="#service-ai-automation">AI Automation</a>
+              <a href="#service-generative-ai">Generative AI</a>
             </li>
             <li>
-              <a href="#service-web-development">Web Development</a>
+              <a href="#service-document-ai">Document AI</a>
             </li>
             <li>
-              <a href="#service-saas-development">SaaS Development</a>
+              <a href="#service-agentic-automation">Agentic Automation</a>
             </li>
           </ul>
         </div>
@@ -144,32 +133,8 @@ export default function Footer() {
           </ul>
         </div>
 
-        <div className="footer-news">
-          <h4>Newsletter</h4>
-          <p>Get practical AI and product insights in your inbox.</p>
-          {joined ? (
-            <p className="footer-news-ok" role="status">
-              Thanks — you’re on the list.
-            </p>
-          ) : (
-            <form className="footer-news-form" onSubmit={onNewsletter}>
-              <label className="sr-only" htmlFor="newsletter-email">
-                Email
-              </label>
-              <input
-                id="newsletter-email"
-                type="email"
-                required
-                placeholder="you@company.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                autoComplete="email"
-              />
-              <button type="submit" className="btn btn-primary">
-                Join
-              </button>
-            </form>
-          )}
+        <div>
+          <h4>Contact</h4>
           <ul className="footer-contact">
             <li>
               <a href="mailto:support@bluexech.com">support@bluexech.com</a>
