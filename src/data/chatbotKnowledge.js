@@ -6,11 +6,42 @@ const WA =
 const EMAIL = 'support@bluexech.com'
 const PHONE = '+92 309 2547332'
 const ADDRESS = 'Gulshan Hadeed, Karachi, Pakistan'
+const MSG = './message.html'
+const MAP =
+  'https://www.google.com/maps/search/?api=1&query=Gulshan-e-Hadeed%2C+Karachi%2C+Pakistan'
 
-const serviceBlock = (s) =>
-  `${s.title}\nDuration: ${s.duration} | Level: ${s.level}\n\nSummary: ${s.desc}\n\nFull details: ${s.details}\n\nWhat you get:\n• ${s.modules.join('\n• ')}\n\nOutcomes: ${s.outcomes.join(' · ')}\n\nExtra: We scope data sources, success metrics, integrations, and training before build. Human review / handoff is available where decisions need oversight.`
+const LINKS = {
+  home: '#home',
+  about: '#about',
+  services: '#services',
+  features: '#features',
+  process: '#process',
+  pricing: '#pricing',
+  portfolio: '#portfolio',
+  faq: '#faq',
+  blog: '#blog',
+  tech: '#technologies',
+  testimonials: '#testimonials',
+  contact: '#contact',
+  message: MSG,
+  whatsapp: WA,
+  email: `mailto:${EMAIL}`,
+  map: MAP,
+}
 
-const allServicesDetailed = services.map((s, i) => `${i + 1}. ${serviceBlock(s)}`).join('\n\n————\n\n')
+function serviceLink(id) {
+  return `#service-${id}`
+}
+
+const serviceChat = (s) =>
+  `${s.title}: ${s.desc}\n\nTypical timeline: ${s.duration}. Outcomes: ${s.outcomes.join(', ')}.\n\nMore detail: ${serviceLink(s.id)}`
+
+const serviceChatRoman = (s) =>
+  `${s.title}: ${s.desc}\n\nDuration: ${s.duration}. Results: ${s.outcomes.join(', ')}.\n\nZyada detail: ${serviceLink(s.id)}`
+
+const allServicesShort = services
+  .map((s, i) => `${i + 1}. ${s.title} — ${s.desc.split('.')[0]}.`)
+  .join('\n')
 
 const techByGroup = technologies.reduce((acc, t) => {
   ;(acc[t.group] ||= []).push(t.name)
@@ -21,114 +52,65 @@ const techLines = Object.entries(techByGroup)
   .map(([group, names]) => `• ${group}: ${names.join(', ')}`)
   .join('\n')
 
-const blogLines = blogPosts
-  .map((b) => `• ${b.title} (${b.tag}, ${b.readTime}) — ${b.excerpt}`)
-  .join('\n')
+const blogLines = blogPosts.map((b) => `• ${b.title} (${b.readTime})`).join('\n')
 
-const FULL_SITE_OVERVIEW = `📘 COMPLETE BLUEXECH AI SITE GUIDE
+const FULL_SITE_OVERVIEW = `Here’s a clear overview of Bluexech AI:
 
-━━━━━━━━━━━━━━━━━━
-1) COMPANY
-━━━━━━━━━━━━━━━━━━
-Brand: Bluexech AI
-Tagline: Build Smarter with Unique AI Solutions & Intelligent Automation
-What we do: Help businesses grow with AI chatbots, generative systems, document intelligence, predictive analytics, computer vision, and agentic automation.
+We’re an AI company that builds chatbots, generative systems, document AI, predictive analytics, computer vision, and agentic automation.
+
 Office: ${ADDRESS}
-Focus: Unique AI services (not generic website-only agency work).
+Stats: 120+ projects · 40+ clients · 12+ countries · 8+ years
 
-Stats from the site:
-• 120+ Projects Completed
-• 40+ Happy Clients
-• 12+ Countries Served
-• 8+ Years of Experience
+Services:
+${allServicesShort}
 
-━━━━━━━━━━━━━━━━━━
-2) ALL SERVICES (FULL)
-━━━━━━━━━━━━━━━━━━
-${allServicesDetailed}
+Pricing: Starter $1,999/project · Growth $4,999/month · Enterprise custom
 
-━━━━━━━━━━━━━━━━━━
-3) WHY CHOOSE BLUEXECH
-━━━━━━━━━━━━━━━━━━
-• Outcome-first delivery — measurable business results, not vanity demos
-• Senior AI specialists — AI model, automation, vision, and data experts
-• Safe AI by default — guardrails, human-in-the-loop, data privacy
-• Transparent communication — milestones, demos, clear ownership
-• Scalable AI architecture — grows with data, channels, and use cases
-• Long-term partnership — support and iteration after launch
+Process: Discover → Design → Build → Scale
 
-━━━━━━━━━━━━━━━━━━
-4) HOW WE WORK
-━━━━━━━━━━━━━━━━━━
-1. Discover — map goals, constraints, and success metrics with stakeholders
-2. Design — architecture, UX, and delivery plan before code ships
-3. Build — iterative sprints with demos, quality gates, clear ownership
-4. Scale — launch support, monitoring, continuous improvement after go-live
+Useful links on this website:
+• Home ${LINKS.home}
+• Services ${LINKS.services}
+• Pricing ${LINKS.pricing}
+• Process ${LINKS.process}
+• Portfolio ${LINKS.portfolio}
+• FAQ ${LINKS.faq}
+• Blog ${LINKS.blog}
+• Technologies ${LINKS.tech}
+• Contact ${LINKS.contact}
+• Message form ${LINKS.message}
+• WhatsApp ${LINKS.whatsapp}
+• Email ${LINKS.email}
+• Map ${LINKS.map}
 
-Typical start: 1–2 weeks after discovery. Pilots can start sooner.
+Ask me about any one topic (pricing, a service, portfolio, contact) and I’ll go deeper.`
 
-━━━━━━━━━━━━━━━━━━
-5) PACKAGES / PRICING
-━━━━━━━━━━━━━━━━━━
-• Starter — $1,999 / project
-  AI pilots (chatbot or document automation)
-  Includes: discovery workshop, chatbot/Doc AI pilot, basic analytics, 2 weeks support
-
-• Growth — $4,999 / month (featured)
-  Ongoing AI product & automation partnership
-  Includes: dedicated AI squad, Agents + AI model scope, sprint demos, priority support
-
-• Enterprise — Custom pricing
-  Multi-agent, vision, org-wide AI rollout
-  Includes: architecture review, custom models/RAG, 24/7 coverage, SLA & onsite options
-
-━━━━━━━━━━━━━━━━━━
-6) PORTFOLIO / CASE STUDIES
-━━━━━━━━━━━━━━━━━━
-• NovaOps Platform (AI + Cloud) — operations intelligence; cut incident response ~42%. Highlights: live incident board, AI triage, cloud metric connectors, RBAC.
-• HarborPay Portal (Web App) — secure payments hub with realtime reconciliation. Highlights: payment status, dashboards, secure auth, exportable reports.
-• ShieldGrid Monitor (Cybersecurity) — multi-region threat visibility. Highlights: threat feed, endpoint health map, escalation workflows, audit logs.
-• Lumen Care Suite (Custom Software) — clinic scheduling, records, billing. Highlights: scheduling board, patient records, billing sync, staff roles.
-
-Open Portfolio → “View case study →” for details, then “Start similar project”.
-
-━━━━━━━━━━━━━━━━━━
-7) TECHNOLOGIES
-━━━━━━━━━━━━━━━━━━
-${techLines}
-
-━━━━━━━━━━━━━━━━━━
-8) FAQ HIGHLIGHTS
-━━━━━━━━━━━━━━━━━━
-• Industries: healthcare, logistics, retail, finance, professional services
-• Custom models OR existing AI models/APIs — both, based on accuracy & data needs
-• We work with your existing teams or as a full delivery squad
-• After launch: monitoring, prompt/model updates; Enterprise gets SLAs
-
-━━━━━━━━━━━━━━━━━━
-9) BLOG TOPICS ON THE SITE
-━━━━━━━━━━━━━━━━━━
-${blogLines}
-
-━━━━━━━━━━━━━━━━━━
-10) CONTACT & NEXT STEPS
-━━━━━━━━━━━━━━━━━━
-Email: ${EMAIL}
-Phone: ${PHONE}
-WhatsApp: ${PHONE}
-  Link: ${WA}
-Office: ${ADDRESS}
-Map: live Google Map on Contact section (Gulshan-e-Hadeed, Karachi)
-
-Message form: open “message.html” / Contact CTA — fill instructions then submit.
-CTAs on site: Get Started · Book Free Consultation
-Social: LinkedIn (company/bluexech-ai), Facebook, Instagram (@bluexech_ai)
-Reply time: usually within 1 business day
-
-Ask any specific question (e.g. “document AI modules”, “Growth package”, “office map”) for a focused answer.`
-
-function formatService(s) {
-  return serviceBlock(s)
+/** Topic-related link lines (not a team CTA on every reply). */
+const RELATED_LINKS = {
+  full_site: `Explore: ${LINKS.services} · ${LINKS.pricing} · ${LINKS.contact}`,
+  greeting: `Quick links: ${LINKS.services} · ${LINKS.pricing} · ${LINKS.faq}`,
+  cyan: `Browse: ${LINKS.services} · ${LINKS.faq}`,
+  about: `About & stats: ${LINKS.about} · Services: ${LINKS.services}`,
+  services: `Services section: ${LINKS.services} · Start project: ${LINKS.message}`,
+  chatbots: `Service: ${serviceLink('ai-chatbots')} · All: ${LINKS.services}`,
+  generative: `Service: ${serviceLink('generative-ai')} · All: ${LINKS.services}`,
+  document: `Service: ${serviceLink('document-ai')} · All: ${LINKS.services}`,
+  predictive: `Service: ${serviceLink('predictive-analytics')} · All: ${LINKS.services}`,
+  vision: `Service: ${serviceLink('computer-vision')} · All: ${LINKS.services}`,
+  agents: `Service: ${serviceLink('agentic-automation')} · All: ${LINKS.services}`,
+  pricing: `Packages: ${LINKS.pricing} · Message form: ${LINKS.message}`,
+  why: `Why Bluexech: ${LINKS.features}`,
+  process: `How we work: ${LINKS.process}`,
+  contact: `Contact: ${LINKS.contact}\nEmail: ${LINKS.email}\nWhatsApp: ${LINKS.whatsapp}\nMap: ${LINKS.map}\nMessage form: ${LINKS.message}`,
+  whatsapp: `WhatsApp: ${LINKS.whatsapp}`,
+  portfolio: `Portfolio: ${LINKS.portfolio}`,
+  faq: `FAQ / Help Centre: ${LINKS.faq}`,
+  tech: `Technologies: ${LINKS.tech}`,
+  blog: `Blog: ${LINKS.blog}`,
+  stats: `Stats: ${LINKS.about}`,
+  consultation: `Message form: ${LINKS.message} · Contact: ${LINKS.contact}`,
+  testimonials: `Testimonials: ${LINKS.testimonials}`,
+  attachment: `Share details via form: ${LINKS.message}`,
 }
 
 /** @type {{ id: string, keywords: string[], answer: string }[]} */
@@ -174,35 +156,43 @@ export const chatbotIntents = [
       'good morning',
       'good evening',
       'good afternoon',
-      'start',
-      'help',
-      'madad',
       'assalamualaikum',
+      'madad',
     ],
-    answer:
-      `Hello! I’m the Bluexech AI Assistant — I know this full website.\n\nAsk me anything, for example:\n• “Full site details” — complete guide\n• “All services” — every AI service with modules & outcomes\n• “Pricing” — Starter / Growth / Enterprise\n• “Why Bluexech” — why choose us\n• “Process” — Discover → Design → Build → Scale\n• “Portfolio” — NovaOps, HarborPay, ShieldGrid, Lumen Care\n• “Contact” — email, phone, WhatsApp, Gulshan Hadeed map\n• “Technologies” / “Blog” / “FAQ”\n\nOffice: ${ADDRESS}\n${EMAIL} · ${PHONE}`,
+    answer: `Hi 👋 I’m Cyan. Ask me anything about Bluexech — I’ll answer just what you ask.`,
+  },
+  {
+    id: 'cyan',
+    keywords: [
+      'what is cyan',
+      'who is cyan',
+      'about cyan',
+      'cyan kya',
+      'cyan kon',
+      'your name',
+      'assistant name',
+      'cyan',
+    ],
+    answer: `I’m Cyan — the chat assistant on this Bluexech AI website. I answer your questions about the company and its AI work.`,
   },
   {
     id: 'about',
     keywords: [
-      'about',
+      'about bluexech',
       'who are you',
       'company',
       'bluexech',
       'what do you do',
       'agency',
       'introduce',
-      'brand',
       'mission',
-      'business',
       'company kya',
       'tum kon',
       'aap kon',
       'kya kartay',
       'kya karte',
     ],
-    answer:
-      `About Bluexech AI (full):\n\nBluexech AI helps organizations grow with unique AI services — chatbots, document intelligence, predictive models, computer vision, and agentic automation — delivered close to your goals.\n\nHeadline on site: “Build Smarter with Unique AI Solutions & Intelligent Automation”\nLead: We help businesses grow with AI chatbots, generative systems, document intelligence, predictive analytics, and agentic automation.\n\nTrusted delivery stats:\n• 120+ projects completed\n• 40+ happy clients\n• 12+ countries served\n• 8+ years of experience\n\nHQ / office: ${ADDRESS}\nWe are an AI-first company (not a generic web-only shop).\n\nNext: ask “all services”, “pricing”, or “full site details”.`,
+    answer: `Bluexech AI builds practical AI for businesses — chatbots, document AI, predictive models, computer vision, and automation. Based in ${ADDRESS}.`,
   },
   {
     id: 'services',
@@ -213,17 +203,19 @@ export const chatbotIntents = [
       'what can you',
       'solutions',
       'capabilities',
-      'products',
       'ai services',
       'list service',
       'services kya',
       'kya services',
-      'kya offer',
-      'kya dete',
-      'kya kar sakte',
-      'khidmat',
+      'what ai services',
+      'apki services',
+      'your services',
     ],
-    answer: `All Bluexech AI services — full details:\n\n${allServicesDetailed}\n\nTip: Ask one by name for a shorter deep dive (chatbots, generative, document AI, predictive, vision, agentic).`,
+    answer: `Bluexech AI’s main services:
+
+${allServicesShort}
+
+Want detail on one? Name it (e.g. chatbot or document AI).`,
   },
   {
     id: 'chatbots',
@@ -239,7 +231,7 @@ export const chatbotIntents = [
       'bot banana',
       'chat bot kya',
     ],
-    answer: formatService(services.find((x) => x.id === 'ai-chatbots')),
+    answer: serviceChat(services.find((x) => x.id === 'ai-chatbots')),
   },
   {
     id: 'generative',
@@ -255,7 +247,7 @@ export const chatbotIntents = [
       'content likhna',
       'writing ai',
     ],
-    answer: formatService(services.find((x) => x.id === 'generative-ai')),
+    answer: serviceChat(services.find((x) => x.id === 'generative-ai')),
   },
   {
     id: 'document',
@@ -272,7 +264,7 @@ export const chatbotIntents = [
       'document ai',
       'invoice ai',
     ],
-    answer: formatService(services.find((x) => x.id === 'document-ai')),
+    answer: serviceChat(services.find((x) => x.id === 'document-ai')),
   },
   {
     id: 'predictive',
@@ -288,7 +280,7 @@ export const chatbotIntents = [
       'prediction',
       'forecasting',
     ],
-    answer: formatService(services.find((x) => x.id === 'predictive-analytics')),
+    answer: serviceChat(services.find((x) => x.id === 'predictive-analytics')),
   },
   {
     id: 'vision',
@@ -305,7 +297,7 @@ export const chatbotIntents = [
       'visual search',
       'computer vision',
     ],
-    answer: formatService(services.find((x) => x.id === 'computer-vision')),
+    answer: serviceChat(services.find((x) => x.id === 'computer-vision')),
   },
   {
     id: 'agents',
@@ -321,7 +313,7 @@ export const chatbotIntents = [
       'auto kaam',
       'automation kya',
     ],
-    answer: formatService(services.find((x) => x.id === 'agentic-automation')),
+    answer: serviceChat(services.find((x) => x.id === 'agentic-automation')),
   },
   {
     id: 'pricing',
@@ -348,8 +340,13 @@ export const chatbotIntents = [
       'fees',
       'pakage',
     ],
-    answer:
-      `Packages / Pricing (full):\n\n1) Starter — $1,999 / project\n   Best for: focused AI pilots (chatbot OR document automation)\n   Includes:\n   • AI discovery workshop\n   • Chatbot or Doc AI pilot\n   • Basic analytics\n   • 2 weeks support\n\n2) Growth — $4,999 / month (featured / most popular on site)\n   Best for: ongoing AI product & automation partnership\n   Includes:\n   • Dedicated AI squad\n   • Agents + AI model scope\n   • Sprint demos\n   • Priority support\n\n3) Enterprise — Custom\n   Best for: multi-agent systems, vision, org-wide AI rollout\n   Includes:\n   • AI architecture review\n   • Custom models / RAG\n   • 24/7 coverage\n   • SLA & onsite options\n\nExtra: Final quote depends on data readiness, integrations, channels (web/WhatsApp), and compliance needs.\nBook Free Consultation via the site message form, email ${EMAIL}, or WhatsApp ${PHONE}.`,
+    answer: `Pricing packages:
+
+• Starter — $1,999 / project (chatbot or Doc AI pilot)
+• Growth — $4,999 / month (ongoing AI partnership)
+• Enterprise — custom (org-wide / multi-agent)
+
+Final quote depends on scope. Details: ${LINKS.pricing}`,
   },
   {
     id: 'why',
@@ -366,8 +363,7 @@ export const chatbotIntents = [
       'fazool',
       'behtar',
     ],
-    answer:
-      `Why Choose Bluexech (full):\n\n1) Outcome-first delivery — every engagement tied to measurable results, not vanity demos\n2) Senior AI specialists — AI model, automation, vision, and data experts who ship production systems\n3) Safe AI by default — guardrails, human-in-the-loop checks, data privacy baked in\n4) Transparent communication — clear milestones, demos, ownership\n5) Scalable AI architecture — pipelines/agents that grow with volume & use cases\n6) Long-term partnership — support, iteration, guidance after launch\n\nExtra: We stay accountable after go-live with monitoring and continuous improvement.`,
+    answer: `Teams choose Bluexech for outcome-first AI delivery, senior specialists, safe AI guardrails, clear communication, and support after launch.`,
   },
   {
     id: 'process',
@@ -389,8 +385,7 @@ export const chatbotIntents = [
       'steps kya',
       'kaise start',
     ],
-    answer:
-      `How We Work — full process from the site:\n\n1) Discover\n   We map goals, constraints, and success metrics with your stakeholders.\n\n2) Design\n   Architecture, UX, and delivery plan are shaped before code ships.\n\n3) Build\n   Iterative sprints with demos, quality gates, and clear ownership.\n\n4) Scale\n   Launch support, monitoring, and continuous improvement after go-live.\n\nExtra details:\n• Most engagements begin within 1–2 weeks after discovery\n• Urgent pilots (chatbot / document AI) can start sooner\n• You get demos during sprints so there are no surprises\n• Post-launch: monitoring + iteration (Enterprise: SLA options)\n\nReady to start? Message form, ${EMAIL}, or WhatsApp ${PHONE}.`,
+    answer: `We work in 4 steps: Discover → Design → Build → Scale. Most projects start within 1–2 weeks after discovery.`,
   },
   {
     id: 'contact',
@@ -417,13 +412,22 @@ export const chatbotIntents = [
       'office kahan',
       'kahan ho',
     ],
-    answer:
-      `Contact & location (full):\n\n📧 Email: ${EMAIL}\n📞 Phone: ${PHONE}\n💬 WhatsApp: ${PHONE}\n   Direct link: ${WA}\n📍 Office: ${ADDRESS}\n🗺️ Map: Google Map embedded on Contact section for Gulshan-e-Hadeed, Karachi\n\nExtra:\n• Reply time: usually within 1 business day\n• Message form: Contact page CTA opens message.html in a new tab with fill instructions\n• Site CTAs: “Get Started” and “Book Free Consultation”\n• Footer also lists email, phone, and address\n• Social: LinkedIn company/bluexech-ai · Facebook · Instagram @bluexech_ai\n\nLeft floating button = WhatsApp · Right floating button = this AI chat`,
+    answer: `Email: ${EMAIL}
+Phone / WhatsApp: ${PHONE}
+Office: ${ADDRESS}
+WhatsApp: ${LINKS.whatsapp}
+Contact page: ${LINKS.contact}`,
   },
   {
     id: 'whatsapp',
     keywords: ['whatsapp', 'wa link', 'message on whatsapp', 'whatsapp number'],
-    answer: `WhatsApp (full):\n\nNumber: ${PHONE}\nChat link: ${WA}\n\nUse WhatsApp for quick human chat. Use this AI chat for full site details anytime.\nWhatsApp float is on the LEFT side of the screen.`,
+    answer: `Sure — WhatsApp us anytime:
+
+Number: ${PHONE}
+Direct link: ${WA}
+
+(WhatsApp button is on the left side of the site.)
+I’m here for instant site answers; WhatsApp is best for talking to the team.`,
   },
   {
     id: 'portfolio',
@@ -444,13 +448,26 @@ export const chatbotIntents = [
       'projects kya',
       'kaam dikhao',
     ],
-    answer:
-      `Portfolio / case studies (full):\n\n1) NovaOps Platform — tag: AI + Cloud\n   Ops intelligence suite that cut incident response time by ~42%.\n   Details: real-time ops platform with AI alerts, cloud telemetry, operator workflows.\n   Highlights: Live incident board · AI triage suggestions · Cloud metric connectors · Role-based access\n\n2) HarborPay Portal — tag: Web App\n   Secure customer payments hub with real-time reconciliation dashboards.\n   Highlights: Realtime payment status · Reconciliation dashboards · Secure auth flows · Exportable reports\n\n3) ShieldGrid Monitor — tag: Cybersecurity\n   Continuous threat visibility for a multi-region logistics network.\n   Highlights: Threat feed panel · Endpoint health map · Escalation workflows · Audit-ready logs\n\n4) Lumen Care Suite — tag: Custom Software\n   Clinic workflow system: scheduling, records, billing.\n   Highlights: Scheduling board · Patient records · Billing sync · Staff roles\n\nExtra: Cards show “View case study →”. Modal has “Start similar project” (opens message form).`,
+    answer: `A few projects from our portfolio:
+
+• NovaOps (AI + Cloud) — cut incident response ~42%
+• HarborPay (Web App) — secure payments + live reconciliation
+• ShieldGrid (Cybersecurity) — multi-region threat visibility
+• Lumen Care (Custom Software) — clinic scheduling, records, billing
+
+On the site, open “View case study →”, then “Start similar project” if you want something like that.
+
+Which industry are you in?`,
   },
   {
     id: 'faq',
     keywords: [
       'faq',
+      'help centre',
+      'help center',
+      'help centre?',
+      'help center?',
+      'browse help',
       'industries',
       'industry',
       'custom model',
@@ -461,11 +478,21 @@ export const chatbotIntents = [
       'logistics',
       'retail',
       'finance',
-      'question',
-      'sawal',
+      'how quickly can a project',
+      'project start',
+      'after launch',
     ],
-    answer:
-      `FAQ — full answers from the site:\n\nQ: What industries do you serve?\nA: Healthcare, logistics, retail, finance, and professional services — anywhere AI chatbots, document AI, and automation create leverage.\n\nQ: How quickly can a project start?\nA: Most AI engagements begin within 1–2 weeks after discovery. Pilot chatbots or document pipelines can start sooner.\n\nQ: Do you work with existing teams?\nA: Yes. We embed with your ops, product, and engineering teams — or run as a self-contained AI delivery squad.\n\nQ: Do you build custom AI models or use existing ones?\nA: Both. Proven AI models/APIs where they fit; fine-tune or train custom models when your data and accuracy need it.\n\nQ: What does support look like after launch?\nA: Monitoring, prompt/model updates, post-launch coverage. Enterprise clients get SLAs and continuous improvement cycles.\n\nExtra: Open the FAQ section on the site for the same answers in accordion UI.`,
+    answer: `Here’s Cyan’s Help Centre 📚
+
+Quick answers:
+• Industries: healthcare, logistics, retail, finance, professional services
+• Start time: usually 1–2 weeks after discovery (pilots sooner)
+• Existing teams: yes — we embed or run as a full delivery squad
+• Models: existing AI APIs and custom/fine-tuned models — whichever fits accuracy & data
+• After launch: monitoring + updates; Enterprise gets SLAs
+
+You can also open the FAQ section on this site for the same answers.
+Ask any one of these in more detail if you want.`,
   },
   {
     id: 'tech',
@@ -486,13 +513,20 @@ export const chatbotIntents = [
       'tech stack',
       'konsa tech',
     ],
-    answer:
-      `Technologies we use (full list from the site):\n\n${techLines}\n\nExtra: Stack is chosen per project for privacy, cost, accuracy, and scale — not hype. AI work often leans on Python + cloud + AI models; product UIs may use React/TypeScript.`,
+    answer: `We pick the stack that fits your project (privacy, cost, accuracy, scale):
+
+${techLines}
+
+Want a recommendation for your use case?`,
   },
   {
     id: 'blog',
-    keywords: ['blog', 'article', 'articles', 'guide', 'read', 'post', 'blogs'],
-    answer: `Blog preview topics on the site:\n\n${blogLines}\n\nExtra: Blog section is a preview of practical AI guides. Ask if you want a summary of any topic (RAG chatbots, document AI, agentic automation, growth, tools).`,
+    keywords: ['blog', 'article', 'articles', 'blogs', 'blog topics'],
+    answer: `Here are blog topics on the site:
+
+${blogLines}
+
+Tell me a topic name if you want a short summary.`,
   },
   {
     id: 'stats',
@@ -508,8 +542,14 @@ export const chatbotIntents = [
       'kitne projects',
       'kitne clients',
     ],
-    answer:
-      `Statistics section (full):\n\n• 120+ Projects Completed\n• 40+ Happy Clients\n• 12+ Countries Served\n• 8+ Years of Experience\n\nExtra: Bluexech AI helps organizations grow with unique AI services delivered close to your goals.`,
+    answer: `Bluexech AI by the numbers:
+
+• 120+ projects completed
+• 40+ happy clients
+• 12+ countries served
+• 8+ years of experience
+
+Want to see how that translates into a service for you?`,
   },
   {
     id: 'consultation',
@@ -527,8 +567,15 @@ export const chatbotIntents = [
       'kaise book',
       'consult karna',
     ],
-    answer:
-      `How to start with Bluexech AI (full):\n\n1) Click “Get Started” or “Book Free Consultation” on the hero\n2) Or open Contact → “Open message form” (message.html new tab)\n3) Follow fill instructions, choose a service, submit details\n4) Or email ${EMAIL} / call-WhatsApp ${PHONE}\n\nExtra: Tell us goals, data sources, timeline, and budget range so we can recommend Starter, Growth, or Enterprise.\nOffice visits / remote: based in ${ADDRESS}; we also serve clients internationally (12+ countries on stats).`,
+    answer: `Easy — here’s how to start:
+
+1) Click “Get Started” or “Book Free Consultation” on the site
+2) Or use the Contact message form
+3) Or reach us directly: ${EMAIL} / WhatsApp ${PHONE}
+
+Share your goal, timeline, and budget range — we’ll recommend Starter, Growth, or Enterprise.
+
+Shall I send the WhatsApp link?`,
   },
   {
     id: 'testimonials',
@@ -541,14 +588,46 @@ export const chatbotIntents = [
       'rating',
       'client reviews',
     ],
-    answer:
-      `Testimonials on the site (full):\n\n• Sara Malik (CTO, Freightline) — WhatsApp agent answers ~80% of support questions so the team focuses on complex cases.\n• Daniel Okoye (Head of Ops, Meridian Health) — Document AI cut invoice entry from hours to minutes with high accuracy.\n• Priya Nair (COO, Atlas Retail) — Agentic automation paid for itself in the first quarter; communication stayed crisp.\n\nExtra: All shown with 5-star ratings on the Testimonials section.`,
+    answer: `Here’s what clients say:
+
+• Sara Malik (Freightline) — WhatsApp agent handles ~80% of support questions
+• Daniel Okoye (Meridian Health) — Document AI cut invoice entry from hours to minutes
+• Priya Nair (Atlas Retail) — Agentic automation paid for itself in the first quarter
+
+All shown as 5-star reviews on the site. Want a similar outcome?`,
+  },
+  {
+    id: 'attachment',
+    keywords: [
+      'attached',
+      'attachment',
+      'i attached',
+      'attach a file',
+      'file:',
+      'photo',
+      'screenshot',
+      'image attached',
+    ],
+    answer: `Got it — thanks for sharing the file 📎
+
+I can’t deeply analyze file contents in this chat yet, but I’ve noted your attachment.
+
+Please tell me in 1–2 lines what you need help with (e.g. chatbot brief, invoice sample, UI screenshot), and I’ll guide the next steps — or WhatsApp the team at ${PHONE} for a human review.`,
   },
   {
     id: 'thanks',
-    keywords: ['thanks', 'thank you', 'shukriya', 'ok', 'okay', 'great', 'perfect', 'done', 'jazakallah'],
-    answer:
-      'You’re welcome! Ask “full site details” anytime for the complete guide, or ask about any section — services, pricing, portfolio, contact, tech, blog, FAQ.',
+    keywords: [
+      'thanks',
+      'thank you',
+      'shukriya',
+      'ok',
+      'okay',
+      'great',
+      'perfect',
+      'done',
+      'jazakallah',
+    ],
+    answer: `You’re welcome! 😊 Anytime you need services, pricing, or contact details — just ask.`,
   },
 ]
 
@@ -560,99 +639,319 @@ function tokenize(text) {
     .trim()
 }
 
-const serviceRoman = (s) =>
-  `${s.title}\nDuration: ${s.duration} | Level: ${s.level}\n\nShort: ${s.desc}\n\nPoori detail: ${s.details}\n\nAap ko milta hai:\n• ${s.modules.join('\n• ')}\n\nResults: ${s.outcomes.join(' · ')}\n\nExtra: Hum pehle data, goals, integrations aur training clear karte hain. Jahan zarurat ho wahan human review / handoff bhi hota hai.`
-
 const ROMAN_BY_ID = {
-  full_site: `📘 BLUEXECH AI — POORI SITE GUIDE (Roman)
+  full_site: `Bluexech AI ka clear overview:
 
-1) COMPANY
-Brand: Bluexech AI
-Kaam: Unique AI solutions — chatbots, generative AI, document AI, predictive analytics, computer vision, agentic automation.
+Hum AI company hain — chatbots, generative AI, document AI, predictive analytics, computer vision, aur agentic automation.
+
 Office: ${ADDRESS}
 Stats: 120+ projects · 40+ clients · 12+ countries · 8+ years
 
-2) SERVICES
-${services.map((s, i) => `${i + 1}) ${serviceRoman(s)}`).join('\n\n---\n\n')}
+Services:
+${allServicesShort}
 
-3) WHY BLUEXECH
-Outcome-first · Senior AI specialists · Safe AI · Transparent communication · Scalable architecture · Long-term partnership
+Pricing: Starter $1,999/project · Growth $4,999/month · Enterprise custom
+Process: Discover → Design → Build → Scale
+Contact: ${EMAIL} · ${PHONE}
 
-4) PROCESS
-Discover → Design → Build → Scale
-Start aksar 1–2 weeks after discovery. Pilots jaldi ho sakte hain.
+Kisi ek topic pe aur detail chahiye to batao.`,
 
-5) PRICING
-Starter $1,999/project · Growth $4,999/month · Enterprise Custom
+  greeting: `Assalam o Alaikum 👋 Main Cyan hoon. Jo poochoge usi ka short answer dunga.`,
 
-6) PORTFOLIO
-NovaOps · HarborPay · ShieldGrid · Lumen Care Suite
+  cyan: `Main Cyan hoon — Bluexech AI website ka chat assistant. Aap ke sawal ka seedha jawab deta hoon.`,
 
-7) CONTACT
-Email: ${EMAIL}
+  about: `Bluexech AI businesses ke liye practical AI banati hai — chatbots, document AI, predictive, vision, automation. Office: ${ADDRESS}.`,
+
+  services: `Bluexech AI ki main services:
+
+${allServicesShort}
+
+Kisi ek ki detail chahiye to naam likho.`,
+
+  chatbots: serviceChatRoman(services.find((x) => x.id === 'ai-chatbots')),
+  generative: serviceChatRoman(services.find((x) => x.id === 'generative-ai')),
+  document: serviceChatRoman(services.find((x) => x.id === 'document-ai')),
+  predictive: serviceChatRoman(services.find((x) => x.id === 'predictive-analytics')),
+  vision: serviceChatRoman(services.find((x) => x.id === 'computer-vision')),
+  agents: serviceChatRoman(services.find((x) => x.id === 'agentic-automation')),
+
+  pricing: `Pricing:
+
+• Starter — $1,999 / project
+• Growth — $4,999 / month
+• Enterprise — custom
+
+Details: ${LINKS.pricing}`,
+
+  why: `Bluexech outcome-first AI, senior specialists, safe AI, clear communication, aur launch ke baad support ke liye choose hota hai.`,
+
+  process: `Process: Discover → Design → Build → Scale. Start aksar discovery ke 1–2 weeks baad.`,
+
+  contact: `Email: ${EMAIL}
 Phone/WhatsApp: ${PHONE}
-Address: ${ADDRESS}
-Map Contact section pe hai.
+Office: ${ADDRESS}
+WhatsApp: ${LINKS.whatsapp}
+Contact: ${LINKS.contact}`,
 
-Koi bhi specific sawal poocho — isi Roman style mein detail milay gi.`,
+  whatsapp: `WhatsApp:
 
-  greeting: `Assalam o Alaikum! Main Bluexech AI Assistant hoon — poori website ki details mujhe pata hain.\n\nAap pooch sakte ho:\n• “poori site details”\n• “services kya hain”\n• “price kitna hai”\n• “contact / office kahan hai”\n• “process kaise hai”\n• “portfolio”\n\nOffice: ${ADDRESS}\n${EMAIL} · ${PHONE}`,
+Number: ${PHONE}
+Link: ${WA}
 
-  about: `Bluexech AI ke bare mein (poori detail):\n\nHum unique AI services dete hain — chatbots, document intelligence, predictive models, computer vision, aur agentic automation.\n\nSite headline: Build Smarter with Unique AI Solutions & Intelligent Automation\n\nStats: 120+ projects · 40+ clients · 12+ countries · 8+ years\nOffice: ${ADDRESS}\n\nHum AI-first company hain (sirf generic website agency nahi).\nAgla sawal: “services kya hain” ya “price batao”.`,
+(Left side pe WhatsApp button hai.)
+Site answers ke liye main; team se baat ke liye WhatsApp best hai.`,
 
-  services: `Bluexech AI ki saari services (poori detail):\n\n${services.map((s, i) => `${i + 1}) ${serviceRoman(s)}`).join('\n\n---\n\n')}\n\nKisi ek pe deep dive chahiye to naam likho (chatbot, document AI, vision, etc.).`,
+  portfolio: `Portfolio se examples:
 
-  chatbots: serviceRoman(services.find((x) => x.id === 'ai-chatbots')),
-  generative: serviceRoman(services.find((x) => x.id === 'generative-ai')),
-  document: serviceRoman(services.find((x) => x.id === 'document-ai')),
-  predictive: serviceRoman(services.find((x) => x.id === 'predictive-analytics')),
-  vision: serviceRoman(services.find((x) => x.id === 'computer-vision')),
-  agents: serviceRoman(services.find((x) => x.id === 'agentic-automation')),
+• NovaOps — incident response ~42% better
+• HarborPay — secure payments + reconciliation
+• ShieldGrid — threat visibility
+• Lumen Care — clinic scheduling/records/billing
 
-  pricing: `Packages / Pricing (poori detail):\n\n1) Starter — $1,999 / project\n   Chatbot ya Document AI pilot\n   Includes: discovery workshop, pilot, basic analytics, 2 weeks support\n\n2) Growth — $4,999 / month (popular)\n   Ongoing AI partnership\n   Includes: dedicated AI squad, agents + AI model, sprint demos, priority support\n\n3) Enterprise — Custom\n   Multi-agent, vision, org-wide AI\n   Includes: architecture review, custom models/RAG, 24/7, SLA & onsite\n\nFinal quote data, integrations aur channels pe depend karta hai.\nContact: ${EMAIL} · WhatsApp ${PHONE}`,
+Kis industry mein ho? Similar project chahiye to batao.`,
 
-  why: `Bluexech kyun choose karein:\n\n1) Outcome-first delivery — measurable results\n2) Senior AI specialists\n3) Safe AI — guardrails + human-in-the-loop\n4) Transparent communication\n5) Scalable AI architecture\n6) Long-term partnership after launch\n\nExtra: Launch ke baad bhi monitoring aur improvement milti hai.`,
+  faq: `Cyan Help Centre 📚
 
-  process: `Hum kaise kaam karte hain:\n\n1) Discover — goals, constraints, success metrics\n2) Design — architecture, UX, delivery plan\n3) Build — sprints, demos, quality checks\n4) Scale — launch support + continuous improvement\n\nStart: aksar discovery ke 1–2 weeks baad. Pilots jaldi possible.\nShuru karna ho to message form, ${EMAIL}, ya WhatsApp ${PHONE}.`,
+• Industries: healthcare, logistics, retail, finance…
+• Start: 1–2 weeks after discovery
+• Existing teams: haan
+• Models: existing + custom dono
+• After launch: monitoring; Enterprise pe SLA
 
-  contact: `Contact (poori detail):\n\nEmail: ${EMAIL}\nPhone: ${PHONE}\nWhatsApp: ${PHONE}\nLink: ${WA}\nOffice: ${ADDRESS}\nMap: Contact section pe Gulshan-e-Hadeed ka live map\n\nReply: usually 1 business day\nMessage form Contact se open hota hai\nSocial: LinkedIn, Facebook, Instagram @bluexech_ai\n\nLeft button = WhatsApp · Right button = AI Chat`,
+Site pe FAQ section bhi hai.
+Kis sawal pe aur detail chahiye?`,
 
-  whatsapp: `WhatsApp details:\nNumber: ${PHONE}\nLink: ${WA}\n\nJaldi human chat ke liye WhatsApp use karo. Site details ke liye ye AI chat use karo.\nWhatsApp LEFT side pe hai.`,
+  tech: `Tech stack project ke hisaab se choose hota hai:
 
-  portfolio: `Portfolio / case studies:\n\n1) NovaOps Platform (AI + Cloud) — incident response ~42% better\n2) HarborPay Portal (Web App) — secure payments + reconciliation\n3) ShieldGrid Monitor (Cybersecurity) — threat visibility\n4) Lumen Care Suite (Custom Software) — clinic scheduling/records/billing\n\nSite pe “View case study →” dabao, phir “Start similar project”.`,
+${techLines}
 
-  faq: `FAQ (Roman):\n\nIndustries: healthcare, logistics, retail, finance, professional services\nStart time: 1–2 weeks after discovery (pilots jaldi)\nExisting teams: haan — embed ya alag squad\nModels: existing AI models/APIs + custom fine-tune dono\nAfter launch: monitoring + updates; Enterprise pe SLA\n\nAur sawal poocho — detail mil jayegi.`,
+Apna use case batao — recommend karun?`,
 
-  tech: `Technologies (site list):\n\n${techLines}\n\nExtra: Har project pe stack privacy, cost aur accuracy ke hisaab se choose hota hai.`,
+  blog: `Site pe blog topics:
 
-  blog: `Blog topics:\n\n${blogLines}\n\nKisi topic ka summary chahiye to naam likho.`,
+${blogLines}
 
-  stats: `Statistics:\n• 120+ Projects\n• 40+ Happy Clients\n• 12+ Countries\n• 8+ Years Experience\n\nBluexech AI unique AI services ke sath growth help karta hai.`,
+Kisi topic ka short summary chahiye?`,
 
-  consultation: `Project kaise start karein:\n\n1) Hero pe Get Started / Book Free Consultation\n2) Contact → Open message form\n3) Instructions follow karke form bharo\n4) Ya ${EMAIL} / WhatsApp ${PHONE}\n\nGoals, data, timeline, budget batao — Starter/Growth/Enterprise suggest karenge.\nOffice: ${ADDRESS}`,
+  stats: `Numbers:
 
-  testimonials: `Client feedback:\n\n• Sara Malik (Freightline) — WhatsApp agent ~80% support handle karta hai\n• Daniel Okoye (Meridian Health) — Document AI ne invoice entry hours se minutes ki\n• Priya Nair (Atlas Retail) — Agentic automation pehle quarter mein payback\n\nSab 5-star testimonials site pe hain.`,
+• 120+ projects
+• 40+ clients
+• 12+ countries
+• 8+ years
 
-  thanks: `Shukriya! Kabhi bhi “poori site details”, services, price, ya contact pooch sakte ho — main Roman/English dono samajhta hoon.`,
+Service recommend karun?`,
+
+  consultation: `Start kaise karein:
+
+1) Site pe Get Started / Book Free Consultation
+2) Contact message form
+3) Direct: ${EMAIL} / WhatsApp ${PHONE}
+
+Goal, timeline, budget batao — package suggest karenge.
+WhatsApp link bhejun?`,
+
+  testimonials: `Clients kehti hain:
+
+• Sara Malik — WhatsApp agent ~80% support handle
+• Daniel Okoye — Document AI ne invoice entry hours → minutes
+• Priya Nair — automation pehle quarter mein payback
+
+Similar result chahiye?`,
+
+  attachment: `File mil gayi 📎 — shukriya!
+
+Is chat mein file ko deeply analyze nahi kar sakta, lekin note kar liya.
+
+1–2 lines mein batao kya help chahiye (brief, invoice, screenshot…), main next steps bataunga — ya team ko WhatsApp ${PHONE} pe bhej dein.`,
+
+  thanks: `Shukriya! 😊 Services, price, ya contact — jab chaho pooch lena.`,
 }
 
-const FALLBACK_EN =
-  `I can still help.\n\nBluexech AI · ${ADDRESS}\nAI services: Chatbots · Generative AI · Document AI · Predictive Analytics · Computer Vision · Agentic Automation\nPackages: Starter $1,999/project · Growth $4,999/mo · Enterprise Custom\nContact: ${EMAIL} · ${PHONE}\n\nType “full site details” or ask: services · pricing · portfolio · contact`
+const STOP = new Set([
+  'the',
+  'and',
+  'for',
+  'you',
+  'your',
+  'our',
+  'are',
+  'is',
+  'am',
+  'was',
+  'were',
+  'what',
+  'which',
+  'who',
+  'how',
+  'when',
+  'where',
+  'why',
+  'with',
+  'from',
+  'this',
+  'that',
+  'these',
+  'those',
+  'have',
+  'has',
+  'had',
+  'can',
+  'could',
+  'would',
+  'should',
+  'will',
+  'just',
+  'about',
+  'into',
+  'than',
+  'then',
+  'them',
+  'they',
+  'their',
+  'there',
+  'here',
+  'also',
+  'very',
+  'much',
+  'more',
+  'some',
+  'any',
+  'all',
+  'not',
+  'but',
+  'or',
+  'do',
+  'does',
+  'did',
+  'a',
+  'an',
+  'of',
+  'to',
+  'in',
+  'on',
+  'at',
+  'as',
+  'by',
+  'be',
+  'me',
+  'my',
+  'we',
+  'us',
+  'please',
+  'tell',
+  'want',
+  'need',
+  'like',
+  'get',
+  'got',
+  'kya',
+  'hai',
+  'hain',
+  'hein',
+  'ye',
+  'yeh',
+  'yai',
+  'yea',
+  'this',
+  'matlab',
+])
 
-const FALLBACK_ROMAN =
-  `Main madad kar sakta hoon.\n\nBluexech AI · ${ADDRESS}\nServices: Chatbots · Generative · Document AI · Predictive · Vision · Agentic Automation\nPackages: Starter $1,999/project · Growth $4,999/mo · Enterprise Custom\nContact: ${EMAIL} · ${PHONE}\n\nLikho: “poori site details” ya “services kya hain” / “price kitna hai”`
+const EMOJI_HINTS = [
+  { re: /⭐|🌟|✨/, nameEn: 'a star / sparkle emoji', nameRoman: 'star / sparkle emoji' },
+  { re: /🔥/, nameEn: 'a fire emoji (often means “hot” / awesome)', nameRoman: 'fire emoji (matlab “zabardast / trending”)' },
+  { re: /❤️|💙|💕|💗/, nameEn: 'a heart emoji (love / like)', nameRoman: 'heart emoji (pyar / like)' },
+  { re: /😂|🤣|😁|😀|😊/, nameEn: 'a smile / laugh emoji', nameRoman: 'smile / laugh emoji' },
+  { re: /👍|👎/, nameEn: 'a thumbs up/down emoji', nameRoman: 'thumbs up/down emoji' },
+  { re: /🙏/, nameEn: 'a folded-hands emoji (thanks / please)', nameRoman: 'pray/thanks emoji' },
+  { re: /🚀/, nameEn: 'a rocket emoji (launch / growth)', nameRoman: 'rocket emoji (launch / growth)' },
+  { re: /💡/, nameEn: 'a light-bulb emoji (idea)', nameRoman: 'bulb emoji (idea)' },
+  { re: /✅|❌/, nameEn: 'a check / cross mark emoji', nameRoman: 'check / cross emoji' },
+]
+
+function extractEmojis(original) {
+  try {
+    return String(original || '').match(/\p{Extended_Pictographic}/gu) || []
+  } catch {
+    return String(original || '').match(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu) || []
+  }
+}
+
+function emojiSmalltalkReply(original) {
+  const raw = String(original || '').trim()
+  if (!raw) return null
+  const emojis = extractEmojis(raw)
+  const asksWhat =
+    /(kya hai|kia hai|ye kya|yai kya|yeh kya|what is this|what's this|whats this|what is that|matlab kya|is ka matlab|ye wali)/i.test(
+      raw,
+    )
+  let stripped = raw
+  for (const e of emojis) stripped = stripped.split(e).join('')
+  const mostlyEmoji = emojis.length > 0 && stripped.replace(/\s+/g, '').length <= 2
+
+  if (!emojis.length && !asksWhat) return null
+  if (!emojis.length && asksWhat) {
+    return {
+      text: `Aap ne poocha “ye kya hai?” — mujhe clear nahi mila kis cheez ke bare mein.\n\nThoda specify karein (jaise pricing, services, portfolio), ya emoji/symbol bhejein — main usi pe jawab dunga.`,
+      romanText: `Aap ne poocha “ye kya hai?” — clear nahi mila kis cheez ke bare mein.\n\nThoda specify karein (pricing, services, portfolio), ya emoji bhejein — usi pe jawab dunga.`,
+      intentIds: ['smalltalk'],
+    }
+  }
+
+  if (emojis.length && (asksWhat || mostlyEmoji)) {
+    const e = emojis[0]
+    const hint = EMOJI_HINTS.find((h) => h.re.test(e))
+    const enName = hint?.nameEn || 'an emoji / symbol'
+    const romanName = hint?.nameRoman || 'emoji / symbol'
+    return {
+      text: `That’s ${enName}: ${e}\n\nIt’s just a chat symbol — not a Bluexech service.\n\nIf you meant something on the site (pricing, chatbots, contact), tell me in a short sentence and I’ll answer that.`,
+      romanText: `Ye ${romanName} hai: ${e}\n\nSirf chat symbol hai — Bluexech ki koi service nahi.\n\nAgar site ki cheez poochni hai (price, chatbot, contact), short sentence mein likhein — usi pe jawab dunga.`,
+      intentIds: ['smalltalk'],
+    }
+  }
+
+  return null
+}
+
+function meaningfulTokens(text) {
+  return text
+    .split(' ')
+    .filter((t) => t.length > 2 && !STOP.has(t))
+}
 
 function scoreIntents(text) {
   return chatbotIntents
     .map((intent) => {
       let score = 0
       for (const kw of intent.keywords) {
-        if (text === kw) score += 6
-        else if (text.includes(kw)) score += kw.length > 8 ? 4 : kw.length > 4 ? 3 : 2
+        const k = kw.toLowerCase()
+        if (!k) continue
+        if (text === k) score += 20
+        else if (k.includes(' ') && text.includes(k)) score += 14
+        else if (
+          !k.includes(' ') &&
+          k.length >= 4 &&
+          (text === k || text.startsWith(`${k} `) || text.endsWith(` ${k}`) || text.includes(` ${k} `))
+        ) {
+          score += k.length >= 6 ? 10 : 7
+        }
       }
-      const tokens = text.split(' ').filter((t) => t.length > 2)
+      const tokens = meaningfulTokens(text)
       for (const t of tokens) {
-        if (intent.keywords.some((kw) => kw.includes(t) || t.includes(kw))) score += 1
+        if (t.length < 4) continue
+        for (const kw of intent.keywords) {
+          const k = kw.toLowerCase()
+          if (k === t) score += 6
+          // Only allow longer token≈keyword matches (avoid “kya” → “kya services”)
+          else if (k.length >= 5 && t.length >= 4 && k === t) score += 4
+        }
+      }
+      if (intent.id === 'cyan' && !/\bcyan\b/.test(text) && !text.includes('your name') && !text.includes('assistant name')) {
+        score = Math.min(score, 2)
+      }
+      // Don't let “services” win on vague “kya hai” style messages
+      if (intent.id === 'services' && !/(service|services|offer|solutions|khidmat|capabilities)/.test(text)) {
+        score = 0
       }
       return { intent, score }
     })
@@ -660,57 +959,157 @@ function scoreIntents(text) {
     .sort((a, b) => b.score - a.score)
 }
 
+function matchServiceFromText(text) {
+  const tokens = meaningfulTokens(text)
+  if (!tokens.length) return null
+
+  let best = null
+  let bestScore = 0
+  for (const s of services) {
+    const titleToks = tokenize(s.title).split(' ').filter((t) => t.length > 2 && !STOP.has(t))
+    const idToks = tokenize(s.id.replace(/-/g, ' ')).split(' ').filter(Boolean)
+    let score = 0
+
+    for (const tw of titleToks) {
+      if (text.includes(tw)) score += tw.length > 5 ? 8 : 5
+    }
+    for (const idt of idToks) {
+      if (idt.length > 3 && text.includes(idt)) score += 6
+    }
+
+    // Specific boosts
+    if (s.id === 'ai-chatbots' && /(chatbot|chat bot|whatsapp bot|virtual agent)/.test(text)) score += 12
+    if (s.id === 'document-ai' && /(document|ocr|invoice|pdf|contract)/.test(text)) score += 12
+    if (s.id === 'generative-ai' && /(generative|content ai|brand voice|writing ai)/.test(text)) score += 12
+    if (s.id === 'predictive-analytics' && /(predict|forecast|churn|analytics)/.test(text)) score += 12
+    if (s.id === 'computer-vision' && /(vision|camera|defect|inspection|object detection)/.test(text)) score += 12
+    if (s.id === 'agentic-automation' && /(agentic|automation|workflow|rpa)/.test(text)) score += 12
+
+    if (score > bestScore) {
+      bestScore = score
+      best = s
+    }
+  }
+  return bestScore >= 10 ? best : null
+}
+
+/** Only attach links when the question topic needs them. */
+const LINK_INTENTS = new Set([
+  'contact',
+  'whatsapp',
+  'pricing',
+  'consultation',
+  'portfolio',
+  'faq',
+  'services',
+  'process',
+  'tech',
+  'blog',
+  'attachment',
+])
+
+function composeChat(body, intentId) {
+  if (!intentId || !LINK_INTENTS.has(intentId)) return body
+  const link = RELATED_LINKS[intentId]
+  if (!link) return body
+  if (String(body).includes(link.split('\n')[0])) return body
+  return `${body}\n\n${link}`
+}
+
+const FALLBACK_EN = `I didn’t catch a clear topic yet 😊
+
+Tell me what you want in a short line — for example:
+• “pricing”
+• “chatbot service”
+• “office / contact”
+
+Or send an emoji and ask “ye kya hai?” — I’ll explain that symbol.`
+
+const FALLBACK_ROMAN = `Clear topic samajh nahi aya 😊
+
+Short line mein batao — jaise:
+• “pricing”
+• “chatbot service”
+• “contact / office”
+
+Ya emoji bhej ke “ye kya hai?” poocho — us symbol ko explain karunga.`
+
 export function getChatbotReplyMeta(rawInput) {
+  const original = String(rawInput || '').trim()
   const text = tokenize(rawInput)
 
-  if (!text) {
+  if (!original) {
     return {
-      text: 'Please type a question — try “full site details”, “all services”, “pricing”, or “contact”.',
-      romanText: 'Koi sawal likhein — maslan “poori site details”, “services kya hain”, “price kitna hai”.',
+      text: 'Please type a message — I’m here to help with services, pricing, process, or contact.',
+      romanText: 'Koi message likhein — services, price, process, ya contact pe help karunga.',
       intentIds: [],
     }
   }
 
+  // Emoji / “ye kya hai?” — never dump services
+  const small = emojiSmalltalkReply(original)
+  if (small) return small
+
+  if (!text) {
+    return {
+      text: 'I see a symbol, but I’m not sure what you want. Ask “ye kya hai?” or tell me a topic (pricing, services…).',
+      romanText: 'Symbol dikha, lekin sawal clear nahi. “Ye kya hai?” poocho ya topic likho (pricing, services…).',
+      intentIds: ['smalltalk'],
+    }
+  }
+
   const scored = scoreIntents(text)
-
-  if (!scored.length) {
-    return { text: FALLBACK_EN, romanText: FALLBACK_ROMAN, intentIds: [] }
-  }
-
-  const top = scored[0]
-  const extras = scored
-    .slice(1, 3)
-    .filter((x) => x.score >= Math.max(3, top.score - 2) && x.intent.id !== top.intent.id)
-
+  const serviceHit = matchServiceFromText(text)
   const pickRoman = (id, en) => ROMAN_BY_ID[id] || en
+  const top = scored[0]
+  const topScore = top?.score || 0
 
-  if (top.intent.id === 'full_site' || top.score >= 8) {
+  // Attachment note from UI
+  if (/\[attached:|i attached a file|attached:/i.test(original) || /\battached\b/.test(text)) {
+    const en = chatbotIntents.find((i) => i.id === 'attachment').answer
     return {
-      text: top.intent.answer,
-      romanText: pickRoman(top.intent.id, top.intent.answer),
-      intentIds: [top.intent.id],
+      text: composeChat(en, 'attachment'),
+      romanText: composeChat(ROMAN_BY_ID.attachment, 'attachment'),
+      intentIds: ['attachment'],
     }
   }
 
-  if (extras.length && top.intent.id !== 'greeting' && top.intent.id !== 'thanks') {
-    const text =
-      top.intent.answer +
-      '\n\n—— Related ——\n\n' +
-      extras.map((x) => x.intent.answer).join('\n\n——\n\n')
-    const romanText =
-      pickRoman(top.intent.id, top.intent.answer) +
-      '\n\n—— Related ——\n\n' +
-      extras.map((x) => pickRoman(x.intent.id, x.intent.answer)).join('\n\n——\n\n')
+  // Explicit service deep-dive only when service keywords are strong AND stronger than weak intents
+  if (serviceHit && topScore < 12) {
+    const en = serviceChat(serviceHit)
+    const roman = serviceChatRoman(serviceHit)
     return {
-      text,
-      romanText,
-      intentIds: [top.intent.id, ...extras.map((x) => x.intent.id)],
+      text: en,
+      romanText: roman,
+      intentIds: [serviceHit.id],
     }
   }
+
+  // Strong service + user asked about a named service (even if services intent also matches)
+  if (serviceHit && top && ['services', 'full_site'].includes(top.intent.id)) {
+    const en = serviceChat(serviceHit)
+    const roman = serviceChatRoman(serviceHit)
+    return {
+      text: en,
+      romanText: roman,
+      intentIds: [serviceHit.id],
+    }
+  }
+
+  if (!scored.length || topScore < 4) {
+    return {
+      text: FALLBACK_EN,
+      romanText: FALLBACK_ROMAN,
+      intentIds: [],
+    }
+  }
+
+  const enBody = top.intent.answer
+  const romanBody = pickRoman(top.intent.id, top.intent.answer)
 
   return {
-    text: top.intent.answer,
-    romanText: pickRoman(top.intent.id, top.intent.answer),
+    text: composeChat(enBody, top.intent.id),
+    romanText: composeChat(romanBody, top.intent.id),
     intentIds: [top.intent.id],
   }
 }

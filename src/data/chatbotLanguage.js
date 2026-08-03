@@ -197,12 +197,34 @@ export async function prepareQuestion(raw) {
  * @param {string} rawInput
  */
 export async function getChatbotReplyAsync(rawInput) {
-  const prepared = await prepareQuestion(rawInput)
-  if (!prepared.matchText && !String(rawInput || '').trim()) {
+  const original = String(rawInput || '').trim()
+  if (!original) {
     return 'Please type a question / Koi sawal likhein — e.g. “services kya hain?” or “What is pricing?”'
   }
 
-  const meta = getChatbotReplyMeta(prepared.matchText || rawInput)
+  // Match on the original text so emojis / “ye kya hai” are not lost
+  const metaFromOriginal = getChatbotReplyMeta(original)
+  if (metaFromOriginal.intentIds?.includes('smalltalk')) {
+    const prepared = await prepareQuestion(original)
+    if (prepared.mode === 'roman' || prepared.targetLang === 'roman') {
+      return metaFromOriginal.romanText || metaFromOriginal.text
+    }
+    if (prepared.mode === 'translate') {
+      const target = prepared.targetLang === 'auto' ? 'en' : prepared.targetLang
+      if (target && target !== 'en') {
+        try {
+          const { text } = await translateText(metaFromOriginal.text, 'en', target)
+          return text || metaFromOriginal.text
+        } catch {
+          return metaFromOriginal.text
+        }
+      }
+    }
+    return metaFromOriginal.text
+  }
+
+  const prepared = await prepareQuestion(original)
+  const meta = getChatbotReplyMeta(prepared.matchText || original)
 
   if (prepared.mode === 'en' || prepared.targetLang === 'en') {
     return meta.text
@@ -212,7 +234,6 @@ export async function getChatbotReplyAsync(rawInput) {
     return meta.romanText || meta.text
   }
 
-  // Other languages: translate English answer into user's language
   const target = prepared.targetLang === 'auto' ? 'en' : prepared.targetLang
   if (!target || target === 'en') return meta.text
 

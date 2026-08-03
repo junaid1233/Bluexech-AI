@@ -67,7 +67,7 @@ export default function Services() {
         </div>
         <div className="services-grid reveal" ref={ref}>
           {services.map((item) => (
-            <article key={item.id} className="service-item">
+            <article key={item.id} id={`service-${item.id}`} className="service-item">
               <button type="button" className="service-open" onClick={() => openService(item.id)} aria-label={`Open ${item.title}`}>
                 <div className="service-media">
                   <img
