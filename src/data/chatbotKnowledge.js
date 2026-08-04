@@ -210,6 +210,15 @@ export const chatbotIntents = [
       'what ai services',
       'apki services',
       'your services',
+      'kya offer',
+      'kya dete',
+      'kya karte',
+      'kya kartay',
+      'what do you offer',
+      'what do you do',
+      'provide',
+      'khidmat',
+      'solutions kya',
     ],
     answer: `Bluexech AI’s main services:
 
@@ -333,12 +342,24 @@ Want detail on one? Name it (e.g. chatbot or document AI).`,
       'quote',
       'kitna',
       'kitne',
+      'kitni',
       'qeemat',
       'rate kya',
       'price kya',
       'charges',
       'fees',
       'pakage',
+      'mehnga',
+      'paisa',
+      'paise',
+      'pricing kya',
+      'package kya',
+      'cost kya',
+      'kitna hai',
+      'kitne hain',
+      'rate batao',
+      'price batao',
+      'charges kya',
     ],
     answer: `Pricing packages:
 
@@ -411,6 +432,12 @@ Final quote depends on scope. Details: ${LINKS.pricing}`,
       'address kya',
       'office kahan',
       'kahan ho',
+      'kidhar',
+      'kaise rabta',
+      'contact kahan',
+      'mail',
+      'support email',
+      'phone number',
     ],
     answer: `Email: ${EMAIL}
 Phone / WhatsApp: ${PHONE}
@@ -881,8 +908,14 @@ function emojiSmalltalkReply(original) {
   const raw = String(original || '').trim()
   if (!raw) return null
   const emojis = extractEmojis(raw)
+  // Word boundaries so “kya hai” does not match inside “kya hain”
   const asksWhat =
-    /(kya hai|kia hai|ye kya|yai kya|yeh kya|what is this|what's this|whats this|what is that|matlab kya|is ka matlab|ye wali)/i.test(
+    /(?:^|[\s,.!?])(kya hai|kia hai|ye kya|yai kya|yeh kya|what is this|what's this|whats this|what is that|matlab kya|is ka matlab|ye wali)(?:$|[\s,.!?])/i.test(
+      ` ${raw} `,
+    )
+  // If message already names a site topic, don’t treat as vague “ye kya hai”
+  const hasTopic =
+    /(service|services|pric|cost|package|contact|office|whatsapp|portfolio|chatbot|process|bluexech|cyan|document|vision|automat)/i.test(
       raw,
     )
   let stripped = raw
@@ -890,6 +923,7 @@ function emojiSmalltalkReply(original) {
   const mostlyEmoji = emojis.length > 0 && stripped.replace(/\s+/g, '').length <= 2
 
   if (!emojis.length && !asksWhat) return null
+  if (!emojis.length && asksWhat && hasTopic) return null
   if (!emojis.length && asksWhat) {
     return {
       text: `I didn’t catch what you mean by that.\n\nPlease say a clear topic - like pricing, services, or contact - and I’ll answer.`,
@@ -919,44 +953,266 @@ function meaningfulTokens(text) {
     .filter((t) => t.length > 2 && !STOP.has(t))
 }
 
+/** Common spellings / slang → canonical tokens (free, no API). */
+const SPELL_FIX = [
+  [/pakage/g, 'package'],
+  [/qeemat|qemat|keemat/g, 'price'],
+  [/paisa|paise|costly|mehnga|mehangi/g, 'price'],
+  [/khidmat|khidmaat/g, 'services'],
+  [/rabta|raabta|sampark/g, 'contact'],
+  [/whats app|watsapp|whatsap/g, 'whatsapp'],
+  [/chatbots?/g, 'chatbot'],
+  [/documnet|doucment/g, 'document'],
+  [/automati?on|auto mation/g, 'automation'],
+  [/blue ?xech|bluexach|bluezech/g, 'bluexech'],
+]
+
+/** Extra topic words injected so casual phrasing still matches intents. */
+const SYNONYM_EXPAND = {
+  price: ['pricing', 'package', 'cost', 'fee', 'budget', 'charges', 'kitna'],
+  pricing: ['price', 'package', 'cost', 'fee', 'charges'],
+  cost: ['price', 'pricing', 'package'],
+  kitna: ['price', 'pricing', 'cost'],
+  kitne: ['price', 'pricing', 'cost'],
+  package: ['pricing', 'price', 'starter', 'growth'],
+  charges: ['price', 'pricing', 'fee'],
+  fee: ['price', 'pricing'],
+  budget: ['price', 'pricing'],
+  service: ['services', 'offer', 'solutions'],
+  services: ['service', 'offer', 'solutions', 'capabilities'],
+  offer: ['services', 'solutions'],
+  solutions: ['services'],
+  khidmat: ['services'],
+  contact: ['email', 'phone', 'office', 'address', 'reach'],
+  email: ['contact'],
+  phone: ['contact', 'whatsapp', 'number'],
+  number: ['phone', 'contact', 'whatsapp'],
+  office: ['contact', 'address', 'location'],
+  address: ['contact', 'office', 'location'],
+  location: ['contact', 'office', 'address', 'map'],
+  map: ['contact', 'location'],
+  whatsapp: ['phone', 'contact', 'wa'],
+  process: ['steps', 'methodology', 'timeline', 'how'],
+  steps: ['process'],
+  timeline: ['process', 'start'],
+  portfolio: ['project', 'case', 'work', 'demo'],
+  project: ['portfolio'],
+  projects: ['portfolio'],
+  chatbot: ['chatbots', 'bot', 'whatsapp'],
+  bot: ['chatbot'],
+  document: ['ocr', 'invoice', 'pdf'],
+  invoice: ['document', 'ocr'],
+  vision: ['camera', 'image', 'inspection'],
+  automation: ['agentic', 'workflow', 'rpa'],
+  agent: ['agentic', 'automation'],
+  company: ['about', 'bluexech'],
+  about: ['bluexech', 'company'],
+  bluexech: ['about', 'company'],
+  faq: ['help', 'question'],
+  help: ['faq'],
+  tech: ['technologies', 'stack'],
+  technology: ['technologies', 'tech'],
+  blog: ['article', 'post'],
+  testimonial: ['testimonials', 'review', 'client'],
+  review: ['testimonials'],
+  consult: ['consultation', 'start', 'message'],
+  start: ['consultation', 'process'],
+  hire: ['consultation', 'contact'],
+}
+
+/** Loose regex hints for “however you ask” (EN + Roman Urdu). */
+const TOPIC_PATTERNS = [
+  {
+    id: 'pricing',
+    re: /(price|pricing|package|cost|fee|budget|kitna|kitne|kitni|qeemat|charges|how much|mehnga|pais[ae]|quote|rate\b)/i,
+    boost: 16,
+  },
+  {
+    id: 'services',
+    re: /(services?|offer|solutions?|khidmat|capabilities|kya (dete|karte|kartay|provide)|what (do you|can you) (do|offer|provide)|ai (work|solutions))/i,
+    boost: 14,
+  },
+  {
+    id: 'contact',
+    re: /(contact|email|phone|call|office|address|location|map|rabta|kahan|kidhar|number|reach|gulshan|karachi)/i,
+    boost: 16,
+  },
+  {
+    id: 'whatsapp',
+    re: /(whats?\s*app|watsapp|\bwa\b)/i,
+    boost: 22,
+  },
+  {
+    id: 'process',
+    re: /(process|steps|methodology|timeline|kaise (kaam|start|begin)|how (you|we|do you) work|kickoff|discover|delivery)/i,
+    boost: 14,
+  },
+  {
+    id: 'portfolio',
+    re: /(portfolio|case stud|projects?|novaops|harbor|shield|lumen|kaam dikh|past work|examples?)/i,
+    boost: 14,
+  },
+  {
+    id: 'chatbots',
+    re: /(chat\s*bots?|whatsapp bot|support bot|virtual agent|bot bana)/i,
+    boost: 16,
+  },
+  {
+    id: 'document',
+    re: /(document ai|ocr|invoice|pdf|contract extract|data entry)/i,
+    boost: 14,
+  },
+  {
+    id: 'generative',
+    re: /(generative|content ai|brand voice|copywrit|sop|writing ai)/i,
+    boost: 14,
+  },
+  {
+    id: 'predictive',
+    re: /(predict|forecast|churn|analytics|kpi|demand)/i,
+    boost: 12,
+  },
+  {
+    id: 'vision',
+    re: /(computer vision|camera|defect|object detection|inspection|visual)/i,
+    boost: 12,
+  },
+  {
+    id: 'agents',
+    re: /(agentic|automation|workflow|rpa|auto kaam|hands-?free)/i,
+    boost: 12,
+  },
+  {
+    id: 'about',
+    re: /(about|company|bluexech|who are you|tum kon|aap kon|kya kart[ae]|mission|introduce)/i,
+    boost: 12,
+  },
+  {
+    id: 'cyan',
+    re: /(cyan|your name|assistant name|bot ka naam)/i,
+    boost: 18,
+  },
+  {
+    id: 'why',
+    re: /(why choose|why bluexech|kyun|benefit|advantage|different|unique)/i,
+    boost: 12,
+  },
+  {
+    id: 'faq',
+    re: /(faq|help centre|help center|industries|sla|support after|existing team)/i,
+    boost: 12,
+  },
+  {
+    id: 'tech',
+    re: /(technolog|tech stack|tools you use|framework)/i,
+    boost: 12,
+  },
+  {
+    id: 'blog',
+    re: /(blog|article|read time|guides?)/i,
+    boost: 12,
+  },
+  {
+    id: 'consultation',
+    re: /(consult|get started|book|hire|project start|kaise shuru|message form)/i,
+    boost: 12,
+  },
+  {
+    id: 'testimonials',
+    re: /(testimonial|review|client (said|feedback)|sara malik|priya)/i,
+    boost: 12,
+  },
+  {
+    id: 'stats',
+    re: /(stats|120\+|how many (projects|clients)|experience|years)/i,
+    boost: 10,
+  },
+  {
+    id: 'greeting',
+    re: /^(hi|hello|hey|salam|assalam|aoa|hola|good (morning|evening|afternoon))[\s!.]*$/i,
+    boost: 20,
+  },
+]
+
+function normalizeQuery(raw) {
+  let t = tokenize(raw)
+  for (const [re, rep] of SPELL_FIX) t = t.replace(re, rep)
+  return t.replace(/\s+/g, ' ').trim()
+}
+
+function expandQuery(text) {
+  const base = normalizeQuery(text)
+  const toks = meaningfulTokens(base)
+  const extra = new Set()
+  for (const t of toks) {
+    const syns = SYNONYM_EXPAND[t]
+    if (syns) syns.forEach((s) => extra.add(s))
+  }
+  if (!extra.size) return base
+  return `${base} ${[...extra].join(' ')}`
+}
+
+function hasWord(hay, word) {
+  if (!word) return false
+  if (hay === word) return true
+  return hay.startsWith(`${word} `) || hay.endsWith(` ${word}`) || hay.includes(` ${word} `)
+}
+
 function scoreIntents(text) {
-  return chatbotIntents
-    .map((intent) => {
-      let score = 0
-      for (const kw of intent.keywords) {
-        const k = kw.toLowerCase()
-        if (!k) continue
-        if (text === k) score += 20
-        else if (k.includes(' ') && text.includes(k)) score += 14
-        else if (
-          !k.includes(' ') &&
-          k.length >= 4 &&
-          (text === k || text.startsWith(`${k} `) || text.endsWith(` ${k}`) || text.includes(` ${k} `))
-        ) {
-          score += k.length >= 6 ? 10 : 7
+  const expanded = expandQuery(text)
+  const tokens = meaningfulTokens(expanded)
+
+  const scores = new Map()
+  for (const intent of chatbotIntents) {
+    let score = 0
+    for (const kw of intent.keywords) {
+      const k = kw.toLowerCase().trim()
+      if (!k) continue
+      if (expanded === k || text === k) score += 22
+      else if (k.includes(' ') && (expanded.includes(k) || text.includes(k))) score += 15
+      else if (!k.includes(' ') && k.length >= 3 && (hasWord(expanded, k) || hasWord(text, k))) {
+        score += k.length >= 6 ? 11 : k.length >= 4 ? 8 : 5
+      }
+      // Prefix / stem-ish: "pric"→pricing, "servic"→services
+      if (!k.includes(' ') && k.length >= 4) {
+        for (const tok of tokens) {
+          if (tok === k) score += 7
+          else if (tok.length >= 4 && (tok.startsWith(k.slice(0, 4)) || k.startsWith(tok.slice(0, 4)))) score += 3
         }
       }
-      const tokens = meaningfulTokens(text)
-      for (const t of tokens) {
-        if (t.length < 4) continue
-        for (const kw of intent.keywords) {
-          const k = kw.toLowerCase()
-          if (k === t) score += 6
-          // Only allow longer token≈keyword matches (avoid “kya” → “kya services”)
-          else if (k.length >= 5 && t.length >= 4 && k === t) score += 4
-        }
-      }
-      if (intent.id === 'cyan' && !/\bcyan\b/.test(text) && !text.includes('your name') && !text.includes('assistant name')) {
-        score = Math.min(score, 2)
-      }
-      // Don't let “services” win on vague “kya hai” style messages
-      if (intent.id === 'services' && !/(service|services|offer|solutions|khidmat|capabilities)/.test(text)) {
-        score = 0
-      }
-      return { intent, score }
-    })
-    .filter((x) => x.score > 0)
-    .sort((a, b) => b.score - a.score)
+    }
+
+    if (intent.id === 'cyan' && !/\bcyan\b/.test(expanded) && !expanded.includes('your name') && !expanded.includes('assistant name')) {
+      score = Math.min(score, 2)
+    }
+    if (
+      intent.id === 'services' &&
+      !/(service|services|offer|solutions|khidmat|capabilities|provide|dete|karte|kartay)/.test(expanded)
+    ) {
+      if (!tokens.includes('services') && !tokens.includes('service')) score = Math.min(score, 3)
+    }
+
+    if (score > 0) scores.set(intent.id, { intent, score })
+  }
+
+  // Pattern boosts for casual phrasing
+  for (const p of TOPIC_PATTERNS) {
+    if (!p.re.test(text) && !p.re.test(expanded)) continue
+    const cur = scores.get(p.id)
+    const intent = chatbotIntents.find((i) => i.id === p.id)
+    if (!intent) continue
+    if (cur) cur.score += p.boost
+    else scores.set(p.id, { intent, score: p.boost })
+  }
+
+  // Prefer WhatsApp intent when user clearly said WhatsApp
+  if (/(whats?\s*app|watsapp)/i.test(text) || /(whats?\s*app|watsapp)/i.test(expanded)) {
+    const wa = scores.get('whatsapp')
+    const co = scores.get('contact')
+    if (wa && co && co.score >= wa.score) wa.score = co.score + 8
+  }
+
+  return [...scores.values()].filter((x) => x.score > 0).sort((a, b) => b.score - a.score)
 }
 
 function matchServiceFromText(text) {
@@ -1029,19 +1285,27 @@ function composeChat(body, intentId) {
   return `${body}\n\n🔗 ${link}`
 }
 
-const FALLBACK_EN = `I didn’t catch a clear topic yet 😊
+const FALLBACK_EN = `I’m not sure which topic you mean yet.
 
-Tell me what you want in a short line - for example:
+Try a short line like:
 • “pricing”
-• “chatbot service”
-• “office / contact”`
+• “services”
+• “contact”
+• “chatbot”
+• “portfolio”
 
-const FALLBACK_ROMAN = `Clear topic samajh nahi aya 😊
+Ask any way you like - English or Roman Urdu - and I’ll answer from Bluexech’s site info.`
 
-Short line mein batao - jaise:
+const FALLBACK_ROMAN = `Topic clear nahi mila.
+
+Short line try karo:
 • “pricing”
-• “chatbot service”
-• “contact / office”`
+• “services”
+• “contact”
+• “chatbot”
+• “portfolio”
+
+English ya Roman Urdu - dono chalenge. Main Bluexech ki site info se jawab dunga.`
 
 export function getChatbotReplyMeta(rawInput) {
   const original = String(rawInput || '').trim()
@@ -1120,7 +1384,7 @@ export function getChatbotReplyMeta(rawInput) {
     }
   }
 
-  if (!scored.length || topScore < 4) {
+  if (!scored.length || topScore < 2) {
     return {
       text: FALLBACK_EN,
       romanText: FALLBACK_ROMAN,

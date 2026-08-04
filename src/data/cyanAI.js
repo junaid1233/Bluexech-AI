@@ -25,7 +25,8 @@ ${FULL_SITE_OVERVIEW}
 `
 
 /**
- * Try ChatGPT with Bluexech knowledge; fall back to local intent engine.
+ * Cyan replies: free local knowledge first.
+ * Optional OpenAI only if VITE_OPENAI_API_KEY is set (not required).
  * @param {string} rawInput
  * @param {{ role: string, text: string }[]} [history]
  */
@@ -35,6 +36,7 @@ export async function getCyanReplyAsync(rawInput, history = []) {
     return 'Please type a message - I’m Cyan, here to help.'
   }
 
+  // Always available, no payment / API key needed
   const localAnswer = await getLocalReplyAsync(question)
 
   const apiKey = getApiKey()
