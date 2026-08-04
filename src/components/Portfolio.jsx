@@ -8,8 +8,7 @@ const projects = [
     id: 'novaops',
     title: 'NovaOps Platform',
     tag: 'AI + Cloud',
-    url: 'https://example.com',
-    github: 'https://github.com',
+    url: 'novaops.example',
     mark: 'N',
     subtitle: 'Operations intelligence',
     tech: ['AI', 'Cloud', 'React'],
@@ -23,8 +22,7 @@ const projects = [
     id: 'harborpay',
     title: 'HarborPay Portal',
     tag: 'Web App',
-    url: 'https://example.com',
-    github: 'https://github.com',
+    url: 'harborpay.example',
     mark: 'H',
     subtitle: 'Payments hub',
     tech: ['Fintech', 'Realtime', 'Secure'],
@@ -38,8 +36,7 @@ const projects = [
     id: 'shieldgrid',
     title: 'ShieldGrid Monitor',
     tag: 'Cybersecurity',
-    url: 'https://example.com',
-    github: 'https://github.com',
+    url: 'shieldgrid.example',
     mark: 'S',
     subtitle: 'Threat visibility',
     tech: ['Security', 'Monitoring', 'SOC'],
@@ -53,8 +50,7 @@ const projects = [
     id: 'lumencare',
     title: 'Lumen Care Suite',
     tag: 'Custom Software',
-    url: 'https://example.com',
-    github: 'https://github.com',
+    url: 'lumencare.example',
     mark: 'L',
     subtitle: 'Clinic workflows',
     tech: ['Healthcare', 'Workflow', 'SaaS'],
@@ -84,6 +80,11 @@ export default function Portfolio() {
     }
   }, [activeId])
 
+  const startSimilar = () => {
+    setActiveId(null)
+    window.open(`${import.meta.env.BASE_URL}message.html`, '_blank', 'noopener,noreferrer')
+  }
+
   return (
     <section id="portfolio" className="section">
       <div className="container">
@@ -96,6 +97,21 @@ export default function Portfolio() {
           {projects.map((p) => (
             <article key={p.id} className="portfolio-card">
               <button type="button" className="portfolio-open" onClick={() => setActiveId(p.id)} aria-label={`Open ${p.title}`}>
+                <div className="pc-bar">
+                  <span className="pc-dots" aria-hidden="true">
+                    <i />
+                    <i />
+                    <i />
+                  </span>
+                  <span className="pc-url">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
+                      <rect x="5" y="11" width="14" height="9" rx="2" />
+                      <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                    </svg>
+                    {p.url}
+                  </span>
+                  <span className="pc-live">LIVE</span>
+                </div>
                 <div className={`pc-thumb pc-thumb-${p.theme}`} aria-hidden="true">
                   <span className="pc-mark">{p.mark}</span>
                   <span className="pc-wm">{p.title}</span>
@@ -112,16 +128,9 @@ export default function Portfolio() {
                       <span key={t}>{t}</span>
                     ))}
                   </div>
+                  <span className="pc-cta">View case study →</span>
                 </div>
               </button>
-              <div className="pc-links">
-                <a href={p.url} target="_blank" rel="noreferrer" className="btn btn-primary pc-link-btn">
-                  Live Demo
-                </a>
-                <a href={p.github} target="_blank" rel="noreferrer" className="btn btn-ghost pc-link-btn">
-                  GitHub
-                </a>
-              </div>
             </article>
           ))}
         </div>
@@ -142,12 +151,9 @@ export default function Portfolio() {
               ))}
             </ul>
             <div className="detail-actions">
-              <a href={active.url} target="_blank" rel="noreferrer" className="btn btn-primary">
-                Live Demo
-              </a>
-              <a href={active.github} target="_blank" rel="noreferrer" className="btn btn-ghost">
-                GitHub
-              </a>
+              <button type="button" className="btn btn-primary" onClick={startSimilar}>
+                Start similar project
+              </button>
               <button type="button" className="btn btn-ghost" onClick={() => setActiveId(null)}>
                 Close
               </button>
