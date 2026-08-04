@@ -4,7 +4,7 @@ import './Contact.css'
 const messagePageHref = `${import.meta.env.BASE_URL}message.html`
 const MAPS_URL =
   'https://www.google.com/maps/search/?api=1&query=Gulshan-e-Hadeed%2C+Karachi%2C+Pakistan'
-/* OpenStreetMap embed — reliable in iframes; click opens Google Maps */
+/* OpenStreetMap embed - reliable in iframes; click opens Google Maps */
 const MAPS_EMBED =
   'https://www.openstreetmap.org/export/embed.html?bbox=67.3300%2C24.8500%2C67.3900%2C24.8900&layer=mapnik&marker=24.86972%2C67.36028'
 
@@ -80,7 +80,7 @@ export default function Contact() {
           aria-label="Open Gulshan Hadeed, Karachi on Google Maps"
         >
           <iframe
-            title="Bluexech AI office — Gulshan Hadeed, Karachi"
+            title="Bluexech AI office - Gulshan Hadeed, Karachi"
             src={MAPS_EMBED}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
@@ -91,7 +91,7 @@ export default function Contact() {
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z" />
             </svg>
-            Gulshan Hadeed, Karachi — Open in Maps
+            Gulshan Hadeed, Karachi - Open in Maps
           </span>
         </a>
       </div>

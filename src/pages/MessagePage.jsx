@@ -84,7 +84,7 @@ export default function MessagePage() {
               <h2>Send a message</h2>
               {sent ? (
                 <p className="contact-success" role="status">
-                  Thanks — your message is in. We’ll be in touch shortly.
+                  Thanks - your message is in. We’ll be in touch shortly.
                 </p>
               ) : null}
               <form onSubmit={onSubmit} noValidate>

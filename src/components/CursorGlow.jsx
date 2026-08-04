@@ -65,7 +65,7 @@ export default function CursorGlow() {
     }
 
     const tick = () => {
-      // Fast, snappy follow — still slightly soft for premium feel
+      // Fast, snappy follow - still slightly soft for premium feel
       sx += (x - sx) * 0.42
       sy += (y - sy) * 0.42
       rx += (x - rx) * 0.62

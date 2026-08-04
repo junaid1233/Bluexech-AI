@@ -6,7 +6,7 @@ const plans = [
     name: 'Starter',
     price: '$1,999',
     period: '/project',
-    desc: 'Focused AI pilots — chatbots or document automation.',
+    desc: 'Focused AI pilots - chatbots or document automation.',
     features: ['AI discovery workshop', 'Chatbot or Doc AI pilot', 'Basic analytics', '2 weeks support'],
     featured: false,
   },
@@ -37,7 +37,7 @@ export default function Pricing() {
         <div className="section-head center">
           <span className="eyebrow">Packages</span>
           <h2>Simple pricing that scales with you</h2>
-          <p>Start lean or engage a full delivery partner — we’ll match the right package.</p>
+          <p>Start lean or engage a full delivery partner - we’ll match the right package.</p>
         </div>
         <div className="pricing-grid reveal" ref={ref}>
           {plans.map((plan) => (

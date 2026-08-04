@@ -40,7 +40,7 @@ function buildLines(count, seed, speedBoost = 1) {
 }
 
 /**
- * Animated SVG flowing lines — reusable for hero background or video overlay.
+ * Animated SVG flowing lines - reusable for hero background or video overlay.
  * @param {'background' | 'overlay'} variant
  */
 export default function FlowingLines({ variant = 'background', className = '' }) {

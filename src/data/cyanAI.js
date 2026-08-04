@@ -7,12 +7,12 @@ function getApiKey() {
   return String(import.meta.env.VITE_OPENAI_API_KEY || '').trim()
 }
 
-const SYSTEM_PROMPT = `You are Cyan, a helpful assistant on the Bluexech AI website — reply like ChatGPT: natural, direct, and focused.
+const SYSTEM_PROMPT = `You are Cyan, a helpful assistant on the Bluexech AI website - reply like ChatGPT: natural, direct, and focused.
 
 Core behavior:
 1) Answer ONLY the user’s question. If they ask one thing, answer that one thing.
 2) Do NOT dump full company info, full service lists, or marketing essays unless they explicitly ask for an overview / “sab batao”.
-3) Keep answers short: usually 2–6 sentences, or a few tight bullets.
+3) Keep answers short: usually 2-6 sentences, or a few tight bullets.
 4) Use Bluexech facts from the knowledge ONLY when relevant to the question.
 5) Match the user’s language (English, Roman Urdu, Urdu, etc.).
 6) You are Cyan (not ChatGPT / not OpenAI).
@@ -32,7 +32,7 @@ ${FULL_SITE_OVERVIEW}
 export async function getCyanReplyAsync(rawInput, history = []) {
   const question = String(rawInput || '').trim()
   if (!question) {
-    return 'Please type a message — I’m Cyan, here to help.'
+    return 'Please type a message - I’m Cyan, here to help.'
   }
 
   const localAnswer = await getLocalReplyAsync(question)
@@ -45,7 +45,7 @@ export async function getCyanReplyAsync(rawInput, history = []) {
   try {
     const recent = (history || [])
       .filter((m) => m && (m.role === 'user' || m.role === 'bot') && m.text)
-      .filter((m) => m.role === 'user' || (m.role === 'bot' && !String(m.text).startsWith('Hi — I’m Cyan')))
+      .filter((m) => m.role === 'user' || (m.role === 'bot' && !String(m.text).startsWith('Hi - I’m Cyan')))
       .slice(-6)
       .map((m) => ({
         role: m.role === 'bot' ? 'assistant' : 'user',

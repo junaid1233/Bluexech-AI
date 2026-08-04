@@ -16,7 +16,7 @@
   opacity: 1;
 }
 
-/* Soft white shade behind cursor — like Markenexus spotlight */
+/* Soft white shade behind cursor - like Markenexus spotlight */
 .cursor-shade {
   z-index: 9997;
   width: 280px;

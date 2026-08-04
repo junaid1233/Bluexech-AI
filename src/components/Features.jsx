@@ -4,7 +4,7 @@ import './Features.css'
 const features = [
   {
     title: 'Outcome-first delivery',
-    desc: 'Every engagement is tied to measurable business results — not vanity demos.',
+    desc: 'Every engagement is tied to measurable business results - not vanity demos.',
   },
   {
     title: 'Senior AI specialists',
@@ -24,7 +24,7 @@ const features = [
   },
   {
     title: 'Long-term partnership',
-    desc: 'Support, iteration, and guidance after launch — not a one-and-done handoff.',
+    desc: 'Support, iteration, and guidance after launch - not a one-and-done handoff.',
   },
 ]
 

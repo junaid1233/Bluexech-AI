@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import './HeroNetworkBackground.css'
 
 /**
- * AI neural-network canvas — hero section ONLY.
+ * AI neural-network canvas - hero section ONLY.
  * Place: inside <section className="hero"> as the first child (behind content).
  */
 export default function HeroNetworkBackground() {

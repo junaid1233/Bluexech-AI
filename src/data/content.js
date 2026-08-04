@@ -9,7 +9,7 @@ export const blogPosts = [
   {
     id: 'ai-for-business-growth',
     title: 'AI for Business Growth',
-    excerpt: 'Where AI actually moves revenue, retention, and operations — with realistic timelines.',
+    excerpt: 'Where AI actually moves revenue, retention, and operations - with realistic timelines.',
     tag: 'Growth',
     readTime: '7 min',
   },

@@ -33,12 +33,13 @@
 
 .hero-brand {
   font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: clamp(1.85rem, 4.2vw, 2.85rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-transform: none;
   color: var(--cyan);
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.65rem;
+  line-height: 1.1;
   -webkit-text-fill-color: unset;
   background: none;
   animation: none;
@@ -46,13 +47,13 @@
 
 .hero-copy h1 {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4.6vw, 3.35rem);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.12;
+  font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.35;
   color: var(--ink);
   margin-bottom: 1rem;
-  max-width: 18ch;
+  max-width: 28ch;
 }
 
 .hero-lead {

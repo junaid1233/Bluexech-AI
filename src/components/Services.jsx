@@ -63,11 +63,11 @@ export default function Services() {
         <div className="section-head center">
           <span className="eyebrow">Services</span>
           <h2>Unique AI services built for real outcomes</h2>
-          <p>From chatbots to vision and agentic automation — tap a service to open details.</p>
+          <p>From chatbots to vision and agentic automation - tap a service to open details.</p>
         </div>
         <div className="services-grid reveal" ref={ref}>
           {services.map((item) => (
-            <article key={item.id} id={`service-${item.id}`} className="service-item">
+            <article key={item.id} className="service-item">
               <button type="button" className="service-open" onClick={() => openService(item.id)} aria-label={`Open ${item.title}`}>
                 <div className="service-media">
                   <img

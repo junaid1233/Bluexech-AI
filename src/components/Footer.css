@@ -1,6 +1,6 @@
 .site-footer {
   background: linear-gradient(180deg, rgba(10, 14, 36, 0.9), #05060f);
-  border-top: 1px solid var(--line);
+  border-top: none;
   color: rgba(255, 255, 255, 0.88);
   padding: 3.5rem 0 1.5rem;
 }
@@ -9,7 +9,7 @@
   display: grid;
   gap: 2rem;
   padding-bottom: 2.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  border-bottom: none;
 }
 
 .footer-logo {

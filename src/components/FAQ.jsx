@@ -5,15 +5,15 @@ import './FAQ.css'
 const items = [
   {
     q: 'What industries do you serve?',
-    a: 'We work with healthcare, logistics, retail, finance, and professional services — anywhere AI chatbots, document AI, and automation create leverage.',
+    a: 'We work with healthcare, logistics, retail, finance, and professional services - anywhere AI chatbots, document AI, and automation create leverage.',
   },
   {
     q: 'How quickly can a project start?',
-    a: 'Most AI engagements begin within 1–2 weeks after discovery. Pilot chatbots or document pipelines can start sooner.',
+    a: 'Most AI engagements begin within 1-2 weeks after discovery. Pilot chatbots or document pipelines can start sooner.',
   },
   {
     q: 'Do you work with existing teams?',
-    a: 'Yes. We embed with your ops, product, and engineering teams — or run as a self-contained AI delivery squad.',
+    a: 'Yes. We embed with your ops, product, and engineering teams - or run as a self-contained AI delivery squad.',
   },
   {
     q: 'Do you build custom AI models or use existing ones?',

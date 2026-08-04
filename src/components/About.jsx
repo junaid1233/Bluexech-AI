@@ -18,8 +18,8 @@ export default function About() {
           <span className="eyebrow">Statistics</span>
           <h2 id="stats-heading">Trusted delivery at a glance</h2>
           <p>
-            Bluexech AI helps organizations grow with unique AI services — chatbots, document intelligence,
-            predictive models, computer vision, and agentic automation — delivered close to your goals.
+            Bluexech AI helps organizations grow with unique AI services - chatbots, document intelligence,
+            predictive models, computer vision, and agentic automation - delivered close to your goals.
           </p>
         </div>
         <div className="about-stats reveal" ref={ref}>

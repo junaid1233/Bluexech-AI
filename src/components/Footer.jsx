@@ -38,7 +38,7 @@ export default function Footer() {
               luexech <em>AI</em>
             </span>
           </a>
-          <p>Unique AI solutions for modern business — chatbots, document AI, vision, forecasting, and agentic automation.</p>
+          <p>Unique AI solutions for modern business - chatbots, document AI, vision, forecasting, and agentic automation.</p>
           <p className="footer-address">Gulshan Hadeed, Karachi, Pakistan</p>
           <div className="socials" aria-label="Social links">
             <a

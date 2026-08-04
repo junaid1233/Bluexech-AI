@@ -7,7 +7,7 @@ const MAX_CHATS = 20
 
 const WELCOME = {
   role: 'bot',
-  text: 'Hi — I’m Cyan 👋 Ask anything. I’ll answer just what you ask.',
+  text: 'Hi - I’m Cyan 👋 Ask anything. I’ll answer just what you ask.',
   at: Date.now(),
 }
 
@@ -89,6 +89,37 @@ function createConversation(messages = [{ ...WELCOME, at: Date.now() }]) {
   }
 }
 
+const LINK_LABELS = {
+  '#home': 'Home',
+  '#about': 'About',
+  '#services': 'Services',
+  '#features': 'Features',
+  '#process': 'Process',
+  '#pricing': 'Pricing',
+  '#portfolio': 'Portfolio',
+  '#faq': 'FAQ',
+  '#blog': 'Blog',
+  '#technologies': 'Technologies',
+  '#testimonials': 'Testimonials',
+  '#contact': 'Contact',
+  './message.html': 'Message form',
+  '#service-ai-chatbots': 'AI Chatbots',
+  '#service-generative-ai': 'Generative AI',
+  '#service-document-ai': 'Document AI',
+  '#service-predictive-analytics': 'Predictive Analytics',
+  '#service-computer-vision': 'Computer Vision',
+  '#service-agentic-automation': 'Agentic Automation',
+}
+
+function linkLabel(href) {
+  if (LINK_LABELS[href]) return LINK_LABELS[href]
+  if (href.startsWith('mailto:')) return href.replace(/^mailto:/, '')
+  if (href.includes('wa.me')) return 'WhatsApp'
+  if (href.includes('google.com/maps')) return 'Map'
+  if (href.startsWith('#')) return href.slice(1).replace(/-/g, ' ')
+  return href
+}
+
 /** Turn URLs / #anchors / mailto into clickable links inside chat text. */
 function MessageText({ text }) {
   const raw = String(text || '')
@@ -97,18 +128,21 @@ function MessageText({ text }) {
     <p>
       {parts.map((part, i) => {
         if (/^(https?:\/\/|mailto:|\.\/message\.html|#)/.test(part)) {
-          const href = part.startsWith('#') || part.startsWith('./') || part.startsWith('mailto:') ? part : part
+          const href = part.replace(/[),.;!?]+$/, '')
+          const trailing = part.slice(href.length)
           const external = href.startsWith('http') || href.startsWith('mailto:')
           return (
-            <a
-              key={`${i}-${part.slice(0, 24)}`}
-              href={href}
-              className="ai-msg-link"
-              {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {part}
-            </a>
+            <span key={`${i}-${href.slice(0, 24)}`}>
+              <a
+                href={href}
+                className="ai-msg-link"
+                {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {linkLabel(href)}
+              </a>
+              {trailing}
+            </span>
           )
         }
         return <span key={`${i}-t`}>{part}</span>
@@ -363,7 +397,7 @@ export default function AIChatbot() {
     setExpanded(false)
     if (attachment?.previewUrl) URL.revokeObjectURL(attachment.previewUrl)
     setAttachment(null)
-    // Keep messages/history — do not wipe
+    // Keep messages/history - do not wipe
   }
 
   const goHome = () => {
@@ -437,7 +471,7 @@ export default function AIChatbot() {
   useEffect(() => {
     if (screen !== 'chat') return
     const last = messages[messages.length - 1]
-    // New question, or waiting on that turn — keep question at top of the chat panel
+    // New question, or waiting on that turn - keep question at top of the chat panel
     if (!last) return
     if (last.role === 'user' || busy) {
       schedulePinLatestQuestion()
@@ -543,7 +577,7 @@ export default function AIChatbot() {
     } catch {
       setMessages((prev) => [
         ...prev,
-        botMsg('Sorry — I couldn’t load a reply just now. Please try again.'),
+        botMsg('Sorry - I couldn’t load a reply just now. Please try again.'),
       ])
     } finally {
       setBusy(false)
@@ -569,7 +603,7 @@ export default function AIChatbot() {
       const reply = await getCyanReplyAsync(q, history)
       setMessages([welcome, userMsg, botMsg(reply)])
     } catch {
-      setMessages([welcome, userMsg, botMsg('Sorry — I couldn’t load a reply just now. Please try again.')])
+      setMessages([welcome, userMsg, botMsg('Sorry - I couldn’t load a reply just now. Please try again.')])
     } finally {
       setBusy(false)
     }
@@ -652,10 +686,9 @@ export default function AIChatbot() {
                 <div className="ai-chat-home-hero">
                   <div className="ai-chat-home-mark" aria-hidden="true">
                     <ChatBotLogo className="ai-chat-home-logo" />
-                    <span className="ai-chat-home-mark-dot" />
                   </div>
                   <h3>Hi there 👋</h3>
-                  <p>I’m Cyan — how can we help you today?</p>
+                  <p>I’m Cyan - how can we help you today?</p>
                 </div>
 
                 <div className="ai-fin-section">
@@ -750,7 +783,7 @@ export default function AIChatbot() {
 
           {screen === 'help' ? (
             <div className="ai-fin-help">
-              <p className="ai-fin-help-intro">Pick an article — Cyan will answer in chat.</p>
+              <p className="ai-fin-help-intro">Pick an article - Cyan will answer in chat.</p>
               <div className="ai-fin-help-list">
                 {HELP_ARTICLES.map((a) => (
                   <button key={a.id} type="button" className="ai-fin-help-item" onClick={() => startFromPrompt(a.ask)}>
@@ -827,13 +860,10 @@ export default function AIChatbot() {
                             </div>
                           ) : null}
                           {msg.text ? <MessageText text={msg.text} /> : null}
+                          {msg.role === 'bot' && i === messages.length - 1 && !busy ? (
+                            <p className="ai-msg-suggest">Have a question? I’m right here if you need me.</p>
+                          ) : null}
                         </div>
-                        {msg.role === 'bot' ? (
-                          <div className="ai-msg-meta">
-                            <span className="ai-msg-agent">Cyan AI Agent</span>
-                            <span className="ai-msg-time">{formatReplyAge(msg.at, now)}</span>
-                          </div>
-                        ) : null}
                       </div>
                     </div>
                   )
@@ -960,10 +990,9 @@ export default function AIChatbot() {
         aria-expanded={open}
         aria-label={open ? 'Close Cyan' : 'Open Cyan'}
       >
-        <span className="ai-chat-fab-ring" aria-hidden="true" />
         {open ? (
-          <svg className="ai-chat-fab-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
+          <svg className="ai-chat-fab-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round">
+            <path d="M6 6l12 12M18 6L6 18" />
           </svg>
         ) : (
           <ChatBotLogo className="ai-chat-fab-logo" />

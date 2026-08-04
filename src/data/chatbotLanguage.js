@@ -199,7 +199,7 @@ export async function prepareQuestion(raw) {
 export async function getChatbotReplyAsync(rawInput) {
   const original = String(rawInput || '').trim()
   if (!original) {
-    return 'Please type a question / Koi sawal likhein — e.g. “services kya hain?” or “What is pricing?”'
+    return 'Please type a question / Koi sawal likhein - e.g. “services kya hain?” or “What is pricing?”'
   }
 
   // Match on the original text so emojis / “ye kya hai” are not lost

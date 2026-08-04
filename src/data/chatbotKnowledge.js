@@ -40,7 +40,7 @@ const serviceChatRoman = (s) =>
   `${s.title}: ${s.desc}\n\nDuration: ${s.duration}. Results: ${s.outcomes.join(', ')}.\n\nZyada detail: ${serviceLink(s.id)}`
 
 const allServicesShort = services
-  .map((s, i) => `${i + 1}. ${s.title} — ${s.desc.split('.')[0]}.`)
+  .map((s, i) => `${i + 1}. ${s.title} - ${s.desc.split('.')[0]}.`)
   .join('\n')
 
 const techByGroup = technologies.reduce((acc, t) => {
@@ -87,18 +87,18 @@ Ask me about any one topic (pricing, a service, portfolio, contact) and I’ll g
 
 /** Topic-related link lines (not a team CTA on every reply). */
 const RELATED_LINKS = {
-  full_site: `Explore: ${LINKS.services} · ${LINKS.pricing} · ${LINKS.contact}`,
-  greeting: `Quick links: ${LINKS.services} · ${LINKS.pricing} · ${LINKS.faq}`,
-  cyan: `Browse: ${LINKS.services} · ${LINKS.faq}`,
-  about: `About & stats: ${LINKS.about} · Services: ${LINKS.services}`,
-  services: `Services section: ${LINKS.services} · Start project: ${LINKS.message}`,
-  chatbots: `Service: ${serviceLink('ai-chatbots')} · All: ${LINKS.services}`,
-  generative: `Service: ${serviceLink('generative-ai')} · All: ${LINKS.services}`,
-  document: `Service: ${serviceLink('document-ai')} · All: ${LINKS.services}`,
-  predictive: `Service: ${serviceLink('predictive-analytics')} · All: ${LINKS.services}`,
-  vision: `Service: ${serviceLink('computer-vision')} · All: ${LINKS.services}`,
-  agents: `Service: ${serviceLink('agentic-automation')} · All: ${LINKS.services}`,
-  pricing: `Packages: ${LINKS.pricing} · Message form: ${LINKS.message}`,
+  full_site: `Explore: ${LINKS.services} - ${LINKS.pricing} - ${LINKS.contact}`,
+  greeting: `Quick links: ${LINKS.services} - ${LINKS.pricing} - ${LINKS.faq}`,
+  cyan: `Browse: ${LINKS.services} - ${LINKS.faq}`,
+  about: `About & stats: ${LINKS.about} - Services: ${LINKS.services}`,
+  services: `Services section: ${LINKS.services} - Start project: ${LINKS.message}`,
+  chatbots: `Service: ${serviceLink('ai-chatbots')} - All: ${LINKS.services}`,
+  generative: `Service: ${serviceLink('generative-ai')} - All: ${LINKS.services}`,
+  document: `Service: ${serviceLink('document-ai')} - All: ${LINKS.services}`,
+  predictive: `Service: ${serviceLink('predictive-analytics')} - All: ${LINKS.services}`,
+  vision: `Service: ${serviceLink('computer-vision')} - All: ${LINKS.services}`,
+  agents: `Service: ${serviceLink('agentic-automation')} - All: ${LINKS.services}`,
+  pricing: `Packages: ${LINKS.pricing} - Message form: ${LINKS.message}`,
   why: `Why Bluexech: ${LINKS.features}`,
   process: `How we work: ${LINKS.process}`,
   contact: `Contact: ${LINKS.contact}\nEmail: ${LINKS.email}\nWhatsApp: ${LINKS.whatsapp}\nMap: ${LINKS.map}\nMessage form: ${LINKS.message}`,
@@ -108,7 +108,7 @@ const RELATED_LINKS = {
   tech: `Technologies: ${LINKS.tech}`,
   blog: `Blog: ${LINKS.blog}`,
   stats: `Stats: ${LINKS.about}`,
-  consultation: `Message form: ${LINKS.message} · Contact: ${LINKS.contact}`,
+  consultation: `Message form: ${LINKS.message} - Contact: ${LINKS.contact}`,
   testimonials: `Testimonials: ${LINKS.testimonials}`,
   attachment: `Share details via form: ${LINKS.message}`,
 }
@@ -159,7 +159,7 @@ export const chatbotIntents = [
       'assalamualaikum',
       'madad',
     ],
-    answer: `Hi 👋 I’m Cyan. Ask me anything about Bluexech — I’ll answer just what you ask.`,
+    answer: `Hi 👋 I’m Cyan. Ask me anything about Bluexech - I’ll answer just what you ask.`,
   },
   {
     id: 'cyan',
@@ -173,7 +173,7 @@ export const chatbotIntents = [
       'assistant name',
       'cyan',
     ],
-    answer: `I’m Cyan — the chat assistant on this Bluexech AI website. I answer your questions about the company and its AI work.`,
+    answer: `I’m Cyan - the chat assistant on this Bluexech AI website. I answer your questions about the company and its AI work.`,
   },
   {
     id: 'about',
@@ -192,7 +192,7 @@ export const chatbotIntents = [
       'kya kartay',
       'kya karte',
     ],
-    answer: `Bluexech AI builds practical AI for businesses — chatbots, document AI, predictive models, computer vision, and automation. Based in ${ADDRESS}.`,
+    answer: `Bluexech AI builds practical AI for businesses - chatbots, document AI, predictive models, computer vision, and automation. Based in ${ADDRESS}.`,
   },
   {
     id: 'services',
@@ -342,9 +342,9 @@ Want detail on one? Name it (e.g. chatbot or document AI).`,
     ],
     answer: `Pricing packages:
 
-• Starter — $1,999 / project (chatbot or Doc AI pilot)
-• Growth — $4,999 / month (ongoing AI partnership)
-• Enterprise — custom (org-wide / multi-agent)
+• Starter - $1,999 / project (chatbot or Doc AI pilot)
+• Growth - $4,999 / month (ongoing AI partnership)
+• Enterprise - custom (org-wide / multi-agent)
 
 Final quote depends on scope. Details: ${LINKS.pricing}`,
   },
@@ -385,7 +385,7 @@ Final quote depends on scope. Details: ${LINKS.pricing}`,
       'steps kya',
       'kaise start',
     ],
-    answer: `We work in 4 steps: Discover → Design → Build → Scale. Most projects start within 1–2 weeks after discovery.`,
+    answer: `We work in 4 steps: Discover → Design → Build → Scale. Most projects start within 1-2 weeks after discovery.`,
   },
   {
     id: 'contact',
@@ -421,7 +421,7 @@ Contact page: ${LINKS.contact}`,
   {
     id: 'whatsapp',
     keywords: ['whatsapp', 'wa link', 'message on whatsapp', 'whatsapp number'],
-    answer: `Sure — WhatsApp us anytime:
+    answer: `Sure - WhatsApp us anytime:
 
 Number: ${PHONE}
 Direct link: ${WA}
@@ -450,10 +450,10 @@ I’m here for instant site answers; WhatsApp is best for talking to the team.`,
     ],
     answer: `A few projects from our portfolio:
 
-• NovaOps (AI + Cloud) — cut incident response ~42%
-• HarborPay (Web App) — secure payments + live reconciliation
-• ShieldGrid (Cybersecurity) — multi-region threat visibility
-• Lumen Care (Custom Software) — clinic scheduling, records, billing
+• NovaOps (AI + Cloud) - cut incident response ~42%
+• HarborPay (Web App) - secure payments + live reconciliation
+• ShieldGrid (Cybersecurity) - multi-region threat visibility
+• Lumen Care (Custom Software) - clinic scheduling, records, billing
 
 On the site, open “View case study →”, then “Start similar project” if you want something like that.
 
@@ -486,9 +486,9 @@ Which industry are you in?`,
 
 Quick answers:
 • Industries: healthcare, logistics, retail, finance, professional services
-• Start time: usually 1–2 weeks after discovery (pilots sooner)
-• Existing teams: yes — we embed or run as a full delivery squad
-• Models: existing AI APIs and custom/fine-tuned models — whichever fits accuracy & data
+• Start time: usually 1-2 weeks after discovery (pilots sooner)
+• Existing teams: yes - we embed or run as a full delivery squad
+• Models: existing AI APIs and custom/fine-tuned models - whichever fits accuracy & data
 • After launch: monitoring + updates; Enterprise gets SLAs
 
 You can also open the FAQ section on this site for the same answers.
@@ -567,13 +567,13 @@ Want to see how that translates into a service for you?`,
       'kaise book',
       'consult karna',
     ],
-    answer: `Easy — here’s how to start:
+    answer: `Easy - here’s how to start:
 
 1) Click “Get Started” or “Book Free Consultation” on the site
 2) Or use the Contact message form
 3) Or reach us directly: ${EMAIL} / WhatsApp ${PHONE}
 
-Share your goal, timeline, and budget range — we’ll recommend Starter, Growth, or Enterprise.
+Share your goal, timeline, and budget range - we’ll recommend Starter, Growth, or Enterprise.
 
 Shall I send the WhatsApp link?`,
   },
@@ -590,9 +590,9 @@ Shall I send the WhatsApp link?`,
     ],
     answer: `Here’s what clients say:
 
-• Sara Malik (Freightline) — WhatsApp agent handles ~80% of support questions
-• Daniel Okoye (Meridian Health) — Document AI cut invoice entry from hours to minutes
-• Priya Nair (Atlas Retail) — Agentic automation paid for itself in the first quarter
+• Sara Malik (Freightline) - WhatsApp agent handles ~80% of support questions
+• Daniel Okoye (Meridian Health) - Document AI cut invoice entry from hours to minutes
+• Priya Nair (Atlas Retail) - Agentic automation paid for itself in the first quarter
 
 All shown as 5-star reviews on the site. Want a similar outcome?`,
   },
@@ -608,11 +608,11 @@ All shown as 5-star reviews on the site. Want a similar outcome?`,
       'screenshot',
       'image attached',
     ],
-    answer: `Got it — thanks for sharing the file 📎
+    answer: `Got it - thanks for sharing the file 📎
 
 I can’t deeply analyze file contents in this chat yet, but I’ve noted your attachment.
 
-Please tell me in 1–2 lines what you need help with (e.g. chatbot brief, invoice sample, UI screenshot), and I’ll guide the next steps — or WhatsApp the team at ${PHONE} for a human review.`,
+Please tell me in 1-2 lines what you need help with (e.g. chatbot brief, invoice sample, UI screenshot), and I’ll guide the next steps - or WhatsApp the team at ${PHONE} for a human review.`,
   },
   {
     id: 'thanks',
@@ -627,7 +627,7 @@ Please tell me in 1–2 lines what you need help with (e.g. chatbot brief, invoi
       'done',
       'jazakallah',
     ],
-    answer: `You’re welcome! 😊 Anytime you need services, pricing, or contact details — just ask.`,
+    answer: `You’re welcome! 😊 Anytime you need services, pricing, or contact details - just ask.`,
   },
 ]
 
@@ -642,7 +642,7 @@ function tokenize(text) {
 const ROMAN_BY_ID = {
   full_site: `Bluexech AI ka clear overview:
 
-Hum AI company hain — chatbots, generative AI, document AI, predictive analytics, computer vision, aur agentic automation.
+Hum AI company hain - chatbots, generative AI, document AI, predictive analytics, computer vision, aur agentic automation.
 
 Office: ${ADDRESS}
 Stats: 120+ projects · 40+ clients · 12+ countries · 8+ years
@@ -658,9 +658,9 @@ Kisi ek topic pe aur detail chahiye to batao.`,
 
   greeting: `Assalam o Alaikum 👋 Main Cyan hoon. Jo poochoge usi ka short answer dunga.`,
 
-  cyan: `Main Cyan hoon — Bluexech AI website ka chat assistant. Aap ke sawal ka seedha jawab deta hoon.`,
+  cyan: `Main Cyan hoon - Bluexech AI website ka chat assistant. Aap ke sawal ka seedha jawab deta hoon.`,
 
-  about: `Bluexech AI businesses ke liye practical AI banati hai — chatbots, document AI, predictive, vision, automation. Office: ${ADDRESS}.`,
+  about: `Bluexech AI businesses ke liye practical AI banati hai - chatbots, document AI, predictive, vision, automation. Office: ${ADDRESS}.`,
 
   services: `Bluexech AI ki main services:
 
@@ -677,15 +677,15 @@ Kisi ek ki detail chahiye to naam likho.`,
 
   pricing: `Pricing:
 
-• Starter — $1,999 / project
-• Growth — $4,999 / month
-• Enterprise — custom
+• Starter - $1,999 / project
+• Growth - $4,999 / month
+• Enterprise - custom
 
 Details: ${LINKS.pricing}`,
 
   why: `Bluexech outcome-first AI, senior specialists, safe AI, clear communication, aur launch ke baad support ke liye choose hota hai.`,
 
-  process: `Process: Discover → Design → Build → Scale. Start aksar discovery ke 1–2 weeks baad.`,
+  process: `Process: Discover → Design → Build → Scale. Start aksar discovery ke 1-2 weeks baad.`,
 
   contact: `Email: ${EMAIL}
 Phone/WhatsApp: ${PHONE}
@@ -703,17 +703,17 @@ Site answers ke liye main; team se baat ke liye WhatsApp best hai.`,
 
   portfolio: `Portfolio se examples:
 
-• NovaOps — incident response ~42% better
-• HarborPay — secure payments + reconciliation
-• ShieldGrid — threat visibility
-• Lumen Care — clinic scheduling/records/billing
+• NovaOps - incident response ~42% better
+• HarborPay - secure payments + reconciliation
+• ShieldGrid - threat visibility
+• Lumen Care - clinic scheduling/records/billing
 
 Kis industry mein ho? Similar project chahiye to batao.`,
 
   faq: `Cyan Help Centre 📚
 
 • Industries: healthcare, logistics, retail, finance…
-• Start: 1–2 weeks after discovery
+• Start: 1-2 weeks after discovery
 • Existing teams: haan
 • Models: existing + custom dono
 • After launch: monitoring; Enterprise pe SLA
@@ -725,7 +725,7 @@ Kis sawal pe aur detail chahiye?`,
 
 ${techLines}
 
-Apna use case batao — recommend karun?`,
+Apna use case batao - recommend karun?`,
 
   blog: `Site pe blog topics:
 
@@ -748,24 +748,24 @@ Service recommend karun?`,
 2) Contact message form
 3) Direct: ${EMAIL} / WhatsApp ${PHONE}
 
-Goal, timeline, budget batao — package suggest karenge.
+Goal, timeline, budget batao - package suggest karenge.
 WhatsApp link bhejun?`,
 
   testimonials: `Clients kehti hain:
 
-• Sara Malik — WhatsApp agent ~80% support handle
-• Daniel Okoye — Document AI ne invoice entry hours → minutes
-• Priya Nair — automation pehle quarter mein payback
+• Sara Malik - WhatsApp agent ~80% support handle
+• Daniel Okoye - Document AI ne invoice entry hours → minutes
+• Priya Nair - automation pehle quarter mein payback
 
 Similar result chahiye?`,
 
-  attachment: `File mil gayi 📎 — shukriya!
+  attachment: `File mil gayi 📎 - shukriya!
 
 Is chat mein file ko deeply analyze nahi kar sakta, lekin note kar liya.
 
-1–2 lines mein batao kya help chahiye (brief, invoice, screenshot…), main next steps bataunga — ya team ko WhatsApp ${PHONE} pe bhej dein.`,
+1-2 lines mein batao kya help chahiye (brief, invoice, screenshot…), main next steps bataunga - ya team ko WhatsApp ${PHONE} pe bhej dein.`,
 
-  thanks: `Shukriya! 😊 Services, price, ya contact — jab chaho pooch lena.`,
+  thanks: `Shukriya! 😊 Services, price, ya contact - jab chaho pooch lena.`,
 }
 
 const STOP = new Set([
@@ -892,8 +892,8 @@ function emojiSmalltalkReply(original) {
   if (!emojis.length && !asksWhat) return null
   if (!emojis.length && asksWhat) {
     return {
-      text: `Aap ne poocha “ye kya hai?” — mujhe clear nahi mila kis cheez ke bare mein.\n\nThoda specify karein (jaise pricing, services, portfolio), ya emoji/symbol bhejein — main usi pe jawab dunga.`,
-      romanText: `Aap ne poocha “ye kya hai?” — clear nahi mila kis cheez ke bare mein.\n\nThoda specify karein (pricing, services, portfolio), ya emoji bhejein — usi pe jawab dunga.`,
+      text: `I didn’t catch what you mean by that.\n\nPlease say a clear topic - like pricing, services, or contact - and I’ll answer.`,
+      romanText: `Clear nahi mila kis cheez ke bare mein.\n\nTopic likhein - jaise pricing, services, ya contact - main jawab dunga.`,
       intentIds: ['smalltalk'],
     }
   }
@@ -904,8 +904,8 @@ function emojiSmalltalkReply(original) {
     const enName = hint?.nameEn || 'an emoji / symbol'
     const romanName = hint?.nameRoman || 'emoji / symbol'
     return {
-      text: `That’s ${enName}: ${e}\n\nIt’s just a chat symbol — not a Bluexech service.\n\nIf you meant something on the site (pricing, chatbots, contact), tell me in a short sentence and I’ll answer that.`,
-      romanText: `Ye ${romanName} hai: ${e}\n\nSirf chat symbol hai — Bluexech ki koi service nahi.\n\nAgar site ki cheez poochni hai (price, chatbot, contact), short sentence mein likhein — usi pe jawab dunga.`,
+      text: `That’s ${enName}: ${e}\n\nIt’s just a chat symbol - not a Bluexech service.\n\nIf you meant something on the site (pricing, chatbots, contact), tell me in a short sentence and I’ll answer that.`,
+      romanText: `Ye ${romanName} hai: ${e}\n\nSirf chat symbol hai - Bluexech ki koi service nahi.\n\nAgar site ki cheez poochni hai (price, chatbot, contact), short sentence mein likhein - usi pe jawab dunga.`,
       intentIds: ['smalltalk'],
     }
   }
@@ -995,6 +995,10 @@ function matchServiceFromText(text) {
 
 /** Only attach links when the question topic needs them. */
 const LINK_INTENTS = new Set([
+  'full_site',
+  'greeting',
+  'cyan',
+  'about',
   'contact',
   'whatsapp',
   'pricing',
@@ -1005,7 +1009,16 @@ const LINK_INTENTS = new Set([
   'process',
   'tech',
   'blog',
+  'why',
+  'stats',
+  'testimonials',
   'attachment',
+  'chatbots',
+  'generative',
+  'document',
+  'predictive',
+  'vision',
+  'agents',
 ])
 
 function composeChat(body, intentId) {
@@ -1013,26 +1026,22 @@ function composeChat(body, intentId) {
   const link = RELATED_LINKS[intentId]
   if (!link) return body
   if (String(body).includes(link.split('\n')[0])) return body
-  return `${body}\n\n${link}`
+  return `${body}\n\n🔗 ${link}`
 }
 
 const FALLBACK_EN = `I didn’t catch a clear topic yet 😊
 
-Tell me what you want in a short line — for example:
+Tell me what you want in a short line - for example:
 • “pricing”
 • “chatbot service”
-• “office / contact”
-
-Or send an emoji and ask “ye kya hai?” — I’ll explain that symbol.`
+• “office / contact”`
 
 const FALLBACK_ROMAN = `Clear topic samajh nahi aya 😊
 
-Short line mein batao — jaise:
+Short line mein batao - jaise:
 • “pricing”
 • “chatbot service”
-• “contact / office”
-
-Ya emoji bhej ke “ye kya hai?” poocho — us symbol ko explain karunga.`
+• “contact / office”`
 
 export function getChatbotReplyMeta(rawInput) {
   const original = String(rawInput || '').trim()
@@ -1040,20 +1049,20 @@ export function getChatbotReplyMeta(rawInput) {
 
   if (!original) {
     return {
-      text: 'Please type a message — I’m here to help with services, pricing, process, or contact.',
-      romanText: 'Koi message likhein — services, price, process, ya contact pe help karunga.',
+      text: 'Please type a message - I’m here to help with services, pricing, process, or contact.',
+      romanText: 'Koi message likhein - services, price, process, ya contact pe help karunga.',
       intentIds: [],
     }
   }
 
-  // Emoji / “ye kya hai?” — never dump services
+  // Emoji / “ye kya hai?” - never dump services
   const small = emojiSmalltalkReply(original)
   if (small) return small
 
   if (!text) {
     return {
-      text: 'I see a symbol, but I’m not sure what you want. Ask “ye kya hai?” or tell me a topic (pricing, services…).',
-      romanText: 'Symbol dikha, lekin sawal clear nahi. “Ye kya hai?” poocho ya topic likho (pricing, services…).',
+      text: 'I see a symbol, but I’m not sure what you want. Tell me a topic (pricing, services, contact…).',
+      romanText: 'Symbol dikha, lekin sawal clear nahi. Topic likho (pricing, services, contact…).',
       intentIds: ['smalltalk'],
     }
   }
@@ -1078,9 +1087,24 @@ export function getChatbotReplyMeta(rawInput) {
   if (serviceHit && topScore < 12) {
     const en = serviceChat(serviceHit)
     const roman = serviceChatRoman(serviceHit)
+    const id = serviceHit.id
+    const linkKey =
+      id === 'ai-chatbots'
+        ? 'chatbots'
+        : id === 'generative-ai'
+          ? 'generative'
+          : id === 'document-ai'
+            ? 'document'
+            : id === 'predictive-analytics'
+              ? 'predictive'
+              : id === 'computer-vision'
+                ? 'vision'
+                : id === 'agentic-automation'
+                  ? 'agents'
+                  : 'services'
     return {
-      text: en,
-      romanText: roman,
+      text: composeChat(en, linkKey),
+      romanText: composeChat(roman, linkKey),
       intentIds: [serviceHit.id],
     }
   }
@@ -1090,8 +1114,8 @@ export function getChatbotReplyMeta(rawInput) {
     const en = serviceChat(serviceHit)
     const roman = serviceChatRoman(serviceHit)
     return {
-      text: en,
-      romanText: roman,
+      text: composeChat(en, 'services'),
+      romanText: composeChat(roman, 'services'),
       intentIds: [serviceHit.id],
     }
   }
