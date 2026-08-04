@@ -1,34 +1,17 @@
 import { useEffect, useId, useRef, useState } from 'react'
-import { getCyanReplyAsync, hasChatGptKnowledge } from '../data/cyanAI'
+import { getAssistantReplyAsync, hasChatGptKnowledge } from '../data/assistantAI'
 import './AIChatbot.css'
 
-const STORAGE_KEY = 'cyan-chat-store-v1'
-const MAX_CHATS = 20
+const STORAGE_KEY = 'bluexech-assistant-chat-v1'
 
 const WELCOME = {
   role: 'bot',
-  text: 'Hi - I’m Cyan 👋 Ask anything. I’ll answer just what you ask.',
+  text: 'Hi - I’m Bluexech AI Assistant 👋 What would you like to ask about this company? I can share clear information about Bluexech AI.',
   at: Date.now(),
-}
-
-function formatReplyAge(at, now = Date.now()) {
-  if (!at) return 'just now'
-  const sec = Math.max(0, Math.floor((now - at) / 1000))
-  if (sec < 45) return 'just now'
-  const min = Math.floor(sec / 60)
-  if (min < 60) return `${min} min ago`
-  const hr = Math.floor(min / 60)
-  if (hr < 24) return `${hr} hr ago`
-  const day = Math.floor(hr / 24)
-  return `${day} day${day > 1 ? 's' : ''} ago`
 }
 
 function botMsg(text) {
   return { role: 'bot', text, at: Date.now() }
-}
-
-function newChatId() {
-  return `c-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`
 }
 
 function sanitizeMessages(list) {
@@ -46,46 +29,23 @@ function sanitizeMessages(list) {
   }))
 }
 
-function chatTitleFromMessages(messages) {
-  const firstUser = (messages || []).find((m) => m.role === 'user' && m.text)
-  if (!firstUser) return 'New chat'
-  const t = String(firstUser.text).trim().replace(/\s+/g, ' ')
-  return t.length > 42 ? `${t.slice(0, 42)}…` : t
-}
-
-function hasRealChat(messages) {
-  return (messages || []).some((m) => m.role === 'user')
-}
-
-function loadStore() {
+function loadMessages() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
-    if (!raw) return { conversations: [], activeId: null }
+    if (!raw) return [{ ...WELCOME, at: Date.now() }]
     const data = JSON.parse(raw)
-    return {
-      conversations: Array.isArray(data.conversations) ? data.conversations : [],
-      activeId: data.activeId || null,
-    }
+    const msgs = sanitizeMessages(data.messages)
+    return msgs.length ? msgs : [{ ...WELCOME, at: Date.now() }]
   } catch {
-    return { conversations: [], activeId: null }
+    return [{ ...WELCOME, at: Date.now() }]
   }
 }
 
-function saveStore(store) {
+function saveMessages(messages) {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(store))
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ messages: sanitizeMessages(messages) }))
   } catch {
     /* ignore quota */
-  }
-}
-
-function createConversation(messages = [{ ...WELCOME, at: Date.now() }]) {
-  const msgs = sanitizeMessages(messages)
-  return {
-    id: newChatId(),
-    title: chatTitleFromMessages(msgs),
-    updatedAt: Date.now(),
-    messages: msgs,
   }
 }
 
@@ -120,7 +80,6 @@ function linkLabel(href) {
   return href
 }
 
-/** Turn URLs / #anchors / mailto into clickable links inside chat text. */
 function MessageText({ text }) {
   const raw = String(text || '')
   const parts = raw.split(/(https?:\/\/[^\s]+|mailto:[^\s]+|\.\/message\.html|#[\w-]+)/g)
@@ -152,7 +111,7 @@ function MessageText({ text }) {
 }
 
 const HOME_PROMPTS = [
-  { id: 'cyan', label: 'What is Cyan?' },
+  { id: 'about', label: 'What is Bluexech AI?' },
   { id: 'services', label: 'What AI services do you offer?' },
 ]
 
@@ -264,27 +223,6 @@ function BookIcon({ className = '' }) {
   )
 }
 
-function ChatBubbleIcon({ className = '' }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
-      <path
-        d="M5 6.5A2.5 2.5 0 0 1 7.5 4h9A2.5 2.5 0 0 1 19 6.5v7A2.5 2.5 0 0 1 16.5 16H10l-4.2 3.2c-.6.45-1.5.05-1.5-.7V6.5z"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
-function HistoryIcon({ className = '' }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
-      <path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3" strokeLinecap="round" />
-      <path d="M4.5 5.5V9H8" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M12 8v4.5l3 1.8" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
 function ChatBotLogo({ className = '' }) {
   return (
     <svg className={className} viewBox="0 0 127.14 96.36" aria-hidden="true" focusable="false">
@@ -297,17 +235,14 @@ function ChatBotLogo({ className = '' }) {
 }
 
 export default function AIChatbot() {
-  const [open, setOpen] = useState(false)
-  const [screen, setScreen] = useState('home') // home | help | chat | history
+  const [open, setOpen] = useState(true)
+  const [screen, setScreen] = useState('home') // home | help | chat
   const [input, setInput] = useState('')
   const [busy, setBusy] = useState(false)
-  const [messages, setMessages] = useState([{ ...WELCOME, at: Date.now() }])
-  const [activeChatId, setActiveChatId] = useState(null)
-  const [conversations, setConversations] = useState([])
+  const [messages, setMessages] = useState(() => loadMessages())
   const [emojiOpen, setEmojiOpen] = useState(false)
   const [attachment, setAttachment] = useState(null)
   const [expanded, setExpanded] = useState(false)
-  const [now, setNow] = useState(Date.now())
   const listRef = useRef(null)
   const inputRef = useRef(null)
   const fileRef = useRef(null)
@@ -315,78 +250,14 @@ export default function AIChatbot() {
   const gptOn = hasChatGptKnowledge()
   const hydratedRef = useRef(false)
 
-  const pinLatestQuestion = () => {
-    const list = listRef.current
-    if (!list) return
-    const el = list.querySelector('[data-latest-q="1"]')
-    if (!el) return
-    const listRect = list.getBoundingClientRect()
-    const elRect = el.getBoundingClientRect()
-    const delta = elRect.top - listRect.top - 8
-    if (Math.abs(delta) < 2) return
-    list.scrollTop += delta
-  }
-
-  const schedulePinLatestQuestion = () => {
-    pinLatestQuestion()
-    window.requestAnimationFrame(() => {
-      pinLatestQuestion()
-      window.setTimeout(pinLatestQuestion, 50)
-      window.setTimeout(pinLatestQuestion, 150)
-    })
-  }
-
-  // Load history once
   useEffect(() => {
-    const store = loadStore()
-    setConversations(store.conversations)
-    if (store.activeId) {
-      const active = store.conversations.find((c) => c.id === store.activeId)
-      if (active?.messages?.length) {
-        setActiveChatId(active.id)
-        setMessages(sanitizeMessages(active.messages))
-      }
-    }
     hydratedRef.current = true
   }, [])
 
-  // Persist active chat
   useEffect(() => {
     if (!hydratedRef.current) return
-
-    setConversations((prev) => {
-      let next = [...prev]
-
-      if (!hasRealChat(messages)) {
-        saveStore({ conversations: next, activeId: activeChatId })
-        return next
-      }
-
-      let id = activeChatId
-      if (!id) {
-        id = newChatId()
-        queueMicrotask(() => setActiveChatId(id))
-      }
-
-      const payload = {
-        id,
-        title: chatTitleFromMessages(messages),
-        updatedAt: Date.now(),
-        messages: sanitizeMessages(messages),
-      }
-      const idx = next.findIndex((c) => c.id === id)
-      if (idx >= 0) next[idx] = payload
-      else next = [payload, ...next]
-
-      next = next
-        .filter((c) => hasRealChat(c.messages))
-        .sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0))
-        .slice(0, MAX_CHATS)
-
-      saveStore({ conversations: next, activeId: id })
-      return next
-    })
-  }, [messages, activeChatId])
+    saveMessages(messages)
+  }, [messages])
 
   const closeChat = () => {
     setOpen(false)
@@ -397,7 +268,6 @@ export default function AIChatbot() {
     setExpanded(false)
     if (attachment?.previewUrl) URL.revokeObjectURL(attachment.previewUrl)
     setAttachment(null)
-    // Keep messages/history - do not wipe
   }
 
   const goHome = () => {
@@ -409,58 +279,33 @@ export default function AIChatbot() {
     setAttachment(null)
   }
 
-  const startNewChat = () => {
-    const welcome = [{ ...WELCOME, at: Date.now() }]
-    setActiveChatId(null)
-    setMessages(welcome)
+  const openChatScreen = () => {
     setScreen('chat')
-    setInput('')
-    setEmojiOpen(false)
   }
 
-  const openChatScreen = () => {
-    if (hasRealChat(messages)) {
-      setScreen('chat')
+  const pinLatestQuestion = () => {
+    const list = listRef.current
+    if (!list) return
+    const el = list.querySelector('[data-latest-q="1"]')
+    if (!el) {
+      list.scrollTop = list.scrollHeight
       return
     }
-    startNewChat()
+    const listRect = list.getBoundingClientRect()
+    const elRect = el.getBoundingClientRect()
+    const delta = elRect.top - listRect.top - 8
+    if (Math.abs(delta) < 2) return
+    list.scrollTop += delta
   }
 
-  const openConversation = (id) => {
-    const chat = conversations.find((c) => c.id === id)
-    if (!chat) return
-    setActiveChatId(chat.id)
-    setMessages(sanitizeMessages(chat.messages))
-    setScreen('chat')
-  }
-
-  const deleteConversation = (id, e) => {
-    e?.stopPropagation?.()
-    setConversations((prev) => {
-      const next = prev.filter((c) => c.id !== id)
-      const nextActive = activeChatId === id ? null : activeChatId
-      if (activeChatId === id) {
-        setActiveChatId(null)
-        setMessages([{ ...WELCOME, at: Date.now() }])
-      }
-      saveStore({ conversations: next, activeId: nextActive })
-      return next
+  const jumpToLatestQuestion = () => {
+    pinLatestQuestion()
+    window.requestAnimationFrame(() => {
+      pinLatestQuestion()
+      window.setTimeout(pinLatestQuestion, 40)
+      window.setTimeout(pinLatestQuestion, 120)
     })
   }
-
-  const clearAllHistory = () => {
-    setConversations([])
-    setActiveChatId(null)
-    setMessages([{ ...WELCOME, at: Date.now() }])
-    saveStore({ conversations: [], activeId: null })
-    setScreen('home')
-  }
-
-  useEffect(() => {
-    if (!open || screen !== 'chat') return
-    const id = window.setInterval(() => setNow(Date.now()), 30000)
-    return () => window.clearInterval(id)
-  }, [open, screen])
 
   useEffect(() => {
     if (!open || screen !== 'chat') return
@@ -468,15 +313,15 @@ export default function AIChatbot() {
     return () => clearTimeout(t)
   }, [open, screen])
 
+  // Jump to the asked question as soon as it appears / while waiting for reply
   useEffect(() => {
-    if (screen !== 'chat') return
+    if (!open || screen !== 'chat') return
     const last = messages[messages.length - 1]
-    // New question, or waiting on that turn - keep question at top of the chat panel
     if (!last) return
     if (last.role === 'user' || busy) {
-      schedulePinLatestQuestion()
+      jumpToLatestQuestion()
     }
-  }, [messages, busy, screen])
+  }, [messages, busy, open, screen])
 
   useEffect(() => {
     if (!open) return
@@ -485,19 +330,6 @@ export default function AIChatbot() {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [open])
-
-  useEffect(() => {
-    if (!open) return
-    const prevOverflow = document.body.style.overflow
-    const prevPadding = document.body.style.paddingRight
-    const scrollbar = window.innerWidth - document.documentElement.clientWidth
-    document.body.style.overflow = 'hidden'
-    if (scrollbar > 0) document.body.style.paddingRight = `${scrollbar}px`
-    return () => {
-      document.body.style.overflow = prevOverflow
-      document.body.style.paddingRight = prevPadding
-    }
   }, [open])
 
   const stopPageScroll = (e) => {
@@ -559,7 +391,12 @@ export default function AIChatbot() {
         : text
       : `I attached a file: ${attachment.name}. Please acknowledge and ask how I can help with it.`
 
-    const userMsg = { role: 'user', text: text || `Attached: ${attachment.name}`, attachment: attachMeta, at: Date.now() }
+    const userMsg = {
+      role: 'user',
+      text: text || `Attached: ${attachment.name}`,
+      attachment: attachMeta,
+      at: Date.now(),
+    }
     let historySnapshot = []
     setMessages((prev) => {
       historySnapshot = prev
@@ -570,9 +407,9 @@ export default function AIChatbot() {
     if (fileRef.current) fileRef.current.value = ''
     setBusy(true)
     setEmojiOpen(false)
-    schedulePinLatestQuestion()
+    jumpToLatestQuestion()
     try {
-      const reply = await getCyanReplyAsync(promptForBot, historySnapshot)
+      const reply = await getAssistantReplyAsync(promptForBot, historySnapshot)
       setMessages((prev) => [...prev, botMsg(reply)])
     } catch {
       setMessages((prev) => [
@@ -587,23 +424,28 @@ export default function AIChatbot() {
   const startFromPrompt = async (label) => {
     const q = String(label || '').trim()
     if (!q || busy) return
-    // Fresh thread for home/help prompts
-    setActiveChatId(null)
     setScreen('chat')
     setInput('')
     setEmojiOpen(false)
+    if (attachment?.previewUrl) URL.revokeObjectURL(attachment.previewUrl)
     setAttachment(null)
-    const welcome = { ...WELCOME, at: Date.now() }
+
     const userMsg = { role: 'user', text: q, at: Date.now() }
-    const history = [welcome]
-    setMessages([welcome, userMsg])
+    let historySnapshot = []
+    setMessages((prev) => {
+      historySnapshot = prev
+      return [...prev, userMsg]
+    })
     setBusy(true)
-    schedulePinLatestQuestion()
+    jumpToLatestQuestion()
     try {
-      const reply = await getCyanReplyAsync(q, history)
-      setMessages([welcome, userMsg, botMsg(reply)])
+      const reply = await getAssistantReplyAsync(q, historySnapshot)
+      setMessages((prev) => [...prev, botMsg(reply)])
     } catch {
-      setMessages([welcome, userMsg, botMsg('Sorry - I couldn’t load a reply just now. Please try again.')])
+      setMessages((prev) => [
+        ...prev,
+        botMsg('Sorry - I couldn’t load a reply just now. Please try again.'),
+      ])
     } finally {
       setBusy(false)
     }
@@ -636,7 +478,7 @@ export default function AIChatbot() {
           onTouchMove={stopPageScroll}
         >
           <header className="ai-chat-head">
-            {screen === 'help' || screen === 'history' ? (
+            {screen === 'help' ? (
               <button type="button" className="ai-chat-back" onClick={goHome} aria-label="Back">
                 <BackIcon />
               </button>
@@ -646,14 +488,10 @@ export default function AIChatbot() {
               </div>
             )}
             <div className="ai-chat-titles">
-              <h2 id={titleId}>
-                {screen === 'help' ? 'Help Centre' : screen === 'history' ? 'Chat history' : 'Cyan'}
-              </h2>
+              <h2 id={titleId}>{screen === 'help' ? 'Help Centre' : 'Bluexech AI Assistant'}</h2>
               <p>
                 {screen === 'help' ? (
                   'Guides & answers'
-                ) : screen === 'history' ? (
-                  `${conversations.length} saved chat${conversations.length === 1 ? '' : 's'}`
                 ) : (
                   <>
                     <span className="ai-online-dot" aria-hidden="true" />
@@ -664,7 +502,7 @@ export default function AIChatbot() {
             </div>
             <div className="ai-chat-head-actions">
               {screen === 'chat' ? (
-                <button type="button" className="ai-chat-home-btn" onClick={goHome} aria-label="Cyan home" title="Home">
+                <button type="button" className="ai-chat-home-btn" onClick={goHome} aria-label="Home" title="Home">
                   <HomeIcon />
                 </button>
               ) : null}
@@ -688,11 +526,11 @@ export default function AIChatbot() {
                     <ChatBotLogo className="ai-chat-home-logo" />
                   </div>
                   <h3>Hi there 👋</h3>
-                  <p>I’m Cyan - how can we help you today?</p>
+                  <p>What would you like to ask about this company? I can share clear information about Bluexech AI.</p>
                 </div>
 
                 <div className="ai-fin-section">
-                  <p className="ai-fin-label">Ask Cyan</p>
+                  <p className="ai-fin-label">Ask Bluexech</p>
                   <div className="ai-chat-home-prompts" role="list">
                     {HOME_PROMPTS.map((item) => (
                       <button
@@ -723,54 +561,17 @@ export default function AIChatbot() {
                     </span>
                   </button>
                 </div>
-
-                <div className="ai-fin-section">
-                  <p className="ai-fin-label">History</p>
-                  {hasRealChat(messages) ? (
-                    <button type="button" className="ai-fin-help-card" onClick={() => setScreen('chat')}>
-                      <span className="ai-fin-help-icon" aria-hidden="true">
-                        <ChatBubbleIcon />
-                      </span>
-                      <span className="ai-fin-help-copy">
-                        <strong>Continue chat</strong>
-                        <small>{chatTitleFromMessages(messages)}</small>
-                      </span>
-                      <span className="ai-fin-chevron" aria-hidden="true">
-                        ›
-                      </span>
-                    </button>
-                  ) : null}
-                  <button type="button" className="ai-fin-help-card" onClick={() => setScreen('history')}>
-                    <span className="ai-fin-help-icon ai-fin-help-icon-muted" aria-hidden="true">
-                      <HistoryIcon />
-                    </span>
-                    <span className="ai-fin-help-copy">
-                      <strong>Chat history</strong>
-                      <small>
-                        {conversations.length
-                          ? `${conversations.length} saved conversation${conversations.length === 1 ? '' : 's'}`
-                          : 'No saved chats yet'}
-                      </small>
-                    </span>
-                    <span className="ai-fin-chevron" aria-hidden="true">
-                      ›
-                    </span>
-                  </button>
-                  <button type="button" className="ai-fin-new-chat" onClick={startNewChat}>
-                    New chat
-                  </button>
-                </div>
               </div>
 
               <form className="ai-fin-home-compose" onSubmit={onHomeDraftSubmit}>
                 <label className="sr-only" htmlFor="ai-home-input">
-                  Chat with Cyan
+                  Chat with Bluexech AI
                 </label>
                 <input
                   id="ai-home-input"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Chat with Cyan…"
+                  placeholder="Chat with Bluexech AI…"
                   autoComplete="off"
                   disabled={busy}
                 />
@@ -783,7 +584,7 @@ export default function AIChatbot() {
 
           {screen === 'help' ? (
             <div className="ai-fin-help">
-              <p className="ai-fin-help-intro">Pick an article - Cyan will answer in chat.</p>
+              <p className="ai-fin-help-intro">Pick an article - Bluexech AI will answer in chat.</p>
               <div className="ai-fin-help-list">
                 {HELP_ARTICLES.map((a) => (
                   <button key={a.id} type="button" className="ai-fin-help-item" onClick={() => startFromPrompt(a.ask)}>
@@ -795,78 +596,38 @@ export default function AIChatbot() {
             </div>
           ) : null}
 
-          {screen === 'history' ? (
-            <div className="ai-fin-help">
-              <div className="ai-fin-history-toolbar">
-                <button type="button" className="ai-fin-new-chat" onClick={startNewChat}>
-                  New chat
-                </button>
-                {conversations.length ? (
-                  <button type="button" className="ai-fin-clear-history" onClick={clearAllHistory}>
-                    Clear all
-                  </button>
-                ) : null}
-              </div>
-              {conversations.length ? (
-                <div className="ai-fin-help-list">
-                  {conversations.map((c) => (
-                    <div key={c.id} className="ai-fin-history-row">
-                      <button type="button" className="ai-fin-help-item ai-fin-history-item" onClick={() => openConversation(c.id)}>
-                        <ChatBubbleIcon className="ai-fin-help-item-icon" />
-                        <span className="ai-fin-history-copy">
-                          <strong>{c.title || 'Chat'}</strong>
-                          <small>{formatReplyAge(c.updatedAt, now)}</small>
-                        </span>
-                      </button>
-                      <button
-                        type="button"
-                        className="ai-fin-history-delete"
-                        aria-label="Delete chat"
-                        onClick={(e) => deleteConversation(c.id, e)}
-                      >
-                        ×
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="ai-fin-help-intro">No chat history yet. Start a conversation and it will show up here.</p>
-              )}
-            </div>
-          ) : null}
-
           {screen === 'chat' ? (
             <>
               <div className="ai-chat-messages" ref={listRef}>
                 {(() => {
                   const lastUserIndex = messages.reduce((acc, m, idx) => (m.role === 'user' ? idx : acc), -1)
                   return messages.map((msg, i) => {
-                  const key = `${msg.role}-${i}`
-                  return (
-                    <div
-                      key={key}
-                      className={`ai-msg-row ai-msg-row-${msg.role}`}
-                      data-latest-q={i === lastUserIndex ? '1' : undefined}
-                    >
-                      <div className={`ai-msg-wrap ai-msg-wrap-${msg.role}`}>
-                        <div className={`ai-msg ai-msg-${msg.role}`}>
-                          {msg.attachment ? (
-                            <div className="ai-msg-attach">
-                              {msg.attachment.isImage && msg.attachment.previewUrl ? (
-                                <img src={msg.attachment.previewUrl} alt={msg.attachment.name} />
-                              ) : (
-                                <span className="ai-msg-attach-file">{msg.attachment.name}</span>
-                              )}
-                            </div>
-                          ) : null}
-                          {msg.text ? <MessageText text={msg.text} /> : null}
-                          {msg.role === 'bot' && i === messages.length - 1 && !busy ? (
-                            <p className="ai-msg-suggest">Have a question? I’m right here if you need me.</p>
-                          ) : null}
+                    const key = `${msg.role}-${i}`
+                    return (
+                      <div
+                        key={key}
+                        className={`ai-msg-row ai-msg-row-${msg.role}`}
+                        data-latest-q={i === lastUserIndex ? '1' : undefined}
+                      >
+                        <div className={`ai-msg-wrap ai-msg-wrap-${msg.role}`}>
+                          <div className={`ai-msg ai-msg-${msg.role}`}>
+                            {msg.attachment ? (
+                              <div className="ai-msg-attach">
+                                {msg.attachment.isImage && msg.attachment.previewUrl ? (
+                                  <img src={msg.attachment.previewUrl} alt={msg.attachment.name} />
+                                ) : (
+                                  <span className="ai-msg-attach-file">{msg.attachment.name}</span>
+                                )}
+                              </div>
+                            ) : null}
+                            {msg.text ? <MessageText text={msg.text} /> : null}
+                            {msg.role === 'bot' && i === messages.length - 1 && !busy ? (
+                              <p className="ai-msg-suggest">Have a question? I’m right here if you need me.</p>
+                            ) : null}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )
+                    )
                   })
                 })()}
                 {busy ? (
@@ -949,7 +710,7 @@ export default function AIChatbot() {
                     ) : null}
                   </div>
                   <label className="sr-only" htmlFor="ai-chat-input">
-                    Ask Cyan a question
+                    Ask Bluexech AI Assistant a question
                   </label>
                   <input
                     id="ai-chat-input"
@@ -957,7 +718,7 @@ export default function AIChatbot() {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onFocus={() => setEmojiOpen(false)}
-                    placeholder="Message Cyan…"
+                    placeholder="Message Bluexech AI…"
                     autoComplete="off"
                     disabled={busy}
                   />
@@ -988,7 +749,7 @@ export default function AIChatbot() {
           }
         }}
         aria-expanded={open}
-        aria-label={open ? 'Close Cyan' : 'Open Cyan'}
+        aria-label={open ? 'Close chat' : 'Open chat'}
       >
         {open ? (
           <svg className="ai-chat-fab-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round">

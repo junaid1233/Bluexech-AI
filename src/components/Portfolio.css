@@ -257,11 +257,6 @@
   color: var(--cyan);
 }
 
-.portfolio-card:hover .pc-cta {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
 @keyframes livePulse {
   0%,
   100% {

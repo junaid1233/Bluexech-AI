@@ -7,15 +7,15 @@ function getApiKey() {
   return String(import.meta.env.VITE_OPENAI_API_KEY || '').trim()
 }
 
-const SYSTEM_PROMPT = `You are Cyan, a helpful assistant on the Bluexech AI website - reply like ChatGPT: natural, direct, and focused.
+const SYSTEM_PROMPT = `You are Bluexech AI Assistant, a helpful assistant on the Bluexech AI website - reply like ChatGPT: natural, direct, and focused.
 
 Core behavior:
 1) Answer ONLY the user’s question. If they ask one thing, answer that one thing.
 2) Do NOT dump full company info, full service lists, or marketing essays unless they explicitly ask for an overview / “sab batao”.
 3) Keep answers short: usually 2-6 sentences, or a few tight bullets.
 4) Use Bluexech facts from the knowledge ONLY when relevant to the question.
-5) Match the user’s language (English, Roman Urdu, Urdu, etc.).
-6) You are Cyan (not ChatGPT / not OpenAI).
+5) Reply in clear, simple English unless the user clearly writes in another language.
+6) You are Bluexech AI Assistant (not ChatGPT / not OpenAI).
 7) No “Want me to connect you with the team…” style endings.
 8) Add a link ONLY if it clearly helps that exact question (e.g. contact → #contact / WhatsApp; pricing → #pricing). Otherwise no links.
 9) Emoji / “ye kya hai?” → explain the symbol only. Do not pitch Bluexech services.
@@ -25,15 +25,15 @@ ${FULL_SITE_OVERVIEW}
 `
 
 /**
- * Cyan replies: free local knowledge first.
+ * Bluexech AI Assistant replies: free local knowledge first.
  * Optional OpenAI only if VITE_OPENAI_API_KEY is set (not required).
  * @param {string} rawInput
  * @param {{ role: string, text: string }[]} [history]
  */
-export async function getCyanReplyAsync(rawInput, history = []) {
+export async function getAssistantReplyAsync(rawInput, history = []) {
   const question = String(rawInput || '').trim()
   if (!question) {
-    return 'Please type a message - I’m Cyan, here to help.'
+    return 'Please type a message - I’m Bluexech AI Assistant, here to help.'
   }
 
   // Always available, no payment / API key needed
@@ -47,7 +47,11 @@ export async function getCyanReplyAsync(rawInput, history = []) {
   try {
     const recent = (history || [])
       .filter((m) => m && (m.role === 'user' || m.role === 'bot') && m.text)
-      .filter((m) => m.role === 'user' || (m.role === 'bot' && !String(m.text).startsWith('Hi - I’m Cyan')))
+      .filter(
+        (m) =>
+          m.role === 'user' ||
+          (m.role === 'bot' && !String(m.text).startsWith('Hi - I’m Bluexech AI Assistant')),
+      )
       .slice(-6)
       .map((m) => ({
         role: m.role === 'bot' ? 'assistant' : 'user',
@@ -78,7 +82,7 @@ Reply like ChatGPT: answer this question only. Do not add unrelated Bluexech com
     })
 
     if (!res.ok) {
-      console.warn('Cyan OpenAI error', res.status)
+      console.warn('Bluexech AI Assistant OpenAI error', res.status)
       return localAnswer
     }
 
@@ -87,7 +91,7 @@ Reply like ChatGPT: answer this question only. Do not add unrelated Bluexech com
     if (!text) return localAnswer
     return text
   } catch (err) {
-    console.warn('Cyan OpenAI failed', err)
+    console.warn('Bluexech AI Assistant OpenAI failed', err)
     return localAnswer
   }
 }

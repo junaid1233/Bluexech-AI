@@ -4,7 +4,7 @@ export const services = [
     title: 'AI Chatbots & Virtual Agents',
     desc: 'Smart assistants that answer customers, qualify leads, and handle support 24/7 across chat and WhatsApp.',
     image: 'images/services/chatbots.png',
-    alt: 'Customer support chat on phone and laptop',
+    alt: 'Friendly AI chatbot robot with holographic chat on a laptop',
     duration: '3-6 weeks',
     level: 'Customer Experience',
     details:
@@ -22,7 +22,7 @@ export const services = [
     title: 'Generative AI Systems',
     desc: 'Custom generative tools for content, proposals, product copy, and internal knowledge writing.',
     image: 'images/services/generative.png',
-    alt: 'Content drafting workspace with laptop and notes',
+    alt: 'Generative AI concept - glowing bulb with create and innovate icons',
     duration: '3-7 weeks',
     level: 'Content + Ops',
     details:
@@ -40,7 +40,7 @@ export const services = [
     title: 'Intelligent Document AI',
     desc: 'Extract, classify, and process invoices, contracts, forms, and PDFs with AI - no manual data entry.',
     image: 'images/services/document-ai.png',
-    alt: 'Invoices and forms scanned on a tablet',
+    alt: 'Tablet extracting data from paper invoices on a desk',
     duration: '4-8 weeks',
     level: 'Operations',
     details:
@@ -58,7 +58,7 @@ export const services = [
     title: 'Predictive Analytics & Forecasting',
     desc: 'AI models that forecast demand, churn, sales, and risk so you act before problems hit.',
     image: 'images/services/predictive.png',
-    alt: 'Business forecasting charts on a laptop dashboard',
+    alt: 'Laptop showing forecasting charts and KPI dashboard',
     duration: '4-9 weeks',
     level: 'Data + Strategy',
     details:
@@ -76,7 +76,7 @@ export const services = [
     title: 'Computer Vision AI',
     desc: 'Image and video intelligence for quality checks, object detection, attendance, and visual search.',
     image: 'images/services/computer-vision.png',
-    alt: 'Camera quality inspection of a product on a workbench',
+    alt: 'Engineer standing with tablet showing computer vision detection',
     duration: '5-10 weeks',
     level: 'Vision + Edge',
     details:
@@ -94,7 +94,7 @@ export const services = [
     title: 'Agentic Process Automation',
     desc: 'Multi-step AI agents that run workflows end-to-end - research, update systems, and notify teams.',
     image: 'images/services/agentic.png',
-    alt: 'Connected workflow apps and task automation board',
+    alt: 'Desktop monitor with connected workflow automation nodes',
     duration: '4-8 weeks',
     level: 'Automation',
     details:

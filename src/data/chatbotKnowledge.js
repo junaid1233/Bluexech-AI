@@ -89,7 +89,7 @@ Ask me about any one topic (pricing, a service, portfolio, contact) and I’ll g
 const RELATED_LINKS = {
   full_site: `Explore: ${LINKS.services} - ${LINKS.pricing} - ${LINKS.contact}`,
   greeting: `Quick links: ${LINKS.services} - ${LINKS.pricing} - ${LINKS.faq}`,
-  cyan: `Browse: ${LINKS.services} - ${LINKS.faq}`,
+  assistant: `Browse: ${LINKS.services} - ${LINKS.faq}`,
   about: `About & stats: ${LINKS.about} - Services: ${LINKS.services}`,
   services: `Services section: ${LINKS.services} - Start project: ${LINKS.message}`,
   chatbots: `Service: ${serviceLink('ai-chatbots')} - All: ${LINKS.services}`,
@@ -159,21 +159,23 @@ export const chatbotIntents = [
       'assalamualaikum',
       'madad',
     ],
-    answer: `Hi 👋 I’m Cyan. Ask me anything about Bluexech - I’ll answer just what you ask.`,
+    answer: `Hi 👋 I’m Bluexech AI Assistant. What would you like to ask about this company? I can share clear information about Bluexech AI.`,
   },
   {
-    id: 'cyan',
+    id: 'assistant',
     keywords: [
-      'what is cyan',
-      'who is cyan',
-      'about cyan',
-      'cyan kya',
-      'cyan kon',
+      'what is bluexech ai assistant',
+      'who is bluexech ai assistant',
+      'about bluexech ai assistant',
+      'bluexech ai assistant kya',
+      'bluexech ai assistant kon',
       'your name',
       'assistant name',
-      'cyan',
+      'bluexech ai assistant',
+      'chat assistant',
+      'ai assistant',
     ],
-    answer: `I’m Cyan - the chat assistant on this Bluexech AI website. I answer your questions about the company and its AI work.`,
+    answer: `I’m Bluexech AI Assistant - the chat assistant on this Bluexech AI website. I answer your questions about the company and its AI work.`,
   },
   {
     id: 'about',
@@ -509,7 +511,7 @@ Which industry are you in?`,
       'project start',
       'after launch',
     ],
-    answer: `Here’s Cyan’s Help Centre 📚
+    answer: `Here’s Bluexech AI Assistant’s Help Centre 📚
 
 Quick answers:
 • Industries: healthcare, logistics, retail, finance, professional services
@@ -683,9 +685,9 @@ Contact: ${EMAIL} · ${PHONE}
 
 Kisi ek topic pe aur detail chahiye to batao.`,
 
-  greeting: `Assalam o Alaikum 👋 Main Cyan hoon. Jo poochoge usi ka short answer dunga.`,
+  greeting: `Assalam o Alaikum 👋 Main Bluexech AI Assistant hoon. What would you like to ask about this company? I can share clear information about Bluexech AI.`,
 
-  cyan: `Main Cyan hoon - Bluexech AI website ka chat assistant. Aap ke sawal ka seedha jawab deta hoon.`,
+  assistant: `Main Bluexech AI Assistant hoon - Bluexech AI website ka chat assistant. Aap ke sawal ka seedha jawab deta hoon.`,
 
   about: `Bluexech AI businesses ke liye practical AI banati hai - chatbots, document AI, predictive, vision, automation. Office: ${ADDRESS}.`,
 
@@ -737,7 +739,7 @@ Site answers ke liye main; team se baat ke liye WhatsApp best hai.`,
 
 Kis industry mein ho? Similar project chahiye to batao.`,
 
-  faq: `Cyan Help Centre 📚
+  faq: `Bluexech AI Assistant Help Centre 📚
 
 • Industries: healthcare, logistics, retail, finance…
 • Start: 1-2 weeks after discovery
@@ -915,7 +917,7 @@ function emojiSmalltalkReply(original) {
     )
   // If message already names a site topic, don’t treat as vague “ye kya hai”
   const hasTopic =
-    /(service|services|pric|cost|package|contact|office|whatsapp|portfolio|chatbot|process|bluexech|cyan|document|vision|automat)/i.test(
+    /(service|services|pric|cost|package|contact|office|whatsapp|portfolio|chatbot|process|bluexech|assistant|document|vision|automat)/i.test(
       raw,
     )
   let stripped = raw
@@ -1088,8 +1090,8 @@ const TOPIC_PATTERNS = [
     boost: 12,
   },
   {
-    id: 'cyan',
-    re: /(cyan|your name|assistant name|bot ka naam)/i,
+    id: 'assistant',
+    re: /(bluexech ai assistant|your name|assistant name|bot ka naam|ai assistant)/i,
     boost: 18,
   },
   {
@@ -1182,7 +1184,10 @@ function scoreIntents(text) {
       }
     }
 
-    if (intent.id === 'cyan' && !/\bcyan\b/.test(expanded) && !expanded.includes('your name') && !expanded.includes('assistant name')) {
+    if (
+      intent.id === 'assistant' &&
+      !/(bluexech ai assistant|your name|assistant name|bot ka naam|ai assistant)/.test(expanded)
+    ) {
       score = Math.min(score, 2)
     }
     if (
@@ -1253,7 +1258,7 @@ function matchServiceFromText(text) {
 const LINK_INTENTS = new Set([
   'full_site',
   'greeting',
-  'cyan',
+  'assistant',
   'about',
   'contact',
   'whatsapp',
