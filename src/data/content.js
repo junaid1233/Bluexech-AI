@@ -48,7 +48,7 @@ export const technologies = [
   { name: 'PostgreSQL', group: 'Data', image: 'images/tech/postgresql.svg' },
   { name: 'MongoDB', group: 'Data', image: 'images/tech/mongodb.svg' },
   { name: 'GraphQL', group: 'API', image: 'images/tech/graphql.svg' },
-  { name: 'AWS', group: 'Cloud', image: 'images/tech/aws.svg' },
+  { name: 'AWS', group: 'Cloud', image: 'images/tech/aws.svg', hideName: true },
   { name: 'Azure', group: 'Cloud', image: 'images/tech/azure.svg' },
   { name: 'Docker', group: 'DevOps', image: 'images/tech/docker.svg' },
   { name: 'Kubernetes', group: 'DevOps', image: 'images/tech/kubernetes.svg' },

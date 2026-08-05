@@ -105,17 +105,17 @@ export default function Technologies() {
       >
         <div className="tech-track" ref={trackRef}>
           {track.map((tech, i) => (
-            <div key={`${tech.name}-${i}`} className="tech-card">
+            <div key={`${tech.name}-${i}`} className={`tech-card${tech.hideName ? ' tech-card-logo-only' : ''}`}>
               <img
                 src={`${import.meta.env.BASE_URL}${tech.image}`}
-                alt=""
+                alt={tech.hideName ? tech.name : ''}
                 width={40}
                 height={40}
                 loading="lazy"
                 decoding="async"
                 draggable={false}
               />
-              <strong>{tech.name}</strong>
+              {!tech.hideName ? <strong>{tech.name}</strong> : null}
               <span>{tech.group}</span>
             </div>
           ))}

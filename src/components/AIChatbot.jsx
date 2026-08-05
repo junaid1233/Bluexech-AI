@@ -2,11 +2,11 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { getAssistantReplyAsync, hasChatGptKnowledge } from '../data/assistantAI'
 import './AIChatbot.css'
 
-const STORAGE_KEY = 'bluexech-assistant-chat-v1'
+const STORAGE_KEY = 'bluexech-assistant-chat-v2'
 
 const WELCOME = {
   role: 'bot',
-  text: 'Hi - I’m Bluexech AI Assistant 👋 What would you like to ask about this company? I can share clear information about Bluexech AI.',
+  text: '👋 HI! how can I help you today?',
   at: Date.now(),
 }
 
@@ -109,11 +109,6 @@ function MessageText({ text }) {
     </p>
   )
 }
-
-const HOME_PROMPTS = [
-  { id: 'about', label: 'What is Bluexech AI?' },
-  { id: 'services', label: 'What AI services do you offer?' },
-]
 
 const HELP_ARTICLES = [
   {
@@ -223,19 +218,22 @@ function BookIcon({ className = '' }) {
   )
 }
 
-function ChatBotLogo({ className = '' }) {
+function AssistantAvatar({ className = '' }) {
   return (
-    <svg className={className} viewBox="0 0 127.14 96.36" aria-hidden="true" focusable="false">
-      <path
-        fill="currentColor"
-        d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21a105.73,105.73,0,0,0,32.17,16.15,77.7,77.7,0,0,0,6.89-11.11,68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.09-18.9-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"
-      />
-    </svg>
+    <img
+      className={className}
+      src="/images/assistant-robot.png"
+      alt=""
+      width={80}
+      height={80}
+      decoding="async"
+      draggable={false}
+    />
   )
 }
 
 export default function AIChatbot() {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const [screen, setScreen] = useState('home') // home | help | chat
   const [input, setInput] = useState('')
   const [busy, setBusy] = useState(false)
@@ -243,6 +241,7 @@ export default function AIChatbot() {
   const [emojiOpen, setEmojiOpen] = useState(false)
   const [attachment, setAttachment] = useState(null)
   const [expanded, setExpanded] = useState(false)
+  const [teaserBlink, setTeaserBlink] = useState(true)
   const listRef = useRef(null)
   const inputRef = useRef(null)
   const fileRef = useRef(null)
@@ -253,6 +252,14 @@ export default function AIChatbot() {
   useEffect(() => {
     hydratedRef.current = true
   }, [])
+
+  // Blink teaser for 1.5 minutes, then keep text steady
+  useEffect(() => {
+    if (open) return undefined
+    setTeaserBlink(true)
+    const t = window.setTimeout(() => setTeaserBlink(false), 90_000)
+    return () => window.clearTimeout(t)
+  }, [open])
 
   useEffect(() => {
     if (!hydratedRef.current) return
@@ -484,7 +491,7 @@ export default function AIChatbot() {
               </button>
             ) : (
               <div className="ai-chat-avatar" aria-hidden="true">
-                <ChatBotLogo className="ai-chat-logo" />
+                <AssistantAvatar className="ai-chat-logo" />
               </div>
             )}
             <div className="ai-chat-titles">
@@ -523,43 +530,13 @@ export default function AIChatbot() {
               <div className="ai-chat-home-scroll">
                 <div className="ai-chat-home-hero">
                   <div className="ai-chat-home-mark" aria-hidden="true">
-                    <ChatBotLogo className="ai-chat-home-logo" />
+                    <AssistantAvatar className="ai-chat-home-logo" />
                   </div>
-                  <h3>Hi there 👋</h3>
-                  <p>What would you like to ask about this company? I can share clear information about Bluexech AI.</p>
-                </div>
-
-                <div className="ai-fin-section">
-                  <p className="ai-fin-label">Ask Bluexech</p>
-                  <div className="ai-chat-home-prompts" role="list">
-                    {HOME_PROMPTS.map((item) => (
-                      <button
-                        key={item.id}
-                        type="button"
-                        className="ai-chat-home-prompt"
-                        role="listitem"
-                        onClick={() => startFromPrompt(item.label)}
-                      >
-                        <span>{item.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="ai-fin-section">
-                  <p className="ai-fin-label">Help Centre</p>
-                  <button type="button" className="ai-fin-help-card" onClick={() => setScreen('help')}>
-                    <span className="ai-fin-help-icon" aria-hidden="true">
-                      <BookIcon />
-                    </span>
-                    <span className="ai-fin-help-copy">
-                      <strong>Browse help articles</strong>
-                      <small>FAQs about services, timelines, and support</small>
-                    </span>
-                    <span className="ai-fin-chevron" aria-hidden="true">
-                      ›
-                    </span>
-                  </button>
+                  <h3>
+                    👋 HI!
+                    <br />
+                    how can I help you today?
+                  </h3>
                 </div>
               </div>
 
@@ -737,6 +714,25 @@ export default function AIChatbot() {
         </section>
       ) : null}
 
+      {!open ? (
+        <button
+          type="button"
+          className={`ai-chat-teaser${teaserBlink ? ' is-blinking' : ''}`}
+          onClick={() => {
+            setScreen('home')
+            setInput('')
+            setOpen(true)
+          }}
+          aria-label="Open Bluexech AI Assistant"
+        >
+          <span className="ai-chat-teaser-text">
+            👋 HI!
+            <br />
+            how can I help you today?
+          </span>
+        </button>
+      ) : null}
+
       <button
         type="button"
         className="ai-chat-fab"
@@ -756,7 +752,7 @@ export default function AIChatbot() {
             <path d="M6 6l12 12M18 6L6 18" />
           </svg>
         ) : (
-          <ChatBotLogo className="ai-chat-fab-logo" />
+          <AssistantAvatar className="ai-chat-fab-logo" />
         )}
       </button>
     </div>
