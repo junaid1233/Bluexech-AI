@@ -4,18 +4,22 @@
   mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
   padding-block: 0.35rem 0.5rem;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.tech-marquee.is-dragging {
+  cursor: grabbing;
 }
 
 .tech-track {
   display: flex;
   width: max-content;
   gap: 1rem;
-  animation: techScroll 42s linear infinite;
   will-change: transform;
-}
-
-.tech-marquee:hover .tech-track {
-  animation-play-state: paused;
+  pointer-events: none;
 }
 
 .tech-card {
@@ -35,7 +39,7 @@
   transition: border-color 0.25s ease, background 0.25s ease;
 }
 
-.tech-card:hover {
+.tech-marquee:not(.is-dragging) .tech-card:hover {
   border-color: rgba(37, 99, 235, 0.4);
   background: rgba(18, 28, 58, 0.95);
 }
@@ -45,6 +49,7 @@
   height: 40px;
   object-fit: contain;
   display: block;
+  pointer-events: none;
 }
 
 .tech-card strong {
@@ -64,21 +69,20 @@
   font-weight: 600;
 }
 
-@keyframes techScroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
+  .tech-marquee {
+    cursor: default;
+    overflow: visible;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
   .tech-track {
-    animation: none;
     flex-wrap: wrap;
     width: min(100% - 2rem, var(--max));
     margin-inline: auto;
     justify-content: center;
+    transform: none !important;
+    pointer-events: auto;
   }
 }

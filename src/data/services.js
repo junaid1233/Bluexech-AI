@@ -40,7 +40,7 @@ export const services = [
     title: 'Intelligent Document AI',
     desc: 'Extract, classify, and process invoices, contracts, forms, and PDFs with AI - no manual data entry.',
     image: 'images/services/document-ai.png',
-    alt: 'Tablet extracting data from paper invoices on a desk',
+    alt: 'Document AI workflow with OCR extraction from invoices to structured output',
     duration: '4-8 weeks',
     level: 'Operations',
     details:
@@ -58,7 +58,7 @@ export const services = [
     title: 'Predictive Analytics & Forecasting',
     desc: 'AI models that forecast demand, churn, sales, and risk so you act before problems hit.',
     image: 'images/services/predictive.png',
-    alt: 'Laptop showing forecasting charts and KPI dashboard',
+    alt: 'Analyst reviewing predictive dashboard charts on laptop and large screen',
     duration: '4-9 weeks',
     level: 'Data + Strategy',
     details:
@@ -94,7 +94,7 @@ export const services = [
     title: 'Agentic Process Automation',
     desc: 'Multi-step AI agents that run workflows end-to-end - research, update systems, and notify teams.',
     image: 'images/services/agentic.png',
-    alt: 'Desktop monitor with connected workflow automation nodes',
+    alt: 'Agentic process automation holographic AI hub with workflow nodes',
     duration: '4-8 weeks',
     level: 'Automation',
     details:

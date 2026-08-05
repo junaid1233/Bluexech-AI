@@ -1,52 +1,149 @@
-.process-list {
+.build-project {
   display: grid;
-  gap: 1.15rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  counter-reset: none;
+  gap: 2rem;
+  align-items: center;
 }
 
-.process-list li {
-  position: relative;
-  list-style: none;
-  padding: 1.5rem 1.35rem 1.5rem 1.35rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(18, 26, 61, 0.7), rgba(10, 14, 36, 0.7));
+.build-copy .eyebrow {
+  display: inline-block;
+  margin-bottom: 0.65rem;
 }
 
-.process-list li::marker {
-  content: '';
-  display: none;
-}
-
-.process-index {
-  display: inline-grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background: var(--blue);
-  color: var(--white);
+.build-copy h2 {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-size: clamp(1.7rem, 3vw, 2.35rem);
+  letter-spacing: -0.03em;
   margin-bottom: 0.85rem;
 }
 
-.process-list h3 {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  margin-bottom: 0.4rem;
-}
-
-.process-list p {
+.build-copy p {
   color: var(--navy-muted);
+  margin-bottom: 0.85rem;
+  max-width: 34rem;
 }
 
-@media (min-width: 800px) {
-  .process-list {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+.build-copy .btn {
+  margin-top: 0.55rem;
+}
+
+.build-cycle {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  margin-inline: auto;
+  aspect-ratio: 620 / 340;
+  min-height: 260px;
+}
+
+.build-cycle-art {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.build-link {
+  transform-box: view-box;
+  animation: buildSpinForward 16s linear infinite;
+}
+
+.build-link-1 { animation-duration: 14s; }
+.build-link-2 { animation-duration: 16s; }
+.build-link-3 { animation-duration: 15s; }
+.build-link-4 { animation-duration: 17s; }
+
+.build-ring {
+  fill: none;
+  stroke: rgba(226, 232, 240, 0.7);
+  stroke-width: 1.4;
+  stroke-dasharray: 3 14;
+  animation: buildDashForward 2.2s linear infinite;
+}
+
+.build-ring-arrow {
+  fill: none;
+  stroke: #38bdf8;
+  stroke-width: 1.8;
+  stroke-linejoin: round;
+}
+
+.build-pills {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.build-pill {
+  position: absolute;
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 118px;
+  padding: 0.55rem 1.2rem;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.01em;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  user-select: none;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  z-index: 2;
+}
+
+.build-pill-orange { background: linear-gradient(180deg, #fb923c, #ea580c); }
+.build-pill-sky { background: linear-gradient(180deg, #7dd3fc, #0284c7); }
+.build-pill-violet { background: linear-gradient(180deg, #a78bfa, #7c3aed); }
+.build-pill-cyan { background: linear-gradient(180deg, #67e8f9, #0891b2); }
+.build-pill-blue { background: linear-gradient(180deg, #60a5fa, #2563eb); }
+
+/* One step per circle - spaced, no overlap */
+.build-pill-1 { left: 14.5%; top: 76%; }
+.build-pill-2 { left: 34%; top: 57%; }
+.build-pill-3 { left: 53%; top: 40%; }
+.build-pill-4 { left: 72.5%; top: 23.5%; }
+.build-pill-5 { left: 89.5%; top: 11%; }
+
+@keyframes buildDashForward {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -56; }
+}
+
+@keyframes buildSpinForward {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (min-width: 920px) {
+  .build-project {
+    grid-template-columns: 0.9fr 1.2fr;
+    gap: 2.25rem;
+  }
+
+  .build-cycle {
+    max-width: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .build-cycle {
+    aspect-ratio: 620 / 360;
+  }
+
+  .build-pill {
+    min-width: 92px;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.78rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .build-link,
+  .build-ring {
+    animation: none;
   }
 }

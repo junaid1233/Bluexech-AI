@@ -66,7 +66,7 @@ ${allServicesShort}
 
 Pricing: Starter $1,999/project · Growth $4,999/month · Enterprise custom
 
-Process: Discover → Design → Build → Scale
+Process: Align → Explore → Blueprint → Craft → Prove
 
 Useful links on this website:
 • Home ${LINKS.home}
@@ -408,7 +408,7 @@ Final quote depends on scope. Details: ${LINKS.pricing}`,
       'steps kya',
       'kaise start',
     ],
-    answer: `We work in 4 steps: Discover → Design → Build → Scale. Most projects start within 1-2 weeks after discovery.`,
+    answer: `We work in 5 stages: Align → Explore → Blueprint → Craft → Prove. Most projects start within 1-2 weeks after discovery.`,
   },
   {
     id: 'contact',
@@ -680,7 +680,7 @@ Services:
 ${allServicesShort}
 
 Pricing: Starter $1,999/project · Growth $4,999/month · Enterprise custom
-Process: Discover → Design → Build → Scale
+Process: Align → Explore → Blueprint → Craft → Prove
 Contact: ${EMAIL} · ${PHONE}
 
 Kisi ek topic pe aur detail chahiye to batao.`,
@@ -714,7 +714,7 @@ Details: ${LINKS.pricing}`,
 
   why: `Bluexech outcome-first AI, senior specialists, safe AI, clear communication, aur launch ke baad support ke liye choose hota hai.`,
 
-  process: `Process: Discover → Design → Build → Scale. Start aksar discovery ke 1-2 weeks baad.`,
+  process: `Process: Align → Explore → Blueprint → Craft → Prove. Start aksar discovery ke 1-2 weeks baad.`,
 
   contact: `Email: ${EMAIL}
 Phone/WhatsApp: ${PHONE}
