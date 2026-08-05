@@ -53,21 +53,21 @@ export default function Process() {
   return (
     <section id="process" className="section">
       <div className="container">
+        <div className="section-head center">
+          <span className="eyebrow">How we deliver</span>
+          <h2>Build your project</h2>
+          <p>
+            Experience the potential of your business with Bluexech AI - from discovery and product
+            design to intelligent systems, automation, and reliable launch support.
+          </p>
+        </div>
+
         <div className="build-project reveal" ref={ref}>
           <div className="build-copy">
-            <span className="eyebrow">How we deliver</span>
-            <h2>Build your project</h2>
-            <p>
-              Experience the potential of your business with Bluexech AI - from discovery and product
-              design to intelligent systems, automation, and reliable launch support.
-            </p>
             <p>
               Strengthen your digital presence with a skilled team that turns ideas into solutions
               people actually use.
             </p>
-            <a href="#contact" className="btn btn-primary">
-              Start a project
-            </a>
           </div>
 
           <div className="build-cycle" aria-label="Project delivery cycle">
