@@ -6,7 +6,7 @@ const STORAGE_KEY = 'bluexech-assistant-chat-v2'
 
 const WELCOME = {
   role: 'bot',
-  text: '👋 HI! how can I help you today?',
+  text: '👋 HI! how can I help you?',
   at: Date.now(),
 }
 
@@ -253,12 +253,9 @@ export default function AIChatbot() {
     hydratedRef.current = true
   }, [])
 
-  // Blink teaser for 1.5 minutes, then keep text steady
+  // Keep teaser blinking while the chat is closed
   useEffect(() => {
-    if (open) return undefined
-    setTeaserBlink(true)
-    const t = window.setTimeout(() => setTeaserBlink(false), 90_000)
-    return () => window.clearTimeout(t)
+    setTeaserBlink(!open)
   }, [open])
 
   useEffect(() => {
@@ -532,11 +529,7 @@ export default function AIChatbot() {
                   <div className="ai-chat-home-mark" aria-hidden="true">
                     <AssistantAvatar className="ai-chat-home-logo" />
                   </div>
-                  <h3>
-                    👋 HI!
-                    <br />
-                    how can I help you today?
-                  </h3>
+                  <h3>👋 HI! how can I help you?</h3>
                 </div>
               </div>
 
@@ -725,11 +718,7 @@ export default function AIChatbot() {
           }}
           aria-label="Open Bluexech AI Assistant"
         >
-          <span className="ai-chat-teaser-text">
-            👋 HI!
-            <br />
-            how can I help you today?
-          </span>
+          <span className="ai-chat-teaser-text">👋 HI! how can I help you?</span>
         </button>
       ) : null}
 

@@ -17,8 +17,10 @@
 
 .quote-stars {
   display: flex;
+  justify-content: center;
   gap: 0.2rem;
-  margin-bottom: 0.85rem;
+  margin-top: auto;
+  padding-top: 0.35rem;
 }
 
 .quote-stars svg {
@@ -35,48 +37,50 @@
   flex: 1;
   font-size: 1.02rem;
   color: var(--navy);
-  margin-bottom: 1.25rem;
+  text-align: center;
+  margin: 1.1rem 0 0.9rem;
 }
 
 .quote footer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
-  margin-top: auto;
-  padding-top: 0.25rem;
+  justify-content: center;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
 }
 
 .quote-avatar {
-  width: 44px;
-  height: 44px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
-  display: grid;
-  place-items: center;
   flex-shrink: 0;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.85rem;
-  color: var(--white);
-  background: linear-gradient(135deg, var(--blue), var(--violet));
-  border: 1px solid var(--line2);
+  object-fit: cover;
+  object-position: center top;
+  border: 2px solid rgba(125, 211, 252, 0.35);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+  background: rgba(15, 23, 42, 0.4);
 }
 
 .quote-person {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.12rem;
   min-width: 0;
+  text-align: center;
 }
 
 .quote strong {
   font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 600;
   color: var(--cyan);
 }
 
 .quote-person span {
   color: var(--navy-muted);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 @media (min-width: 800px) {

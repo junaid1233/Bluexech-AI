@@ -3,28 +3,28 @@ import './Testimonials.css'
 
 const quotes = [
   {
-    text: 'Bluexech AI built a WhatsApp agent that answers 80% of our support questions. Our team finally focuses on complex cases.',
+    text: 'Bluexech AI is an outstanding company. They deliver projects quickly without cutting corners, and working with them has been a smooth, reliable experience from start to finish.',
     name: 'Sara Malik',
     role: 'CTO',
     company: 'Freightline',
     rating: 5,
-    initials: 'SM',
+    photo: '/images/testimonials/sara-malik.jpg',
   },
   {
-    text: 'Their document AI cut invoice entry from hours to minutes. Accuracy stayed high and the finance team actually loves the tool.',
+    text: 'A truly great company to partner with. They understood our goals fast, completed the project on time, and the quality of their work exceeded our expectations.',
     name: 'Daniel Okoye',
     role: 'Head of Ops',
     company: 'Meridian Health',
     rating: 5,
-    initials: 'DO',
+    photo: '/images/testimonials/daniel-okoye.jpg',
   },
   {
-    text: 'From discovery to launch, communication stayed crisp. The agentic automation they built paid for itself in the first quarter.',
+    text: 'We are very happy with Bluexech AI. They finish projects promptly, communicate clearly, and consistently deliver excellent results. Highly recommended.',
     name: 'Priya Nair',
     role: 'COO',
     company: 'Atlas Retail',
     rating: 5,
-    initials: 'PN',
+    photo: '/images/testimonials/priya-nair.jpg',
   },
 ]
 
@@ -54,12 +54,8 @@ export default function Testimonials() {
         <div className="testimonials-grid reveal" ref={ref}>
           {quotes.map((q) => (
             <blockquote key={q.name} className="quote">
-              <Stars rating={q.rating} />
-              <p>“{q.text}”</p>
               <footer>
-                <span className="quote-avatar" aria-hidden="true">
-                  {q.initials}
-                </span>
+                <img className="quote-avatar" src={q.photo} alt="" width={72} height={72} />
                 <span className="quote-person">
                   <strong>{q.name}</strong>
                   <span>
@@ -67,6 +63,8 @@ export default function Testimonials() {
                   </span>
                 </span>
               </footer>
+              <p>“{q.text}”</p>
+              <Stars rating={q.rating} />
             </blockquote>
           ))}
         </div>

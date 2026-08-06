@@ -619,9 +619,9 @@ Shall I send the WhatsApp link?`,
     ],
     answer: `Here’s what clients say:
 
-• Sara Malik (Freightline) - WhatsApp agent handles ~80% of support questions
-• Daniel Okoye (Meridian Health) - Document AI cut invoice entry from hours to minutes
-• Priya Nair (Atlas Retail) - Agentic automation paid for itself in the first quarter
+• Sara Malik (Freightline) - Outstanding company; delivers projects quickly without cutting corners
+• Daniel Okoye (Meridian Health) - Great partner; finishes on time with excellent quality
+• Priya Nair (Atlas Retail) - Completes work promptly, communicates clearly, highly recommended
 
 All shown as 5-star reviews on the site. Want a similar outcome?`,
   },
@@ -782,9 +782,9 @@ WhatsApp link bhejun?`,
 
   testimonials: `Clients kehti hain:
 
-• Sara Malik - WhatsApp agent ~80% support handle
-• Daniel Okoye - Document AI ne invoice entry hours → minutes
-• Priya Nair - automation pehle quarter mein payback
+• Sara Malik - outstanding company, projects jaldi complete
+• Daniel Okoye - time pe deliver, quality bohot achi
+• Priya Nair - clear communication, highly recommended
 
 Similar result chahiye?`,
 

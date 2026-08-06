@@ -1,28 +1,30 @@
 .build-project {
-  display: grid;
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 1.75rem;
   margin-top: 0.5rem;
 }
 
 .build-copy {
   text-align: center;
+  width: 100%;
 }
 
 .build-copy p {
   color: var(--navy-muted);
   margin-bottom: 0;
-  max-width: 34rem;
+  max-width: 40rem;
   margin-inline: auto;
 }
 
 .build-cycle {
   position: relative;
   width: 100%;
-  max-width: 640px;
+  max-width: 920px;
   margin-inline: auto;
   aspect-ratio: 620 / 340;
-  min-height: 260px;
+  min-height: 320px;
 }
 
 .build-cycle-art {
@@ -108,20 +110,10 @@
   to { transform: rotate(360deg); }
 }
 
-@media (min-width: 920px) {
-  .build-project {
-    grid-template-columns: 0.9fr 1.2fr;
-    gap: 2.25rem;
-  }
-
-  .build-cycle {
-    max-width: none;
-  }
-}
-
 @media (max-width: 640px) {
   .build-cycle {
     aspect-ratio: 620 / 360;
+    min-height: 240px;
   }
 
   .build-pill {

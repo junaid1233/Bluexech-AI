@@ -63,13 +63,6 @@ export default function Process() {
         </div>
 
         <div className="build-project reveal" ref={ref}>
-          <div className="build-copy">
-            <p>
-              Strengthen your digital presence with a skilled team that turns ideas into solutions
-              people actually use.
-            </p>
-          </div>
-
           <div className="build-cycle" aria-label="Project delivery cycle">
             <svg className="build-cycle-art" viewBox="0 0 620 340" role="img" aria-hidden="true">
               {links.map((ring, i) => (
@@ -93,6 +86,13 @@ export default function Process() {
                 </span>
               ))}
             </div>
+          </div>
+
+          <div className="build-copy">
+            <p>
+              Strengthen your digital presence with a skilled team that turns ideas into solutions
+              people actually use.
+            </p>
           </div>
         </div>
       </div>
