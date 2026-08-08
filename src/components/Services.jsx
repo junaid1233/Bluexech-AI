@@ -169,10 +169,20 @@ function FeatureIcon({ name }) {
   }
 }
 
-function ServiceVisual({ image, title }) {
+function ServiceVisual({ activeIndex }) {
   return (
-    <div className="sv-photo" aria-hidden="true">
-      <img key={image} src={`${import.meta.env.BASE_URL}${image}`} alt={title || ''} decoding="async" />
+    <div className="sv-stack" aria-hidden="true">
+      {services.map((s, i) => (
+        <div key={s.id} className={`sv-photo ${i === activeIndex ? 'is-active' : ''}`}>
+          <img
+            src={`${import.meta.env.BASE_URL}${s.visualImage}`}
+            alt=""
+            decoding="async"
+            loading="eager"
+            fetchPriority={i === activeIndex ? 'high' : 'low'}
+          />
+        </div>
+      ))}
     </div>
   )
 }
@@ -182,8 +192,27 @@ export default function Services() {
   const [dir, setDir] = useState('next')
   const [activeId, setActiveId] = useState(null)
   const dragX = useRef(null)
+  const slideRef = useRef(null)
   const active = activeId ? getServiceById(activeId) : null
   const slide = services[index]
+
+  // Preload every slide image so text + pic switch together
+  useEffect(() => {
+    services.forEach((s) => {
+      const img = new Image()
+      img.src = `${import.meta.env.BASE_URL}${s.visualImage}`
+    })
+  }, [])
+
+  // Restart slide animation without remounting images
+  useEffect(() => {
+    const el = slideRef.current
+    if (!el) return
+    el.classList.remove('is-next', 'is-prev')
+    // force reflow so animation replays
+    void el.offsetWidth
+    el.classList.add(dir === 'prev' ? 'is-prev' : 'is-next')
+  }, [index, dir])
 
   const go = useCallback((nextIndex, direction = 'next') => {
     setDir(direction)
@@ -289,7 +318,7 @@ export default function Services() {
           onPointerDown={onPointerDown}
           onPointerUp={onPointerUp}
         >
-          <div className={`services-slide is-${dir}`} key={slide.id}>
+          <div className="services-slide" ref={slideRef}>
             <div className="services-copy">
               <span className={`svc-badge badge-${slide.badgeIcon}`}>
                 <FeatureIcon name={slide.badgeIcon} />
@@ -355,7 +384,7 @@ export default function Services() {
             </div>
 
             <div className="services-visual">
-              <ServiceVisual image={slide.visualImage} title={slide.title} />
+              <ServiceVisual activeIndex={index} />
             </div>
           </div>
 

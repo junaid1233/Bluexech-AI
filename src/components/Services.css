@@ -187,12 +187,28 @@
   place-items: center;
 }
 
-.sv-photo {
+.sv-stack {
   position: relative;
   width: min(100%, 460px);
   aspect-ratio: 1;
+}
+
+.sv-photo {
+  position: absolute;
+  inset: 0;
   border-radius: 20px;
   overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: none;
+}
+
+.sv-photo.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  position: relative;
 }
 
 .sv-photo img {
@@ -304,6 +320,10 @@
   }
 
   .sv-photo {
+    width: min(100%, 320px);
+  }
+
+  .sv-stack {
     width: min(100%, 320px);
   }
 }
