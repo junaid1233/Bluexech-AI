@@ -7,7 +7,6 @@ import Technologies from './components/Technologies'
 import Portfolio from './components/Portfolio'
 import Process from './components/Process'
 import Testimonials from './components/Testimonials'
-import Pricing from './components/Pricing'
 import FAQ from './components/FAQ'
 import Blog from './components/Blog'
 import Contact from './components/Contact'
@@ -36,7 +35,6 @@ export default function App() {
           <Portfolio />
           <Process />
           <Testimonials />
-          <Pricing />
           <FAQ />
           <Blog />
           <Contact />

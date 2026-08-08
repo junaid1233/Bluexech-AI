@@ -120,9 +120,6 @@ export default function Footer() {
               <a href="#blog">Blog</a>
             </li>
             <li>
-              <a href="#pricing">Packages</a>
-            </li>
-            <li>
               <a href="#faq">FAQ</a>
             </li>
             <li>

@@ -354,7 +354,11 @@
 
 @media (min-width: 900px) {
   .portfolio-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .portfolio-card {
+    grid-column: span 4;
   }
 
   .pc-media {
@@ -364,8 +368,20 @@
 
 @media (min-width: 1100px) {
   .portfolio-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(12, minmax(0, 1fr));
     gap: 1.25rem;
+  }
+
+  /* 4 cards per row */
+  .portfolio-card {
+    grid-column: span 3;
+  }
+
+  /* last row of 3 fills full width — no empty gap */
+  .portfolio-card:nth-child(5),
+  .portfolio-card:nth-child(6),
+  .portfolio-card:nth-child(7) {
+    grid-column: span 4;
   }
 
   .pc-media {
