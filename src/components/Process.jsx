@@ -1,4 +1,5 @@
 import { useReveal } from '../hooks/useReveal'
+import { AccentText } from './AccentTitle'
 import './Process.css'
 
 const steps = [
@@ -55,7 +56,9 @@ export default function Process() {
       <div className="container">
         <div className="section-head center">
           <span className="eyebrow">How we deliver</span>
-          <h2>Build your project</h2>
+          <h2>
+            <AccentText text="Build your project" />
+          </h2>
           <p>
             Experience the potential of your business with Bluexech AI - from discovery and product
             design to intelligent systems, automation, and reliable launch support.

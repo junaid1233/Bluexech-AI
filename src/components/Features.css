@@ -29,14 +29,33 @@
 }
 
 .why-icon {
-  width: 38px;
-  height: 38px;
-  display: grid;
-  place-items: center;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  flex-shrink: 0;
   border-radius: 50%;
   color: #3b82f6;
   border: 1.5px solid #3b82f6;
   background: transparent;
+  font-size: 0;
+  line-height: 0;
+  overflow: hidden;
+}
+
+.why-icon svg,
+.why-proof-icon svg,
+.why-arrow svg,
+.why-glyph {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  display: block;
+  transform: translate(-50%, -50%);
 }
 
 .why-num {
@@ -78,14 +97,22 @@
 }
 
 .why-arrow {
+  position: relative;
   width: 22px;
   height: 22px;
   flex-shrink: 0;
-  display: grid;
-  place-items: center;
+  display: inline-block;
   border-radius: 50%;
   color: #3b82f6;
   border: 1.5px solid #3b82f6;
+  font-size: 0;
+  line-height: 0;
+  overflow: hidden;
+}
+
+.why-arrow svg {
+  width: 12px;
+  height: 12px;
 }
 
 .why-proofs {
@@ -100,21 +127,27 @@
 
 .why-proof {
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: flex-start;
   gap: 0.8rem;
   min-width: 0;
+  text-align: left;
 }
 
 .why-proof-icon {
-  width: 38px;
-  height: 38px;
+  position: relative;
+  width: 40px;
+  height: 40px;
   flex-shrink: 0;
-  display: grid;
-  place-items: center;
+  display: inline-block;
   border-radius: 50%;
   color: #3b82f6;
   border: 1.5px solid #3b82f6;
   background: transparent;
+  font-size: 0;
+  line-height: 0;
+  overflow: hidden;
 }
 
 .why-proof strong {
@@ -162,6 +195,11 @@
   }
 
   .why-proof {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    gap: 0.75rem;
     padding: 0.35rem 1.05rem;
     border-right: 1px solid rgba(255, 255, 255, 0.12);
   }

@@ -1,4 +1,5 @@
 import { useReveal } from '../hooks/useReveal'
+import { AccentText } from './AccentTitle'
 import './Pricing.css'
 
 const plans = [
@@ -36,7 +37,9 @@ export default function Pricing() {
       <div className="container">
         <div className="section-head center">
           <span className="eyebrow">Packages</span>
-          <h2>Simple pricing that scales with you</h2>
+          <h2>
+            <AccentText text="Simple pricing that scales with you" />
+          </h2>
           <p>Start lean or engage a full delivery partner - we’ll match the right package.</p>
         </div>
         <div className="pricing-grid reveal" ref={ref}>

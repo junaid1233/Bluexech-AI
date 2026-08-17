@@ -29,14 +29,6 @@
   box-shadow: 0 0 10px rgba(158, 192, 255, 0.9);
 }
 
-#features .section-head h2 {
-  background: linear-gradient(115deg, #ffffff 10%, #b8d4ff 50%, #7dd3fc 90%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
-
 #features .section-head p {
   color: rgba(234, 240, 255, 0.72);
 }

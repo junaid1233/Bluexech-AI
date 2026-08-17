@@ -124,10 +124,8 @@ export default function Portfolio() {
     <section id="portfolio" className="section portfolio-section">
       <div className="portfolio-wrap">
         <div className="section-head center">
-          <span className="eyebrow">Our Portfolio</span>
-          <h2>
-            Building AI Solutions That Deliver <span className="portfolio-grad">Real Results</span>
-          </h2>
+          <span className="eyebrow">Portfolio</span>
+          <h2>Portfolio</h2>
           <p>
             Explore a selection of our AI-powered projects that solve complex problems and drive business
             growth.

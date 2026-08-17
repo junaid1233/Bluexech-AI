@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { technologies } from '../data/content'
+import { AccentText } from './AccentTitle'
 import './Technologies.css'
 
 export default function Technologies() {
@@ -16,7 +17,7 @@ export default function Technologies() {
     if (reducedMotion.current) return undefined
 
     let raf = 0
-    const speed = 0.55
+    const speed = 1.05
 
     const tick = () => {
       const el = trackRef.current
@@ -80,7 +81,9 @@ export default function Technologies() {
       <div className="container">
         <div className="section-head center">
           <span className="eyebrow">Technologies</span>
-          <h2>Modern stack. Proven delivery.</h2>
+          <h2>
+            <AccentText text="Modern stack. Proven delivery." />
+          </h2>
           <p>Tools we use across AI models, automation, data, cloud, and product delivery.</p>
         </div>
       </div>

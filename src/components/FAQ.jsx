@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useReveal } from '../hooks/useReveal'
+import { AccentText } from './AccentTitle'
 import './FAQ.css'
 
 const items = [
@@ -34,7 +35,9 @@ export default function FAQ() {
       <div className="container">
         <div className="section-head center">
           <span className="eyebrow">FAQ</span>
-          <h2>Answers before you reach out</h2>
+          <h2>
+            <AccentText text="Answers before you reach out" />
+          </h2>
           <p>Quick clarity on how Bluexech AI partners with teams.</p>
         </div>
         <div className="faq-list reveal" ref={ref}>

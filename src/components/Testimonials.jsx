@@ -1,4 +1,5 @@
 import { useReveal } from '../hooks/useReveal'
+import { AccentText } from './AccentTitle'
 import './Testimonials.css'
 
 const quotes = [
@@ -48,7 +49,9 @@ export default function Testimonials() {
       <div className="container">
         <div className="section-head center">
           <span className="eyebrow">Testimonials</span>
-          <h2>Trusted by teams who ship</h2>
+          <h2>
+            <AccentText text="Trusted by teams who ship" />
+          </h2>
           <p>What partners say after working with Bluexech AI.</p>
         </div>
         <div className="testimonials-grid reveal" ref={ref}>

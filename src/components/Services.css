@@ -21,9 +21,12 @@
 
 .services-slide {
   display: grid;
-  gap: 1.75rem;
-  align-items: center;
-  min-height: 420px;
+  gap: 1.5rem;
+  align-items: stretch;
+  height: 520px;
+  min-height: 520px;
+  max-height: 520px;
+  overflow: hidden;
   will-change: transform, opacity;
 }
 
@@ -59,11 +62,18 @@
 
 .services-copy {
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .svc-badge {
   display: inline-flex;
   align-items: center;
+  align-self: flex-start;
+  flex-shrink: 0;
   gap: 0.45rem;
   padding: 0.4rem 0.85rem;
   border-radius: 999px;
@@ -82,12 +92,18 @@
 
 .svc-title {
   font-family: var(--font-display);
-  font-size: clamp(1.85rem, 4.2vw, 2.85rem);
+  font-size: clamp(1.7rem, 3.6vw, 2.5rem);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.03em;
   color: #ffffff;
-  margin-bottom: 0.9rem;
+  margin-bottom: 0.75rem;
+  height: 2.3em;
+  max-height: 2.3em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .svc-title span {
@@ -100,68 +116,39 @@
 
 .svc-desc {
   color: #e1e4e8;
-  font-size: clamp(0.95rem, 2.2vw, 1.08rem);
-  line-height: 1.65;
-  margin-bottom: 1.25rem;
+  font-size: clamp(0.92rem, 2vw, 1.02rem);
+  line-height: 1.6;
+  margin-bottom: 1rem;
   max-width: 38rem;
+  height: 4.8em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
-.svc-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
-  margin-bottom: 1.35rem;
+.svc-features {
+  flex: 1;
+  min-height: 0;
+  margin-bottom: 0.85rem;
 }
 
-.svc-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.5rem 0.85rem;
-  border-radius: 999px;
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: #f3f4f6;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.svc-pill svg {
-  color: #a78bfa;
-}
-
-.svc-list,
-.svc-rich {
+.svc-list {
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
-  margin-bottom: 1.35rem;
+  justify-content: flex-start;
+  gap: 0.65rem;
+  margin: 0;
+  height: 11.2rem;
 }
 
-.svc-list li,
-.svc-rich li {
+.svc-list li {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   color: #f3f4f6;
   font-size: 0.95rem;
-}
-
-.svc-rich li {
-  align-items: flex-start;
-}
-
-.svc-rich strong {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 0.98rem;
-}
-
-.svc-rich small {
-  display: block;
-  color: #c4c9d4;
-  font-size: 0.82rem;
-  margin-top: 0.15rem;
+  height: 2.4rem;
 }
 
 .svc-list-icon {
@@ -178,19 +165,24 @@
 
 .svc-learn {
   gap: 0.45rem;
+  margin-top: auto;
+  align-self: flex-start;
+  flex-shrink: 0;
 }
 
 .services-visual {
   position: relative;
-  min-height: 280px;
+  height: 100%;
+  min-height: 0;
   display: grid;
   place-items: center;
 }
 
 .sv-stack {
   position: relative;
-  width: min(100%, 460px);
-  aspect-ratio: 1;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
 }
 
 .sv-photo {
@@ -201,14 +193,12 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: none;
 }
 
 .sv-photo.is-active {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  position: relative;
 }
 
 .sv-photo img {
@@ -306,7 +296,37 @@
   .services-slide {
     grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
     gap: 2rem;
-    min-height: 460px;
+    height: 500px;
+    min-height: 500px;
+    max-height: 500px;
+  }
+
+  .sv-stack {
+    width: min(100%, 440px);
+    height: min(100%, 440px);
+    aspect-ratio: 1 / 1;
+  }
+}
+
+@media (max-width: 859px) {
+  .services-slide {
+    grid-template-rows: minmax(0, 1fr) 220px;
+    height: 700px;
+    min-height: 700px;
+    max-height: 700px;
+  }
+
+  .services-visual {
+    height: 220px;
+  }
+
+  .svc-desc {
+    height: 3.2em;
+    -webkit-line-clamp: 2;
+  }
+
+  .svc-list {
+    height: 9.8rem;
   }
 }
 
@@ -315,16 +335,19 @@
     padding: 1.1rem 1rem 1.25rem;
   }
 
+  .services-slide {
+    height: 680px;
+    min-height: 680px;
+    max-height: 680px;
+    grid-template-rows: minmax(0, 1fr) 200px;
+  }
+
   .services-visual {
-    min-height: 240px;
+    height: 200px;
   }
 
-  .sv-photo {
-    width: min(100%, 320px);
-  }
-
-  .sv-stack {
-    width: min(100%, 320px);
+  .svc-title {
+    font-size: 1.55rem;
   }
 }
 

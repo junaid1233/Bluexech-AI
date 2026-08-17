@@ -1,4 +1,5 @@
 import { useReveal } from '../hooks/useReveal'
+import { AccentText } from './AccentTitle'
 import './Features.css'
 
 const features = [
@@ -65,14 +66,16 @@ const proofs = [
 
 function Icon({ name }) {
   const common = {
-    width: 20,
-    height: 20,
+    className: 'why-glyph',
+    width: 18,
+    height: 18,
     viewBox: '0 0 24 24',
     fill: 'none',
     stroke: 'currentColor',
     strokeWidth: '1.8',
     strokeLinecap: 'round',
     strokeLinejoin: 'round',
+    preserveAspectRatio: 'xMidYMid meet',
     'aria-hidden': true,
   }
 
@@ -161,7 +164,9 @@ export default function Features() {
       <div className="why-wrap">
         <div className="section-head center">
           <span className="eyebrow">Why Choose Bluexech</span>
-          <h2 id="why-heading">Built for teams that need real results</h2>
+          <h2 id="why-heading">
+            <AccentText text="Built for teams that need real results" />
+          </h2>
           <p>Reliable craft, sharp strategy, and partners who stay accountable after launch.</p>
         </div>
 

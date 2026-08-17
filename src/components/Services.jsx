@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { services, getServiceById } from '../data/services'
+import { AccentText } from './AccentTitle'
 import DetailModal from './DetailModal'
 import './Services.css'
 
@@ -309,7 +310,9 @@ export default function Services() {
       <div className="services-wrap">
         <div className="section-head center">
           <span className="eyebrow">Services</span>
-          <h2>Unique AI services built for real outcomes</h2>
+          <h2>
+            <AccentText text="Unique AI services built for real outcomes" />
+          </h2>
           <p>From chatbots to vision and agentic automation — explore each service below.</p>
         </div>
 
@@ -329,20 +332,9 @@ export default function Services() {
               </h3>
               <p className="svc-desc">{slide.desc}</p>
 
-              {slide.featureStyle === 'pills' && (
-                <div className="svc-pills">
-                  {slide.features.map((f) => (
-                    <span key={f.label} className="svc-pill">
-                      <FeatureIcon name={f.icon} />
-                      {f.label}
-                    </span>
-                  ))}
-                </div>
-              )}
-
-              {slide.featureStyle === 'list' && (
+              <div className="svc-features">
                 <ul className="svc-list">
-                  {slide.features.map((f) => (
+                  {slide.features.slice(0, 4).map((f) => (
                     <li key={f.label}>
                       <span className="svc-list-icon">
                         <FeatureIcon name={f.icon} />
@@ -351,23 +343,7 @@ export default function Services() {
                     </li>
                   ))}
                 </ul>
-              )}
-
-              {slide.featureStyle === 'rich' && (
-                <ul className="svc-rich">
-                  {slide.features.map((f) => (
-                    <li key={f.label}>
-                      <span className="svc-list-icon">
-                        <FeatureIcon name={f.icon} />
-                      </span>
-                      <div>
-                        <strong>{f.label}</strong>
-                        {f.sub ? <small>{f.sub}</small> : null}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              )}
+              </div>
 
               <button type="button" className="btn btn-primary svc-learn" onClick={learnMore}>
                 Learn More
