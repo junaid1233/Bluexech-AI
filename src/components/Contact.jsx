@@ -5,9 +5,6 @@ import './Contact.css'
 const messagePageHref = `${import.meta.env.BASE_URL}message.html`
 const MAPS_URL =
   'https://www.google.com/maps/search/?api=1&query=Gulshan-e-Hadeed%2C+Karachi%2C+Pakistan'
-/* OpenStreetMap embed - reliable in iframes; click opens Google Maps */
-const MAPS_EMBED =
-  'https://www.openstreetmap.org/export/embed.html?bbox=67.3300%2C24.8500%2C67.3900%2C24.8900&layer=mapnik&marker=24.86972%2C67.36028'
 
 export default function Contact() {
   const ref = useReveal()
@@ -74,23 +71,6 @@ export default function Contact() {
             </span>
           </a>
         </div>
-
-        <a
-          className="contact-map"
-          href={MAPS_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Open Gulshan Hadeed, Karachi on Google Maps"
-        >
-          <iframe
-            title="Bluexech AI office - Gulshan Hadeed, Karachi"
-            src={MAPS_EMBED}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            allowFullScreen
-            tabIndex={-1}
-          />
-        </a>
       </div>
     </section>
   )
