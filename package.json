@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "server": "node server/index.mjs",
+    "google:oauth": "node scripts/google-oauth-refresh.mjs",
     "build": "vite build",
     "preview": "vite preview",
     "predeploy": "npm run build && node scripts/sync-docs.mjs",

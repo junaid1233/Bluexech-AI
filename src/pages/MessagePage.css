@@ -62,3 +62,45 @@
   font-size: 1.35rem;
   margin-bottom: 1rem;
 }
+
+.meeting-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 0.35rem 0 1rem;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+  user-select: none;
+}
+
+.meeting-toggle input {
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: #67e8f9;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.meeting-fields {
+  margin-bottom: 0.25rem;
+}
+
+.phone-combo .country-code-picker {
+  min-width: 0;
+}
+
+.phone-combo .country-code-picker .mp-trigger {
+  padding-inline: 0.55rem;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.phone-combo .country-code-picker .mp-trigger-text {
+  flex: 0 1 auto;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.9rem;
+  text-align: center;
+}

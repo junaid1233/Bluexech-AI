@@ -62,11 +62,11 @@ export default function Contact() {
           </div>
 
           <a href={messagePageHref} target="_blank" rel="noopener noreferrer" className="contact-cta-card">
-            <span className="contact-cta-badge">Message Form</span>
-            <h3>Ready to share your project?</h3>
-            <p>Open the message form in a new tab and submit your details.</p>
+            <span className="contact-cta-badge">Book a Meet</span>
+            <h3>Ready to schedule a Google Meet?</h3>
+            <p>Pick a time that works for you — we’ll email a confirmation and the Meet details.</p>
             <span className="contact-cta-action">
-              Open message form
+              Schedule a meeting
               <span aria-hidden="true">→</span>
             </span>
           </a>
